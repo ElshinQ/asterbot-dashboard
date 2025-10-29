@@ -54,16 +54,25 @@ export default function AccountValueChart({
   // Get current price from latest data point
   const currentPrice = data.length > 0 ? data[data.length - 1].asterPrice : 0;
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
   return (
     <div 
-      className="relative w-full h-[500px] md:h-[480px] border-2"
+      className="relative border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         borderColor: isDarkMode ? '#16a34a' : '#1f2937',
+        width: isMobile ? '500px' : '100%',
+        height: isMobile ? '100vw' : '480px',
+        transform: isMobile ? 'rotate(90deg) translateY(-100%)' : 'none',
+        transformOrigin: isMobile ? 'top left' : 'center',
+        position: isMobile ? 'absolute' : 'relative',
+        left: isMobile ? '100%' : 'auto',
+        top: isMobile ? '0' : 'auto',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 75 : 115, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: isMobile ? 75 : 115, left: isMobile ? 10 : 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -136,7 +145,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={typeof window !== 'undefined' && window.innerWidth < 768 ? 70 : 90}
+            width={isMobile ? 70 : 90}
           />
           
           <Tooltip

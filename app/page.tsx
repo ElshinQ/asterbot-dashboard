@@ -314,7 +314,7 @@ export default function Dashboard() {
               </h2>
 
               {/* Chart */}
-              <div className="relative">
+              <div className="relative md:static" style={{ minHeight: '500px' }}>
                 <AccountValueChart
                   data={getFilteredData()}
                   currentValue={stats.asterBalance}
