@@ -178,20 +178,31 @@ export default function AccountValueChart({
           />
           
           <Legend
-            wrapperStyle={{
-              paddingTop: '12px',
-              fontFamily: 'var(--font-ibm-plex-mono)',
-              fontSize: '10px',
-              fontWeight: 'bold',
-            }}
-            iconSize={14}
-            formatter={(value) => {
-              if (value === 'balance') {
-                return valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QTY';
-              } else if (value === 'price') {
-                return 'PRICE';
-              }
-              return value;
+            content={({ payload }: any) => {
+              return (
+                <div 
+                  className="flex justify-center gap-6 font-mono text-[10px] font-bold"
+                  style={{ paddingTop: '20px' }}
+                >
+                  {payload.map((entry: any, index: number) => {
+                    if (entry.dataKey === 'balance') {
+                      const label = valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QTY';
+                      return (
+                        <span key={index} style={{ color: isDarkMode ? '#00ff00' : '#3b82f6' }}>
+                          {label}
+                        </span>
+                      );
+                    } else if (entry.dataKey === 'price') {
+                      return (
+                        <span key={index} style={{ color: isDarkMode ? '#ff9500' : '#f59e0b' }}>
+                          PRICE
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              );
             }}
           />
           

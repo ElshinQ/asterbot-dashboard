@@ -97,9 +97,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div 
+      className="min-h-screen"
+      style={{ backgroundColor: isDarkMode ? '#000000' : '#ffffff' }}
+    >
       {/* Header */}
-      <header className="border-b-2 border-gray-900 bg-white">
+      <header 
+        className="border-b-2"
+        style={{
+          backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+          borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+        }}
+      >
         <div className="px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 md:gap-4">
@@ -279,23 +288,32 @@ export default function Dashboard() {
 
           {/* RIGHT SIDE - TABBED DATA PANEL (1/3) */}
           <div className="lg:col-span-1">
-            <div className="bg-white border-2 border-gray-900 lg:sticky lg:top-6">
+            <div 
+              className="border-2 lg:sticky lg:top-6"
+              style={{
+                backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              }}
+            >
               {/* Tab Navigation - Responsive Grid */}
-              <div className="border-b-2 border-gray-900">
+              <div 
+                className="border-b-2"
+                style={{ borderColor: isDarkMode ? '#00ff00' : '#1f2937' }}
+              >
                 <div className="grid grid-cols-2 md:grid-cols-4">
                   <button
                       onClick={() => setActiveTab('overview')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'overview' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                        color: activeTab === 'overview' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        backgroundColor: activeTab === 'overview' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'overview' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                         borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
                       }}
                       onMouseEnter={(e) => {
-                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = '#f9fafb';
+                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
                       }}
                       onMouseLeave={(e) => {
-                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = '#ffffff';
+                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = isDarkMode ? '#000000' : '#ffffff';
                       }}
                     >
                       OVERVIEW
@@ -304,15 +322,15 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('orders')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'orders' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                        color: activeTab === 'orders' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        backgroundColor: activeTab === 'orders' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'orders' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                         borderRight: window.innerWidth >= 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
-                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = '#f9fafb';
+                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
                       }}
                       onMouseLeave={(e) => {
-                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = '#ffffff';
+                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = isDarkMode ? '#000000' : '#ffffff';
                       }}
                     >
                       ORDERS
@@ -321,16 +339,16 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('decisions')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'decisions' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                        color: activeTab === 'decisions' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        backgroundColor: activeTab === 'decisions' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'decisions' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                         borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
                         borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
-                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = '#f9fafb';
+                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
                       }}
                       onMouseLeave={(e) => {
-                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = '#ffffff';
+                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = isDarkMode ? '#000000' : '#ffffff';
                       }}
                     >
                       DECISIONS
@@ -339,15 +357,15 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('position')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'position' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                        color: activeTab === 'position' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        backgroundColor: activeTab === 'position' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'position' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                         borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
-                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = '#f9fafb';
+                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
                       }}
                       onMouseLeave={(e) => {
-                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = '#ffffff';
+                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = isDarkMode ? '#000000' : '#ffffff';
                       }}
                     >
                       POSITION
@@ -793,7 +811,13 @@ export default function Dashboard() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t-2 border-gray-900 mt-12 py-6 bg-white">
+      <footer 
+        className="border-t-2 mt-12 py-6"
+        style={{
+          backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+          borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+        }}
+      >
         <div className="px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-2">
             <img 
