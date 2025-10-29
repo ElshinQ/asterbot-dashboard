@@ -223,6 +223,7 @@ export default function AccountValueChart({
             fill="url(#balanceGradient)"
             stroke="none"
             legendType="none"
+            hide={true}
           />
           
           {/* Area fill for Price */}
@@ -233,6 +234,7 @@ export default function AccountValueChart({
             fill="url(#priceGradient)"
             stroke="none"
             legendType="none"
+            hide={true}
           />
           
           {/* Balance Line */}
