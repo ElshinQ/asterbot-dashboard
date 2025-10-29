@@ -36,33 +36,36 @@ export default function AccountValueChart({ data, currentValue, chartMode = 'val
   };
 
   return (
-    <div className="relative w-full h-[300px] md:h-[450px] bg-white border border-gray-200 rounded">
+    <div className="relative w-full h-[300px] md:h-[450px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 40, right: 30, left: 10, bottom: 60 }}>
+        <LineChart data={chartData} margin={{ top: 40, right: 30, left: 10, bottom: 80 }}>
           <CartesianGrid
             strokeDasharray="0"
-            stroke="#000000"
+            stroke="currentColor"
             strokeWidth={0.5}
             horizontal={true}
             vertical={false}
+            className="text-gray-300 dark:text-gray-700"
           />
           <XAxis
             dataKey="time"
-            stroke="#1f2937"
+            stroke="currentColor"
+            className="text-gray-700 dark:text-gray-400"
             style={{ fontSize: '10px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500 }}
             tickLine={false}
-            axisLine={{ stroke: '#000000', strokeWidth: 1 }}
+            axisLine={{ stroke: 'currentColor', strokeWidth: 1 }}
             angle={-45}
             textAnchor="end"
-            height={60}
+            height={80}
             interval="preserveStartEnd"
             minTickGap={60}
           />
           <YAxis
-            stroke="#1f2937"
+            stroke="currentColor"
+            className="text-gray-700 dark:text-gray-400"
             style={{ fontSize: '11px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500 }}
             tickLine={false}
-            axisLine={{ stroke: '#000000', strokeWidth: 1 }}
+            axisLine={{ stroke: 'currentColor', strokeWidth: 1 }}
             tickFormatter={(value) => 
               chartMode === 'percent' ? `${value.toFixed(1)}%` : `$${value.toLocaleString()}`
             }
@@ -70,24 +73,24 @@ export default function AccountValueChart({ data, currentValue, chartMode = 'val
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#1f2937',
-              border: 'none',
+              backgroundColor: 'var(--tooltip-bg, #1f2937)',
+              border: '2px solid var(--tooltip-border, #00ff00)',
               borderRadius: '6px',
               fontFamily: 'var(--font-ibm-plex-mono)',
               fontSize: '11px',
-              color: '#f3f4f6',
+              color: 'var(--tooltip-text, #f3f4f6)',
               padding: '8px 12px',
             }}
             formatter={(value: number) => [
               chartMode === 'percent' ? `${value.toFixed(2)}%` : `$${value.toFixed(2)}`, 
               chartMode === 'percent' ? 'Change' : 'Account Value'
             ]}
-            labelStyle={{ color: '#9ca3af', marginBottom: '4px' }}
+            labelStyle={{ color: 'var(--tooltip-label, #9ca3af)', marginBottom: '4px' }}
           />
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#3b82f6"
+            stroke="var(--line-color, #3b82f6)"
             strokeWidth={2}
             dot={false}
             animationDuration={300}
@@ -97,12 +100,12 @@ export default function AccountValueChart({ data, currentValue, chartMode = 'val
       </ResponsiveContainer>
       
       {/* Current value indicator - positioned like nof1.ai */}
-      <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
+      <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 dark:bg-green-500 text-white dark:text-black px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
         ${currentValue.toFixed(2)}
       </div>
       
       {/* aster.bot watermark */}
-      <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 text-gray-400 text-[10px] md:text-xs font-mono">
+      <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 text-gray-400 dark:text-gray-600 text-[10px] md:text-xs font-mono">
         aster.bot
       </div>
     </div>

@@ -263,6 +263,110 @@ export async function getOpenOrders() {
 }
 
 /**
+ * Get filled orders (recent 50)
+ */
+export async function getFilledOrders() {
+  const result = await query<{
+    order_id: number;
+    exchange_order_id: string;
+    client_order_id: string;
+    symbol: string;
+    side: string;
+    type: string;
+    price: string;
+    quantity: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  }>(
+    `
+    SELECT 
+      order_id,
+      exchange_order_id,
+      client_order_id,
+      symbol,
+      side,
+      type,
+      price,
+      orig_qty as quantity,
+      status,
+      created_at,
+      updated_at
+    FROM ichigo.orders
+    WHERE status = 'FILLED'
+    ORDER BY updated_at DESC
+    LIMIT 50
+  `
+  );
+
+  return result.map((row) => ({
+    orderId: row.order_id,
+    exchangeOrderId: row.exchange_order_id,
+    clientOrderId: row.client_order_id,
+    symbol: row.symbol,
+    side: row.side,
+    type: row.type,
+    price: parseFloat(row.price),
+    quantity: parseFloat(row.quantity),
+    status: row.status,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }));
+}
+
+/**
+ * Get closed orders (recent 50)
+ */
+export async function getClosedOrders() {
+  const result = await query<{
+    order_id: number;
+    exchange_order_id: string;
+    client_order_id: string;
+    symbol: string;
+    side: string;
+    type: string;
+    price: string;
+    quantity: string;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  }>(
+    `
+    SELECT 
+      order_id,
+      exchange_order_id,
+      client_order_id,
+      symbol,
+      side,
+      type,
+      price,
+      orig_qty as quantity,
+      status,
+      created_at,
+      updated_at
+    FROM ichigo.orders
+    WHERE status IN ('CANCELED', 'EXPIRED', 'REJECTED')
+    ORDER BY updated_at DESC
+    LIMIT 50
+  `
+  );
+
+  return result.map((row) => ({
+    orderId: row.order_id,
+    exchangeOrderId: row.exchange_order_id,
+    clientOrderId: row.client_order_id,
+    symbol: row.symbol,
+    side: row.side,
+    type: row.type,
+    price: parseFloat(row.price),
+    quantity: parseFloat(row.quantity),
+    status: row.status,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }));
+}
+
+/**
  * Get recent decisions with details
  */
 export async function getRecentDecisions(limit = 20) {

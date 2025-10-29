@@ -74,27 +74,27 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 font-mono">
+                  <span className="text-sm font-bold text-gray-900 dark:text-green-400 font-mono">
                     ${decision.lastClose.toFixed(3)}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-2 text-xs text-gray-600 font-mono">
-                  <span className="bg-gray-900 text-white px-2 py-1 font-bold text-[10px]">
+                <div className="flex items-center gap-3 mb-2 text-xs text-gray-600 dark:text-gray-300 font-mono">
+                  <span className="bg-gray-900 dark:bg-green-500 text-white dark:text-black px-2 py-1 font-bold text-[10px]">
                     {decision.regimeKey}
                   </span>
                   <span className="font-bold">RSI: {decision.rsi14_3m.toFixed(1)}</span>
                   <span className="font-bold">ADX: {decision.adx14_3m.toFixed(1)}</span>
                   <span
                     className={
-                      decision.hasPosition ? 'text-green-600 font-bold' : 'text-gray-400 font-bold'
+                      decision.hasPosition ? 'text-green-600 dark:text-green-400 font-bold' : 'text-gray-400 dark:text-gray-500 font-bold'
                     }
                   >
                     {decision.hasPosition ? '● POS' : '○ NO POS'}
                   </span>
                 </div>
 
-                <div className="text-xs text-gray-700 leading-relaxed font-mono">
+                <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed font-mono">
                   <p className="whitespace-pre-wrap break-words">
                     {isExpanded ? decision.note : notePreview}
                     {!isExpanded && needsExpansion && '...'}
@@ -102,7 +102,7 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
                   {needsExpansion && (
                     <button
                       onClick={() => toggleExpand(decision.decisionUid)}
-                      className="mt-2 text-blue-600 hover:text-blue-800 font-bold uppercase text-xs"
+                      className="mt-2 text-blue-600 dark:text-green-500 hover:text-blue-800 dark:hover:text-green-400 font-bold uppercase text-xs"
                     >
                       {isExpanded ? '▲ Show Less' : '▼ Read Full Decision'}
                     </button>

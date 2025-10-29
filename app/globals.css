@@ -82,6 +82,11 @@
 .dark {
   background-color: #0a0a0a;
   color: #00ff00;
+  --tooltip-bg: #1a1a1a;
+  --tooltip-border: #00ff00;
+  --tooltip-text: #00ff00;
+  --tooltip-label: #00aa00;
+  --line-color: #00ff00;
 }
 
 .dark .bg-white {
