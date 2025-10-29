@@ -118,10 +118,15 @@ export default function Dashboard() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
             >
+              {/* Logo - slides off to left and disappears in dark mode */}
               <motion.div 
                 className="h-12 w-12 md:h-16 md:w-16 overflow-hidden flex items-center justify-center rounded-lg"
                 initial={{ scale: 1.2 }}
-                animate={{ scale: 1 }}
+                animate={{ 
+                  scale: 1,
+                  x: isDarkMode ? -200 : 0,
+                  opacity: isDarkMode ? 0 : 1,
+                }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
               >
                 <img 
@@ -131,17 +136,27 @@ export default function Dashboard() {
                   style={{ marginTop: '-12px' }}
                 />
               </motion.div>
+              
+              {/* Divider - hides in dark mode */}
               <motion.div 
                 className="border-l-2 h-8 md:h-10 mx-1 md:mx-2"
                 style={{ borderColor: isDarkMode ? '#00ff00' : '#d1d5db' }}
                 initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
+                animate={{ 
+                  scaleY: isDarkMode ? 0 : 1,
+                  opacity: isDarkMode ? 0 : 1,
+                }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               ></motion.div>
+              
+              {/* LIVE DASHBOARD - moves left when logo disappears */}
               <motion.nav 
                 className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono"
                 initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
+                animate={{ 
+                  x: isDarkMode ? -90 : 0,
+                  opacity: 1,
+                }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
                 <span 
@@ -229,8 +244,8 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('all')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: timeRange === 'all' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: timeRange === 'all' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: timeRange === 'all' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: timeRange === 'all' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
@@ -240,8 +255,8 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('72h')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: timeRange === '72h' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: timeRange === '72h' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: timeRange === '72h' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: timeRange === '72h' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
@@ -255,8 +270,8 @@ export default function Dashboard() {
                     onClick={() => setValueType('total')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: valueType === 'total' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: valueType === 'total' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: valueType === 'total' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: valueType === 'total' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
@@ -266,8 +281,8 @@ export default function Dashboard() {
                     onClick={() => setValueType('usdt')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: valueType === 'usdt' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: valueType === 'usdt' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: valueType === 'usdt' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: valueType === 'usdt' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
@@ -281,8 +296,8 @@ export default function Dashboard() {
                     onClick={() => setChartMode('value')}
                     className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: chartMode === 'value' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: chartMode === 'value' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: chartMode === 'value' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: chartMode === 'value' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
@@ -292,8 +307,8 @@ export default function Dashboard() {
                     onClick={() => setChartMode('percent')}
                     className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: chartMode === 'percent' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                      color: chartMode === 'percent' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      backgroundColor: chartMode === 'percent' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: chartMode === 'percent' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                       borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                     }}
                   >
