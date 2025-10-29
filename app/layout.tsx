@@ -13,7 +13,11 @@ export const metadata: Metadata = {
   title: 'ICHIGO Crypto Bot Dashboard',
   description: 'Real-time statistics for ICHIGO Crypto Bot trading system',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/ichigo-logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/ichigo-logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/ichigo-logo.png',
   },
 };
 

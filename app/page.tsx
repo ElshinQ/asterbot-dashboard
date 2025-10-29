@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStats } from '@/hooks/useStats';
 import AccountValueChart from '@/components/AccountValueChart';
 import TickerTape from '@/components/TickerTape';
@@ -9,10 +9,37 @@ import DecisionsFeed from '@/components/DecisionsFeed';
 import AnimatedNumber from '@/components/AnimatedNumber';
 
 type TabType = 'overview' | 'orders' | 'decisions' | 'position';
+type TimeRange = 'all' | '72h';
+type ChartMode = 'value' | 'percent';
 
 export default function Dashboard() {
   const { data: stats, isLoading, error } = useStats();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [timeRange, setTimeRange] = useState<TimeRange>('all');
+  const [chartMode, setChartMode] = useState<ChartMode>('value');
+
+  // Apply dark mode to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+
+  // Filter historical data based on time range
+  const getFilteredData = () => {
+    if (!stats) return [];
+    if (timeRange === 'all') return stats.historicalData;
+    
+    // Filter last 72 hours
+    const now = new Date();
+    const seventyTwoHoursAgo = new Date(now.getTime() - 72 * 60 * 60 * 1000);
+    return stats.historicalData.filter(point => 
+      new Date(point.timestamp) >= seventyTwoHoursAgo
+    );
+  };
 
   if (isLoading) {
     return <LoadingState />;
@@ -85,11 +112,20 @@ export default function Dashboard() {
                 <span className="text-gray-900 font-bold uppercase tracking-wider">LIVE DASHBOARD</span>
               </nav>
             </div>
-            <div className="hidden md:block text-xs font-mono text-gray-500">
-              POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
-            </div>
-            <div className="md:hidden text-[10px] font-mono text-gray-500">
-              LIVE
+            <div className="flex items-center gap-4">
+              <div className="hidden md:block text-xs font-mono text-gray-500">
+                POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
+              </div>
+              <div className="md:hidden text-[10px] font-mono text-gray-500">
+                LIVE
+              </div>
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="px-3 py-1.5 bg-gray-900 text-white text-xs font-mono font-bold hover:bg-gray-700 rounded"
+                title="Toggle Dark Mode"
+              >
+                {isDarkMode ? '☀️' : '🌙'}
+              </button>
             </div>
           </div>
         </div>
@@ -111,18 +147,46 @@ export default function Dashboard() {
               {/* Chart Controls */}
               <div className="flex items-center justify-between mb-4 md:mb-6">
                 <div className="flex items-center gap-2 md:gap-3">
-                  <button className="px-3 md:px-4 py-1.5 md:py-2 bg-gray-900 text-white text-[10px] md:text-xs font-mono font-bold">
+                  <button 
+                    onClick={() => setTimeRange('all')}
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                      timeRange === 'all' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
                     ALL
                   </button>
-                  <button className="px-3 md:px-4 py-1.5 md:py-2 bg-white text-gray-600 text-[10px] md:text-xs font-mono border-2 border-gray-900 font-bold">
+                  <button 
+                    onClick={() => setTimeRange('72h')}
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                      timeRange === '72h' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
                     72H
                   </button>
                 </div>
                 <div className="flex items-center gap-1 md:gap-2">
-                  <button className="px-2 md:px-3 py-1 bg-gray-900 text-white text-[10px] md:text-xs font-mono font-bold">
+                  <button 
+                    onClick={() => setChartMode('value')}
+                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
+                      chartMode === 'value' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
                     $
                   </button>
-                  <button className="px-2 md:px-3 py-1 bg-white text-gray-600 text-[10px] md:text-xs font-mono border-2 border-gray-900 font-bold">
+                  <button 
+                    onClick={() => setChartMode('percent')}
+                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
+                      chartMode === 'percent' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
                     %
                   </button>
                 </div>
@@ -136,8 +200,9 @@ export default function Dashboard() {
               {/* Chart */}
               <div className="relative">
                 <AccountValueChart
-                  data={stats.historicalData}
+                  data={getFilteredData()}
                   currentValue={stats.accountValue}
+                  chartMode={chartMode}
                 />
               </div>
             </div>
@@ -193,7 +258,7 @@ export default function Dashboard() {
               </div>
 
               {/* Tab Content */}
-              <div className="p-4 max-h-[calc(100vh-300px)] overflow-y-auto">
+              <div className="p-4 max-h-[calc(100vh-300px)] overflow-y-auto hide-scrollbar">
                 {/* OVERVIEW TAB */}
                 {activeTab === 'overview' && (
                   <div className="space-y-4">

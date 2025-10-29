@@ -6,9 +6,12 @@ import type { HistoricalDataPoint } from '@/lib/types';
 interface AccountValueChartProps {
   data: HistoricalDataPoint[];
   currentValue: number;
+  chartMode?: 'value' | 'percent';
 }
 
-export default function AccountValueChart({ data, currentValue }: AccountValueChartProps) {
+export default function AccountValueChart({ data, currentValue, chartMode = 'value' }: AccountValueChartProps) {
+  // Calculate baseline for percentage mode (first value)
+  const baseValue = data.length > 0 ? data[0].accountValue : currentValue;
   // Format data for Recharts - cleaner time format
   const chartData = data.map((point, index) => ({
     time: new Date(point.timestamp).toLocaleString('en-US', {
@@ -17,7 +20,9 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
       hour: '2-digit',
       minute: '2-digit',
     }),
-    value: point.accountValue,
+    value: chartMode === 'percent' 
+      ? ((point.accountValue - baseValue) / baseValue) * 100 
+      : point.accountValue,
     index,
   }));
 
@@ -33,7 +38,7 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
   return (
     <div className="relative w-full h-[300px] md:h-[450px] bg-white border border-gray-200 rounded">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 40, right: 20, left: 40, bottom: 40 }}>
+        <LineChart data={chartData} margin={{ top: 40, right: 30, left: 10, bottom: 60 }}>
           <CartesianGrid
             strokeDasharray="0"
             stroke="#000000"
@@ -44,18 +49,23 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
           <XAxis
             dataKey="time"
             stroke="#1f2937"
-            style={{ fontSize: '11px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500 }}
+            style={{ fontSize: '10px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500 }}
             tickLine={false}
             axisLine={{ stroke: '#000000', strokeWidth: 1 }}
+            angle={-45}
+            textAnchor="end"
+            height={60}
             interval="preserveStartEnd"
-            minTickGap={80}
+            minTickGap={60}
           />
           <YAxis
             stroke="#1f2937"
             style={{ fontSize: '11px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500 }}
             tickLine={false}
             axisLine={{ stroke: '#000000', strokeWidth: 1 }}
-            tickFormatter={(value) => `$${value.toLocaleString()}`}
+            tickFormatter={(value) => 
+              chartMode === 'percent' ? `${value.toFixed(1)}%` : `$${value.toLocaleString()}`
+            }
             domain={['dataMin - 100', 'dataMax + 100']}
           />
           <Tooltip
@@ -68,7 +78,10 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
               color: '#f3f4f6',
               padding: '8px 12px',
             }}
-            formatter={(value: number) => [`$${value.toFixed(2)}`, 'Account Value']}
+            formatter={(value: number) => [
+              chartMode === 'percent' ? `${value.toFixed(2)}%` : `$${value.toFixed(2)}`, 
+              chartMode === 'percent' ? 'Change' : 'Account Value'
+            ]}
             labelStyle={{ color: '#9ca3af', marginBottom: '4px' }}
           />
           <Line

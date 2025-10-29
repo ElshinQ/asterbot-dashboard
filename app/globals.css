@@ -67,3 +67,99 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #059669;
 }
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Dark Mode Theme */
+.dark {
+  background-color: #0a0a0a;
+  color: #00ff00;
+}
+
+.dark .bg-white {
+  background-color: #1a1a1a;
+}
+
+.dark .bg-gray-50 {
+  background-color: #0f0f0f;
+}
+
+.dark .bg-gray-900 {
+  background-color: #00ff00;
+  color: #000000;
+}
+
+.dark .border-gray-900 {
+  border-color: #00ff00;
+}
+
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: #2a2a2a;
+}
+
+.dark .text-gray-900 {
+  color: #00ff00;
+}
+
+.dark .text-gray-600 {
+  color: #00cc00;
+}
+
+.dark .text-gray-500 {
+  color: #00aa00;
+}
+
+.dark .text-gray-400 {
+  color: #008800;
+}
+
+.dark .text-green-600,
+.dark .text-green-500 {
+  color: #00ff00;
+}
+
+.dark .text-red-600 {
+  color: #ff4444;
+}
+
+.dark .bg-blue-500 {
+  background-color: #00ff00;
+  color: #000000;
+}
+
+.dark .bg-green-100 {
+  background-color: #003300;
+}
+
+.dark .text-green-800 {
+  color: #00ff00;
+}
+
+.dark .bg-red-50 {
+  background-color: #1a0a0a;
+}
+
+.dark .text-red-600 {
+  color: #ff6666;
+}
+
+.dark .border-red-600 {
+  border-color: #ff4444;
+}
+
+.dark .hover\:bg-gray-50:hover {
+  background-color: #0f0f0f;
+}
+
+.dark .hover\:bg-gray-700:hover {
+  background-color: #00dd00;
+}
