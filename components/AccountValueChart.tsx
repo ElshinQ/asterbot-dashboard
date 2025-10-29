@@ -54,7 +54,13 @@ export default function AccountValueChart({
   };
 
   return (
-    <div className="relative w-full h-[300px] md:h-[450px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded">
+    <div 
+      className="relative w-full h-[300px] md:h-[450px] border rounded"
+      style={{
+        backgroundColor: isDarkMode ? '#111827' : '#ffffff',
+        borderColor: isDarkMode ? '#374151' : '#e5e7eb',
+      }}
+    >
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 40, right: 30, left: 10, bottom: 80 }}>
           <CartesianGrid
@@ -130,12 +136,21 @@ export default function AccountValueChart({
       </ResponsiveContainer>
       
       {/* Current value indicator - positioned like nof1.ai */}
-      <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 dark:bg-green-500 text-white dark:text-black px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
+      <div 
+        className="absolute top-4 md:top-8 right-4 md:right-8 px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg"
+        style={{
+          backgroundColor: isDarkMode ? '#00ff00' : '#3b82f6',
+          color: isDarkMode ? '#000000' : '#ffffff',
+        }}
+      >
         ${Math.round((valueType === 'usdt' ? currentUsdtValue : currentValue) || 0).toLocaleString()}
       </div>
       
       {/* aster.bot watermark */}
-      <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 text-gray-400 dark:text-gray-600 text-[10px] md:text-xs font-mono">
+      <div 
+        className="absolute bottom-2 md:bottom-4 right-2 md:right-4 text-[10px] md:text-xs font-mono"
+        style={{ color: isDarkMode ? '#4b5563' : '#9ca3af' }}
+      >
         aster.bot
       </div>
     </div>
