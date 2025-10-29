@@ -69,24 +69,27 @@ export default function Dashboard() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="border-b-2 border-gray-900 bg-white">
-        <div className="px-6 py-4">
+        <div className="px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="h-16 w-16 overflow-hidden flex items-center justify-center rounded-lg">
+            <div className="flex items-center gap-2 md:gap-4">
+              <div className="h-12 w-12 md:h-16 md:w-16 overflow-hidden flex items-center justify-center rounded-lg">
                 <img 
                   src="/ichigo-logo.png" 
                   alt="ICHIGO" 
-                  className="w-32 object-cover object-top scale-110"
+                  className="w-24 md:w-32 object-cover object-top scale-110"
                   style={{ marginTop: '-12px' }}
                 />
               </div>
-              <div className="border-l-2 border-gray-300 h-10 mx-2"></div>
-              <nav className="flex items-center gap-6 text-sm font-mono">
+              <div className="border-l-2 border-gray-300 h-8 md:h-10 mx-1 md:mx-2"></div>
+              <nav className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono">
                 <span className="text-gray-900 font-bold uppercase tracking-wider">LIVE DASHBOARD</span>
               </nav>
             </div>
-            <div className="text-xs font-mono text-gray-500">
+            <div className="hidden md:block text-xs font-mono text-gray-500">
               POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
+            </div>
+            <div className="md:hidden text-[10px] font-mono text-gray-500">
+              LIVE
             </div>
           </div>
         </div>
@@ -100,26 +103,26 @@ export default function Dashboard() {
       />
 
       {/* Main Content - 2 Column Layout */}
-      <main className="px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <main className="px-4 md:px-6 py-4 md:py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* LEFT SIDE - CHART (2/3) */}
           <div className="lg:col-span-2">
-            <div className="bg-white border-2 border-gray-900 p-6">
+            <div className="bg-white border-2 border-gray-900 p-4 md:p-6">
               {/* Chart Controls */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <button className="px-4 py-2 bg-gray-900 text-white text-xs font-mono font-bold">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <button className="px-3 md:px-4 py-1.5 md:py-2 bg-gray-900 text-white text-[10px] md:text-xs font-mono font-bold">
                     ALL
                   </button>
-                  <button className="px-4 py-2 bg-white text-gray-600 text-xs font-mono border-2 border-gray-900 font-bold">
+                  <button className="px-3 md:px-4 py-1.5 md:py-2 bg-white text-gray-600 text-[10px] md:text-xs font-mono border-2 border-gray-900 font-bold">
                     72H
                   </button>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className="px-3 py-1 bg-gray-900 text-white text-xs font-mono font-bold">
+                <div className="flex items-center gap-1 md:gap-2">
+                  <button className="px-2 md:px-3 py-1 bg-gray-900 text-white text-[10px] md:text-xs font-mono font-bold">
                     $
                   </button>
-                  <button className="px-3 py-1 bg-white text-gray-600 text-xs font-mono border-2 border-gray-900 font-bold">
+                  <button className="px-2 md:px-3 py-1 bg-white text-gray-600 text-[10px] md:text-xs font-mono border-2 border-gray-900 font-bold">
                     %
                   </button>
                 </div>
@@ -142,13 +145,13 @@ export default function Dashboard() {
 
           {/* RIGHT SIDE - TABBED DATA PANEL (1/3) */}
           <div className="lg:col-span-1">
-            <div className="bg-white border-2 border-gray-900 sticky top-6">
-              {/* Tab Navigation - Single Row */}
+            <div className="bg-white border-2 border-gray-900 lg:sticky lg:top-6">
+              {/* Tab Navigation - Responsive Grid */}
               <div className="border-b-2 border-gray-900">
-                <div className="grid grid-cols-4">
+                <div className="grid grid-cols-2 md:grid-cols-4">
                   <button
                     onClick={() => setActiveTab('overview')}
-                    className={`py-3 px-2 text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
+                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
                       activeTab === 'overview'
                         ? 'bg-gray-900 text-white'
                         : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -158,7 +161,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     onClick={() => setActiveTab('orders')}
-                    className={`py-3 px-2 text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
+                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase md:border-r-2 border-gray-900 ${
                       activeTab === 'orders'
                         ? 'bg-gray-900 text-white'
                         : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -168,7 +171,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     onClick={() => setActiveTab('decisions')}
-                    className={`py-3 px-2 text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
+                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 border-t-2 md:border-t-0 ${
                       activeTab === 'decisions'
                         ? 'bg-gray-900 text-white'
                         : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -178,7 +181,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     onClick={() => setActiveTab('position')}
-                    className={`py-3 px-2 text-[11px] font-mono font-bold uppercase ${
+                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-t-2 md:border-t-0 ${
                       activeTab === 'position'
                         ? 'bg-gray-900 text-white'
                         : 'bg-white text-gray-600 hover:bg-gray-50'

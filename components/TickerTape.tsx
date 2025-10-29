@@ -27,24 +27,47 @@ export default function TickerTape({
 
   return (
     <div className="border-b border-gray-200 bg-gray-50 py-3">
-      <div className="px-6 flex items-center justify-between">
-        <div className="flex items-center gap-8 text-xs font-mono">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">{symbol}</span>
-            <span className="text-gray-900 font-semibold text-base">${formattedPrice}</span>
+      <div className="px-4 md:px-6">
+        {/* Mobile Layout - Stacked */}
+        <div className="md:hidden space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="text-gray-600">{symbol}</span>
+              <span className="text-gray-900 font-semibold text-base">${formattedPrice}</span>
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-[10px] font-mono">
+            <div className="flex items-center gap-1">
+              <span className="text-gray-600">HIGH:</span>
+              <span className="text-green-600 font-semibold">${formattedHighest}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-gray-600">LOW:</span>
+              <span className="text-red-600 font-semibold">${formattedLowest}</span>
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-6 text-xs font-mono">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">72H HIGHEST:</span>
-            <span className="text-green-600 font-semibold">${formattedHighest}</span>
-            <span className="text-gray-500">({changeFromHigh}%)</span>
+        
+        {/* Desktop Layout - Horizontal */}
+        <div className="hidden md:flex items-center justify-between">
+          <div className="flex items-center gap-8 text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">{symbol}</span>
+              <span className="text-gray-900 font-semibold text-base">${formattedPrice}</span>
+            </div>
           </div>
-          <span className="text-gray-400">|</span>
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">72H LOWEST:</span>
-            <span className="text-red-600 font-semibold">${formattedLowest}</span>
-            <span className="text-gray-500">(+{changeFromLow}%)</span>
+          <div className="flex items-center gap-6 text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">72H HIGHEST:</span>
+              <span className="text-green-600 font-semibold">${formattedHighest}</span>
+              <span className="text-gray-500">({changeFromHigh}%)</span>
+            </div>
+            <span className="text-gray-400">|</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">72H LOWEST:</span>
+              <span className="text-red-600 font-semibold">${formattedLowest}</span>
+              <span className="text-gray-500">(+{changeFromLow}%)</span>
+            </div>
           </div>
         </div>
       </div>

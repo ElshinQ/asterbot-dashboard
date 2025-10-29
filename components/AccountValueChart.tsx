@@ -31,9 +31,9 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
   };
 
   return (
-    <div className="relative w-full h-[450px] bg-white border border-gray-200 rounded">
+    <div className="relative w-full h-[300px] md:h-[450px] bg-white border border-gray-200 rounded">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 40, right: 40, left: 60, bottom: 40 }}>
+        <LineChart data={chartData} margin={{ top: 40, right: 20, left: 40, bottom: 40 }}>
           <CartesianGrid
             strokeDasharray="0"
             stroke="#000000"
@@ -84,12 +84,12 @@ export default function AccountValueChart({ data, currentValue }: AccountValueCh
       </ResponsiveContainer>
       
       {/* Current value indicator - positioned like nof1.ai */}
-      <div className="absolute top-8 right-8 bg-blue-500 text-white px-4 py-2 rounded-md text-xs font-mono font-semibold shadow-lg">
+      <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
         ${currentValue.toFixed(2)}
       </div>
       
       {/* aster.bot watermark */}
-      <div className="absolute bottom-4 right-4 text-gray-400 text-xs font-mono">
+      <div className="absolute bottom-2 md:bottom-4 right-2 md:right-4 text-gray-400 text-[10px] md:text-xs font-mono">
         aster.bot
       </div>
     </div>
