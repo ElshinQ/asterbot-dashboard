@@ -173,18 +173,6 @@ export default function Dashboard() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <div 
-                className="hidden md:block text-xs font-mono"
-                style={{ color: isDarkMode ? '#00aa00' : '#000000' }}
-              >
-                POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
-              </div>
-              <div 
-                className="md:hidden text-[10px] font-mono"
-                style={{ color: isDarkMode ? '#00aa00' : '#000000' }}
-              >
-                LIVE
-              </div>
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
                 className="relative flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-mono font-bold transition-all"
@@ -528,12 +516,6 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    {/* DeepSeek Attribution */}
-                    <div className="pt-4 border-t-2 border-gray-900">
-                      <div className="flex items-center gap-2 text-xs font-mono text-gray-500">
-                        <span>Powered by DeepSeek AI</span>
-                      </div>
-                    </div>
                   </div>
                 )}
 
@@ -789,11 +771,11 @@ export default function Dashboard() {
 
                 {/* POSITION TAB */}
                 {activeTab === 'position' && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>
+                  <div className="space-y-5">
+                    <h3 className="text-sm font-mono font-bold uppercase mb-5" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>
                       Current Position
                     </h3>
-                    <div className="space-y-2 text-sm font-mono">
+                    <div className="space-y-3 text-sm font-mono">
                       <div className="flex justify-between">
                         <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Status:</span>
                         <span 
@@ -832,9 +814,9 @@ export default function Dashboard() {
                           </div>
                         </>
                       )}
-                      <div className="pt-3 mt-3 border-t-2 border-gray-900">
-                        <div className="text-sm font-mono font-bold uppercase mb-3" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>STATISTICS</div>
-                        <div className="space-y-2 text-sm">
+                      <div className="pt-5 mt-5 border-t-2 border-gray-900">
+                        <div className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>STATISTICS</div>
+                        <div className="space-y-3 text-sm">
                           <div className="flex justify-between">
                             <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Total Decisions</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.totalDecisions.toLocaleString()}</span>
@@ -857,6 +839,13 @@ export default function Dashboard() {
                           </div>
                         </div>
                       </div>
+
+                      {/* DeepSeek Attribution */}
+                      <div className="pt-6 mt-6 border-t-2 border-gray-900">
+                        <div className="text-xs font-mono text-gray-500 text-center">
+                          Powered by DeepSeek AI
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -875,14 +864,10 @@ export default function Dashboard() {
         }}
       >
         <div className="px-6 text-center">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <img 
-              src="/ichigo-logo.png" 
-              alt="ICHIGO" 
-              className="h-8 w-auto opacity-60"
-            />
-          </div>
-          <div className="text-xs font-mono text-gray-500 font-bold">
+          <div 
+            className="text-xs font-mono font-bold"
+            style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+          >
             ICHIGO CRYPTO BOT | LIVE DATA | UPDATES EVERY 3 MINUTES
           </div>
         </div>
