@@ -61,6 +61,7 @@ export interface HistoricalDataPoint {
   accountValue: number;
   usdtBalance: number;
   asterQty: number;
+  asterPrice: number;
 }
 
 export interface RecentDecision {
