@@ -342,10 +342,11 @@ export default function Dashboard() {
           {/* RIGHT SIDE - TABBED DATA PANEL (1/3) */}
           <div className="lg:col-span-1">
             <div 
-              className="border-2 lg:sticky lg:top-6"
+              className="border-2 lg:sticky lg:top-6 flex flex-col"
               style={{
                 backgroundColor: isDarkMode ? '#000000' : '#ffffff',
                 borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                height: 'auto',
               }}
             >
               {/* Tab Navigation - Responsive Grid */}
@@ -427,7 +428,13 @@ export default function Dashboard() {
               </div>
 
               {/* Tab Content */}
-              <div className="p-4 max-h-[calc(100vh-300px)] overflow-y-auto hide-scrollbar">
+              <div 
+                className="p-4 overflow-y-auto hide-scrollbar"
+                style={{
+                  height: '640px',
+                  maxHeight: '640px',
+                }}
+              >
                 {/* OVERVIEW TAB */}
                 {activeTab === 'overview' && (
                   <div className="space-y-4">
