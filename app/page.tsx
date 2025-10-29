@@ -429,18 +429,14 @@ export default function Dashboard() {
 
               {/* Tab Content */}
               <div 
-                className="p-4 overflow-y-auto hide-scrollbar"
-                style={{
-                  height: '640px',
-                  maxHeight: '640px',
-                }}
+                className="p-4 md:p-6 overflow-y-auto hide-scrollbar h-[500px] md:h-[580px]"
               >
                 {/* OVERVIEW TAB */}
                 {activeTab === 'overview' && (
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {/* Account Value */}
-                    <div>
-                      <div className="text-xs font-mono text-gray-600 mb-1 uppercase font-bold">
+                    <div className="pb-2">
+                      <div className="text-xs font-mono text-gray-600 mb-2 uppercase font-bold">
                         Account Value
                       </div>
                       <div className="text-3xl font-mono font-bold text-gray-900">
@@ -453,7 +449,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Status */}
-                    <div className="flex items-center gap-2 pb-4 border-b-2 border-gray-900">
+                    <div className="flex items-center gap-2 pb-6 border-b-2 border-gray-900">
                       <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
                       <span className="text-xs font-mono font-bold text-green-600 uppercase">
                         ACTIVE
@@ -461,7 +457,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Key Metrics */}
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">ASTER Balance:</span>
                         <span className="text-gray-900 font-bold">
@@ -485,7 +481,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* P&L Section */}
-                    <div className="pt-4 border-t-2 border-gray-900 space-y-2">
+                    <div className="pt-6 border-t-2 border-gray-900 space-y-3">
                       <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Realized P&L:</span>
                         <span className={`font-bold ${stats.realizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -513,7 +509,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Trading Stats */}
-                    <div className="pt-4 border-t-2 border-gray-900 space-y-2">
+                    <div className="pt-6 border-t-2 border-gray-900 space-y-3">
                       <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Open TPs:</span>
                         <span className="text-gray-900 font-bold">{stats.openTPOrders}</span>
@@ -543,9 +539,9 @@ export default function Dashboard() {
 
                 {/* ORDERS TAB */}
                 {activeTab === 'orders' && (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {/* Order Filter Buttons */}
-                    <div className="flex items-center gap-2 mb-4">
+                    <div className="flex items-center gap-2 mb-6">
                       <button 
                           onClick={() => setOrderFilter('open')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
@@ -581,7 +577,7 @@ export default function Dashboard() {
                         </button>
                     </div>
 
-                    <h3 className="text-sm font-mono font-bold uppercase mb-4">
+                    <h3 className="text-sm font-mono font-bold uppercase mb-5">
                       {orderFilter === 'open' ? 'Open TP Orders' : orderFilter === 'filled' ? 'Filled Orders' : 'Canceled Orders'}
                     </h3>
                     
