@@ -9,6 +9,7 @@ interface AccountValueChartProps {
   currentUsdtValue: number;
   chartMode?: 'value' | 'percent';
   valueType?: 'total' | 'usdt';
+  isDarkMode?: boolean;
 }
 
 export default function AccountValueChart({ 
@@ -16,7 +17,8 @@ export default function AccountValueChart({
   currentValue, 
   currentUsdtValue,
   chartMode = 'value',
-  valueType = 'total'
+  valueType = 'total',
+  isDarkMode = false
 }: AccountValueChartProps) {
   // Get the actual value based on valueType
   const rawValue = (point: HistoricalDataPoint) => 
@@ -57,17 +59,22 @@ export default function AccountValueChart({
         <LineChart data={chartData} margin={{ top: 40, right: 30, left: 10, bottom: 80 }}>
           <CartesianGrid
             strokeDasharray="0"
-            stroke="#e5e7eb"
+            stroke={isDarkMode ? '#374151' : '#e5e7eb'}
             strokeWidth={0.5}
             horizontal={true}
             vertical={false}
           />
           <XAxis
             dataKey="time"
-            stroke="#374151"
-            style={{ fontSize: '10px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500, fill: '#374151' }}
+            stroke={isDarkMode ? '#9ca3af' : '#374151'}
+            style={{ 
+              fontSize: '10px', 
+              fontFamily: 'var(--font-ibm-plex-mono)', 
+              fontWeight: 500, 
+              fill: isDarkMode ? '#9ca3af' : '#374151' 
+            }}
             tickLine={false}
-            axisLine={{ stroke: '#374151', strokeWidth: 1 }}
+            axisLine={{ stroke: isDarkMode ? '#9ca3af' : '#374151', strokeWidth: 1 }}
             angle={-45}
             textAnchor="end"
             height={80}
@@ -75,10 +82,15 @@ export default function AccountValueChart({
             minTickGap={60}
           />
           <YAxis
-            stroke="#374151"
-            style={{ fontSize: '11px', fontFamily: 'var(--font-ibm-plex-mono)', fontWeight: 500, fill: '#374151' }}
+            stroke={isDarkMode ? '#9ca3af' : '#374151'}
+            style={{ 
+              fontSize: '11px', 
+              fontFamily: 'var(--font-ibm-plex-mono)', 
+              fontWeight: 500, 
+              fill: isDarkMode ? '#9ca3af' : '#374151' 
+            }}
             tickLine={false}
-            axisLine={{ stroke: '#374151', strokeWidth: 1 }}
+            axisLine={{ stroke: isDarkMode ? '#9ca3af' : '#374151', strokeWidth: 1 }}
             tickFormatter={(value) => 
               chartMode === 'percent' ? `${value.toFixed(1)}%` : `$${Math.round(value).toLocaleString()}`
             }
@@ -86,12 +98,12 @@ export default function AccountValueChart({
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: '#1f2937',
-              border: '2px solid #374151',
+              backgroundColor: isDarkMode ? '#1a1a1a' : '#1f2937',
+              border: `2px solid ${isDarkMode ? '#00ff00' : '#374151'}`,
               borderRadius: '6px',
               fontFamily: 'var(--font-ibm-plex-mono)',
               fontSize: '11px',
-              color: '#f3f4f6',
+              color: isDarkMode ? '#00ff00' : '#f3f4f6',
               padding: '8px 12px',
             }}
             formatter={(value: number) => {
@@ -108,7 +120,7 @@ export default function AccountValueChart({
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#3b82f6"
+            stroke={isDarkMode ? '#00ff00' : '#3b82f6'}
             strokeWidth={2}
             dot={false}
             animationDuration={300}
@@ -119,7 +131,7 @@ export default function AccountValueChart({
       
       {/* Current value indicator - positioned like nof1.ai */}
       <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 dark:bg-green-500 text-white dark:text-black px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
-        ${Math.round(valueType === 'usdt' ? currentUsdtValue : currentValue).toLocaleString()}
+        ${Math.round((valueType === 'usdt' ? currentUsdtValue : currentValue) || 0).toLocaleString()}
       </div>
       
       {/* aster.bot watermark */}

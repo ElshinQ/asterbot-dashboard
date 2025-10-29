@@ -236,6 +236,7 @@ export default function Dashboard() {
                   currentUsdtValue={stats.usdtBalance}
                   chartMode={chartMode}
                   valueType={valueType}
+                  isDarkMode={isDarkMode}
                 />
               </div>
             </div>
