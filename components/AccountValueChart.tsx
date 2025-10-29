@@ -56,14 +56,14 @@ export default function AccountValueChart({
 
   return (
     <div 
-      className="relative w-full h-[600px] md:h-[480px] border-2"
+      className="relative w-full h-[450px] md:h-[480px] border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         borderColor: isDarkMode ? '#16a34a' : '#1f2937',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 115, left: 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 40, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 70 : 115, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 20, bottom: 60 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -136,7 +136,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={typeof window !== 'undefined' && window.innerWidth < 768 ? 55 : 90}
+            width={typeof window !== 'undefined' && window.innerWidth < 768 ? 65 : 90}
           />
           
           <Tooltip
@@ -268,10 +268,10 @@ export default function AccountValueChart({
         </ComposedChart>
       </ResponsiveContainer>
       
-      {/* Current value indicators - minimal style */}
-      <div className="absolute top-3 md:top-4 right-3 md:right-4 flex flex-col gap-1.5">
+      {/* Current value indicator - single box */}
+      <div className="absolute top-2 md:top-3 right-2 md:right-3">
         <div 
-          className="px-2.5 md:px-3 py-1 md:py-1.5 text-[9px] md:text-[10px] font-mono font-bold"
+          className="px-2 md:px-2.5 py-1 text-[9px] md:text-[10px] font-mono font-bold"
           style={{
             backgroundColor: isDarkMode ? '#16a34a' : '#3b82f6',
             color: isDarkMode ? '#000000' : '#ffffff',
@@ -282,16 +282,6 @@ export default function AccountValueChart({
             ? `$${currentUsdtValue?.toFixed(2) || '0.00'}`
             : `${currentValue?.toFixed(2) || '0.00'}`
           }
-        </div>
-        <div 
-          className="px-2.5 md:px-3 py-1 md:py-1.5 text-[9px] md:text-[10px] font-mono font-bold"
-          style={{
-            backgroundColor: isDarkMode ? '#ff9500' : '#f59e0b',
-            color: isDarkMode ? '#000000' : '#ffffff',
-          }}
-        >
-          <span className="opacity-70 mr-1">PRICE:</span>
-          ${currentPrice.toFixed(5)}
         </div>
       </div>
       
