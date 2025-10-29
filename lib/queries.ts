@@ -288,7 +288,7 @@ export async function getFilledOrders() {
       side,
       type,
       price,
-      orig_qty as quantity,
+      quantity,
       status,
       created_at,
       updated_at
@@ -340,7 +340,7 @@ export async function getClosedOrders() {
       side,
       type,
       price,
-      orig_qty as quantity,
+      quantity,
       status,
       created_at,
       updated_at
