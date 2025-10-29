@@ -5,9 +5,10 @@ import type { RecentDecision } from '@/lib/types';
 
 interface DecisionsFeedProps {
   decisions: RecentDecision[];
+  isDarkMode: boolean;
 }
 
-export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
+export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedProps) {
   const [expandedDecisions, setExpandedDecisions] = useState<Set<string>>(new Set());
 
   const toggleExpand = (uid: string) => {
@@ -23,15 +24,28 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
   };
 
   const getActionColor = (action: string) => {
-    switch (action.toLowerCase()) {
-      case 'buy':
-        return 'text-green-600 bg-green-50 border-green-200';
-      case 'sell':
-        return 'text-red-600 bg-red-50 border-red-200';
-      case 'hold':
-        return 'text-gray-600 bg-gray-50 border-gray-200';
-      default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+    if (isDarkMode) {
+      switch (action.toLowerCase()) {
+        case 'buy':
+          return { bg: '#002200', text: '#00ff00', border: '#00ff00' };
+        case 'sell':
+          return { bg: '#220000', text: '#ff4444', border: '#ff4444' };
+        case 'hold':
+          return { bg: '#000000', text: '#ffffff', border: '#00ff00' };
+        default:
+          return { bg: '#000000', text: '#ffffff', border: '#00ff00' };
+      }
+    } else {
+      switch (action.toLowerCase()) {
+        case 'buy':
+          return { bg: '#f0fdf4', text: '#16a34a', border: '#bbf7d0' };
+        case 'sell':
+          return { bg: '#fef2f2', text: '#dc2626', border: '#fecaca' };
+        case 'hold':
+          return { bg: '#f9fafb', text: '#4b5563', border: '#e5e7eb' };
+        default:
+          return { bg: '#f9fafb', text: '#4b5563', border: '#e5e7eb' };
+      }
     }
   };
 
@@ -48,7 +62,7 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
   return (
     <div className="space-y-3">
       {decisions.length === 0 ? (
-        <div className="py-8 text-center text-gray-500 text-sm font-mono">
+        <div className="py-8 text-center text-sm font-mono" style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}>
           No decisions available
         </div>
       ) : (
@@ -57,44 +71,61 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
             const isExpanded = expandedDecisions.has(decision.decisionUid);
             const notePreview = decision.note.substring(0, 120);
             const needsExpansion = decision.note.length > 120;
+            const actionColors = getActionColor(decision.action);
 
             return (
               <div
                 key={decision.decisionUid}
-                className="border-2 border-gray-900 p-3 hover:bg-gray-50 transition-colors"
+                className="border-2 p-3 transition-colors"
+                style={{
+                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                  backgroundColor: 'transparent',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span
-                      className={`px-2 py-1 border-2 border-gray-900 text-xs font-bold uppercase ${getActionColor(decision.action)}`}
+                      className="px-2 py-1 border-2 text-xs font-bold uppercase"
+                      style={{
+                        backgroundColor: actionColors.bg,
+                        color: actionColors.text,
+                        borderColor: actionColors.border,
+                      }}
                     >
                       {decision.action}
                     </span>
-                    <span className="text-xs text-gray-500 font-mono font-bold">
+                    <span className="text-xs font-mono font-bold" style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}>
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 dark:text-green-400 font-mono">
+                  <span className="text-sm font-bold font-mono" style={{ color: isDarkMode ? '#00ff00' : '#111827' }}>
                     ${decision.lastClose.toFixed(3)}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-2 text-xs text-gray-600 dark:text-gray-300 font-mono">
-                  <span className="bg-gray-900 dark:bg-green-500 text-white dark:text-black px-2 py-1 font-bold text-[10px]">
+                <div className="flex items-center gap-3 mb-2 text-xs font-mono" style={{ color: isDarkMode ? '#ffffff' : '#4b5563' }}>
+                  <span 
+                    className="px-2 py-1 font-bold text-[10px]"
+                    style={{
+                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      color: isDarkMode ? '#000000' : '#ffffff',
+                    }}
+                  >
                     {decision.regimeKey}
                   </span>
                   <span className="font-bold">RSI: {decision.rsi14_3m.toFixed(1)}</span>
                   <span className="font-bold">ADX: {decision.adx14_3m.toFixed(1)}</span>
                   <span
-                    className={
-                      decision.hasPosition ? 'text-green-600 dark:text-green-400 font-bold' : 'text-gray-400 dark:text-gray-500 font-bold'
-                    }
+                    className="font-bold"
+                    style={{ color: decision.hasPosition ? '#00ff00' : (isDarkMode ? '#666666' : '#9ca3af') }}
                   >
                     {decision.hasPosition ? '● POS' : '○ NO POS'}
                   </span>
                 </div>
 
-                <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed font-mono">
+                <div className="text-xs leading-relaxed font-mono" style={{ color: isDarkMode ? '#ffffff' : '#374151' }}>
                   <p className="whitespace-pre-wrap break-words">
                     {isExpanded ? decision.note : notePreview}
                     {!isExpanded && needsExpansion && '...'}
@@ -102,7 +133,8 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
                   {needsExpansion && (
                     <button
                       onClick={() => toggleExpand(decision.decisionUid)}
-                      className="mt-2 text-blue-600 dark:text-green-500 hover:text-blue-800 dark:hover:text-green-400 font-bold uppercase text-xs"
+                      className="mt-2 font-bold uppercase text-xs"
+                      style={{ color: isDarkMode ? '#00ff00' : '#2563eb' }}
                     >
                       {isExpanded ? '▲ Show Less' : '▼ Read Full Decision'}
                     </button>
