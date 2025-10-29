@@ -33,17 +33,28 @@ export default function Dashboard() {
     }
   }, [isDarkMode]);
 
-  // Filter historical data based on time range
+  // Filter historical data based on time range and add live current price
   const getFilteredData = () => {
     if (!stats) return [];
-    if (timeRange === 'all') return stats.historicalData;
     
-    // Filter last 72 hours
-    const now = new Date();
-    const seventyTwoHoursAgo = new Date(now.getTime() - 72 * 60 * 60 * 1000);
-    return stats.historicalData.filter(point => 
-      new Date(point.timestamp) >= seventyTwoHoursAgo
-    );
+    let filteredData = timeRange === 'all' 
+      ? stats.historicalData 
+      : stats.historicalData.filter(point => {
+          const now = new Date();
+          const seventyTwoHoursAgo = new Date(now.getTime() - 72 * 60 * 60 * 1000);
+          return new Date(point.timestamp) >= seventyTwoHoursAgo;
+        });
+    
+    // Add current live data point to sync chart with ticker
+    const currentDataPoint = {
+      timestamp: new Date().toISOString(),
+      accountValue: stats.accountValue,
+      usdtBalance: stats.usdtBalance,
+      asterQty: stats.asterBalance,
+      asterPrice: stats.currentPrice, // Use live ticker price
+    };
+    
+    return [...filteredData, currentDataPoint];
   };
 
   if (isLoading) {
