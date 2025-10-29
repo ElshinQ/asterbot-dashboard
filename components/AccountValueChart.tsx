@@ -276,32 +276,35 @@ export default function AccountValueChart({
             hide={false}
           />
           
-          {/* Balance Line */}
+          {/* Balance Line - Smooth style like trading charts */}
           <Line
             yAxisId="left"
             type="monotone"
             dataKey="balance"
             name="balance"
             stroke={isDarkMode ? '#16a34a' : '#3b82f6'}
-            strokeWidth={2.5}
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
             dot={false}
             animationDuration={300}
             isAnimationActive={true}
             legendType="none"
           />
           
-          {/* Price Line */}
+          {/* Price Line - Smooth style like trading charts */}
           <Line
             yAxisId="right"
             type="monotone"
             dataKey="price"
             name="price"
             stroke={isDarkMode ? '#ff9500' : '#f59e0b'}
-            strokeWidth={2}
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
             dot={false}
             animationDuration={300}
             isAnimationActive={true}
-            strokeDasharray="4 4"
             legendType="none"
           />
         </ComposedChart>
