@@ -226,8 +226,8 @@ export default function Dashboard() {
       {/* Main Content - 2 Column Layout */}
       <main className="px-4 md:px-6 py-4 md:py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-          {/* LEFT SIDE - CHART (2/3) */}
-          <div className="lg:col-span-2">
+          {/* LEFT SIDE - CHART (2/3) - Hidden on mobile */}
+          <div className="hidden lg:block lg:col-span-2">
             <div 
               className="border-2 p-4 md:p-6"
               style={{

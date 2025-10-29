@@ -491,19 +491,26 @@ export async function getDashboardStats(): Promise<DashboardStats> {
   // ALWAYS use latest price from decisions table (updates every 3 minutes)
   const currentPrice = botStats.lastPrice;
   
-  // Calculate current balances
-  const qtyInOrders = position ? position.qtyInTpOrders : 0;
-  const baseFree = position && position.baseFree > 0 ? position.baseFree : 0;
-  const totalAsterBalance = baseFree + qtyInOrders;
-  const usdtBalance = position && position.quoteFree >= 0 ? position.quoteFree : botStats.usdtFree;
+  // Calculate current balances - prioritize decisions table over stale snapshots
+  const qtyInOrders = position && position.qtyInTpOrders ? position.qtyInTpOrders : 0;
+  
+  // Use decisions table balance (most accurate, updated every 3 minutes)
+  const currentAsterBalance = botStats.baseQty;
+  const currentUsdtBalance = botStats.usdtFree;
+  
+  // Total ASTER = current balance (not the stale snapshot)
+  // Note: qtyInOrders is already included in baseQty from Binance
+  const totalAsterBalance = currentAsterBalance;
+  const usdtBalance = currentUsdtBalance;
   
   // Calculate account value with CURRENT price (including ASTER in orders)
   const accountValue = totalAsterBalance * currentPrice + usdtBalance;
 
   // Calculate unrealized P&L properly
+  const hasActivePosition = totalAsterBalance > 0;
   const entryPrice = position && position.entryPrice > 0 ? position.entryPrice : 0;
-  const unrealizedPnL = entryPrice > 0 ? (currentPrice - entryPrice) * totalAsterBalance : 0;
-  const unrealizedPnLPercent = entryPrice > 0 ? ((currentPrice - entryPrice) / entryPrice) * 100 : 0;
+  const unrealizedPnL = hasActivePosition && entryPrice > 0 ? (currentPrice - entryPrice) * totalAsterBalance : 0;
+  const unrealizedPnLPercent = hasActivePosition && entryPrice > 0 ? ((currentPrice - entryPrice) / entryPrice) * 100 : 0;
 
   // Calculate runtime
   const firstDecisionDate = new Date(botStats.firstDecision);
@@ -545,9 +552,9 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       totalRuntime,
     },
     position: {
-      hasPosition: position ? position.openCount > 0 : botStats.hasPosition,
+      hasPosition: hasActivePosition,
       entryPrice: entryPrice,
-      entryTime: position ? position.entryAt : '',
+      entryTime: position && position.entryAt ? position.entryAt : '',
       currentQty: totalAsterBalance,
     },
     historicalData,
