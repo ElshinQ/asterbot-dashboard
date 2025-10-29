@@ -163,7 +163,7 @@ export default function Dashboard() {
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       timeRange === 'all' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     ALL
@@ -173,7 +173,7 @@ export default function Dashboard() {
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       timeRange === '72h' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     72H
@@ -187,7 +187,7 @@ export default function Dashboard() {
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       valueType === 'total' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     ASTER
@@ -197,7 +197,7 @@ export default function Dashboard() {
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       valueType === 'usdt' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     USDT
@@ -211,7 +211,7 @@ export default function Dashboard() {
                     className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
                       chartMode === 'value' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     $
@@ -221,7 +221,7 @@ export default function Dashboard() {
                     className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
                       chartMode === 'percent' 
                         ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
                     }`}
                   >
                     %
@@ -238,7 +238,7 @@ export default function Dashboard() {
               <div className="relative">
                 <AccountValueChart
                   data={getFilteredData()}
-                  currentValue={stats.accountValue}
+                  currentValue={stats.asterBalance}
                   currentUsdtValue={stats.usdtBalance}
                   chartMode={chartMode}
                   valueType={valueType}
@@ -415,7 +415,7 @@ export default function Dashboard() {
                           className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                             orderFilter === 'open' 
                               ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                              : 'bg-white text-gray-600 border-2 border-gray-900'
                           }`}
                         >
                           OPEN
@@ -425,7 +425,7 @@ export default function Dashboard() {
                           className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                             orderFilter === 'filled' 
                               ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                              : 'bg-white text-gray-600 border-2 border-gray-900'
                           }`}
                         >
                           FILLED
@@ -435,7 +435,7 @@ export default function Dashboard() {
                           className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                             orderFilter === 'canceled' 
                               ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                              : 'bg-white text-gray-600 border-2 border-gray-900'
                           }`}
                         >
                           CANCEL

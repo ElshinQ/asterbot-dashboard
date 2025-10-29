@@ -76,7 +76,7 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                     >
                       {decision.action}
                     </span>
-                    <span className="text-xs text-gray-500 font-mono font-bold">
+                    <span className="text-xs text-gray-600 dark:text-gray-400 font-mono font-bold">
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
@@ -106,7 +106,7 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                   </span>
                 </div>
 
-                <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed font-mono">
+                <div className="text-xs text-gray-900 dark:text-gray-200 leading-relaxed font-mono">
                   <p className="whitespace-pre-wrap break-words">
                     {isExpanded ? decision.note : notePreview}
                     {!isExpanded && needsExpansion && '...'}

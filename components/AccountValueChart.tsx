@@ -21,8 +21,9 @@ export default function AccountValueChart({
   isDarkMode = false
 }: AccountValueChartProps) {
   // Get the actual value based on valueType
+  // ASTER shows token quantity, USDT shows balance in dollars
   const rawValue = (point: HistoricalDataPoint) => 
-    valueType === 'usdt' ? point.usdtBalance : point.accountValue;
+    valueType === 'usdt' ? point.usdtBalance : point.asterQty;
   
   // Calculate baseline for percentage mode (first value)
   const baseValue = data.length > 0 ? rawValue(data[0]) : (valueType === 'usdt' ? currentUsdtValue : currentValue);
@@ -97,9 +98,11 @@ export default function AccountValueChart({
             }}
             tickLine={false}
             axisLine={{ stroke: isDarkMode ? '#9ca3af' : '#374151', strokeWidth: 1 }}
-            tickFormatter={(value) => 
-              chartMode === 'percent' ? `${value.toFixed(1)}%` : `$${Math.round(value).toLocaleString()}`
-            }
+            tickFormatter={(value) => {
+              if (chartMode === 'percent') return `${value.toFixed(1)}%`;
+              if (valueType === 'usdt') return `$${Math.round(value).toLocaleString()}`;
+              return Math.round(value).toLocaleString(); // ASTER quantity without $
+            }}
             domain={['dataMin - 100', 'dataMax + 100']}
           />
           <Tooltip
@@ -115,11 +118,18 @@ export default function AccountValueChart({
             formatter={(value: number) => {
               const label = chartMode === 'percent' 
                 ? 'Change' 
-                : (valueType === 'usdt' ? 'USDT Balance' : 'Aster Value');
-              return [
-                chartMode === 'percent' ? `${value.toFixed(2)}%` : `$${Math.round(value).toLocaleString()}`, 
-                label
-              ];
+                : (valueType === 'usdt' ? 'USDT Balance' : 'ASTER Quantity');
+              
+              let formattedValue;
+              if (chartMode === 'percent') {
+                formattedValue = `${value.toFixed(2)}%`;
+              } else if (valueType === 'usdt') {
+                formattedValue = `$${Math.round(value).toLocaleString()}`;
+              } else {
+                formattedValue = `${Math.round(value).toLocaleString()} ASTER`;
+              }
+              
+              return [formattedValue, label];
             }}
             labelStyle={{ color: '#9ca3af', marginBottom: '4px' }}
           />
@@ -143,7 +153,10 @@ export default function AccountValueChart({
           color: isDarkMode ? '#000000' : '#ffffff',
         }}
       >
-        ${Math.round((valueType === 'usdt' ? currentUsdtValue : currentValue) || 0).toLocaleString()}
+        {valueType === 'usdt' 
+          ? `$${Math.round(currentUsdtValue || 0).toLocaleString()}`
+          : `${Math.round(currentValue || 0).toLocaleString()} ASTER`
+        }
       </div>
       
       {/* aster.bot watermark */}

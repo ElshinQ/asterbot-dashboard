@@ -443,12 +443,14 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
     hour_timestamp: string;
     account_value: string;
     usdt_balance: string;
+    aster_qty: string;
   }>(
     `
     SELECT 
       date_trunc('hour', decided_at) as hour_timestamp,
       AVG((base_qty * last_close) + usdt_free) as account_value,
-      AVG(usdt_free) as usdt_balance
+      AVG(usdt_free) as usdt_balance,
+      AVG(base_qty) as aster_qty
     FROM ichigo.decisions
     WHERE decided_at >= NOW() - INTERVAL '${hours} hours'
     GROUP BY date_trunc('hour', decided_at)
@@ -460,6 +462,7 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
     timestamp: row.hour_timestamp,
     accountValue: parseFloat(row.account_value),
     usdtBalance: parseFloat(row.usdt_balance),
+    asterQty: parseFloat(row.aster_qty),
   }));
 }
 

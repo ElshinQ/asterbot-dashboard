@@ -60,6 +60,7 @@ export interface HistoricalDataPoint {
   timestamp: string;
   accountValue: number;
   usdtBalance: number;
+  asterQty: number;
 }
 
 export interface RecentDecision {
