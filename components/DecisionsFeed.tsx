@@ -5,9 +5,10 @@ import type { RecentDecision } from '@/lib/types';
 
 interface DecisionsFeedProps {
   decisions: RecentDecision[];
+  isDarkMode?: boolean;
 }
 
-export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
+export default function DecisionsFeed({ decisions, isDarkMode = false }: DecisionsFeedProps) {
   const [expandedDecisions, setExpandedDecisions] = useState<Set<string>>(new Set());
 
   const toggleExpand = (uid: string) => {
@@ -61,7 +62,12 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
             return (
               <div
                 key={decision.decisionUid}
-                className="border-2 border-gray-900 p-3 hover:bg-gray-50 transition-colors"
+                className="border-2 p-3 transition-colors"
+                style={{
+                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -79,8 +85,14 @@ export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-2 text-xs text-gray-600 dark:text-gray-300 font-mono">
-                  <span className="bg-gray-900 dark:bg-green-500 text-white dark:text-black px-2 py-1 font-bold text-[10px]">
+                <div className="flex items-center gap-3 mb-2 text-xs font-mono" style={{ color: isDarkMode ? '#d1d5db' : '#4b5563' }}>
+                  <span 
+                    className="px-2 py-1 font-bold text-[10px]"
+                    style={{
+                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      color: isDarkMode ? '#000000' : '#ffffff',
+                    }}
+                  >
                     {decision.regimeKey}
                   </span>
                   <span className="font-bold">RSI: {decision.rsi14_3m.toFixed(1)}</span>

@@ -147,7 +147,13 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* LEFT SIDE - CHART (2/3) */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-900 border-2 border-gray-900 dark:border-green-500 p-4 md:p-6">
+            <div 
+              className="border-2 p-4 md:p-6"
+              style={{
+                backgroundColor: isDarkMode ? '#111827' : '#ffffff',
+                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              }}
+            >
               {/* Chart Controls */}
               <div className="flex flex-wrap items-center justify-between gap-2 md:gap-3 mb-4 md:mb-6">
                 {/* Time Range */}
@@ -452,7 +458,13 @@ export default function Dashboard() {
                             {stats.openOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                className="border-2 p-3 transition-colors"
+                              style={{
+                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                backgroundColor: 'transparent',
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
@@ -499,7 +511,13 @@ export default function Dashboard() {
                             {stats.filledOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                className="border-2 p-3 transition-colors"
+                              style={{
+                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                backgroundColor: 'transparent',
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
@@ -565,7 +583,13 @@ export default function Dashboard() {
                             {stats.canceledOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                className="border-2 p-3 transition-colors"
+                              style={{
+                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                backgroundColor: 'transparent',
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
@@ -618,7 +642,7 @@ export default function Dashboard() {
                 {/* DECISIONS TAB */}
                 {activeTab === 'decisions' && (
                   <div>
-                      <DecisionsFeed decisions={stats.recentDecisions} />
+                      <DecisionsFeed decisions={stats.recentDecisions} isDarkMode={isDarkMode} />
                     </div>
                 )}
 
