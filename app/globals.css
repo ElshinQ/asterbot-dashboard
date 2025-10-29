@@ -183,6 +183,10 @@
   color: #00ff00;
 }
 
+.dark .text-gray-700 {
+  color: #e5e7eb; /* Light gray for readability */
+}
+
 .dark .text-gray-600 {
   color: #00cc00;
 }
@@ -193,6 +197,10 @@
 
 .dark .text-gray-400 {
   color: #008800;
+}
+
+.dark .text-gray-200 {
+  color: #f3f4f6; /* Very light gray for readability */
 }
 
 .dark .text-green-600,
