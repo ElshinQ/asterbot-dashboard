@@ -50,13 +50,13 @@ export default function TickerTape({
         
         {/* Desktop Layout - Horizontal */}
         <div className="hidden md:flex items-center justify-between">
-          <div className="flex items-center gap-8 text-xs font-mono">
+          <div className="flex items-center gap-8 text-sm font-mono">
             <div className="flex items-center gap-2">
-              <span className="text-gray-900 text-sm font-bold">{symbol}</span>
-              <span className="text-gray-900 font-semibold text-lg">${formattedPrice}</span>
+              <span className="text-gray-900 font-bold">{symbol}</span>
+              <span className="text-gray-900 font-semibold">${formattedPrice}</span>
             </div>
           </div>
-          <div className="flex items-center gap-6 text-xs font-mono">
+          <div className="flex items-center gap-6 text-sm font-mono">
             <div className="flex items-center gap-2">
               <span className="text-gray-900">72H HIGHEST:</span>
               <span className="text-green-600 font-semibold">${formattedHighest}</span>
