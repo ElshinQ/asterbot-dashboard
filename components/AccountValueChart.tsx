@@ -63,7 +63,7 @@ export default function AccountValueChart({
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: 80, left: 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: 95, left: 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -213,6 +213,7 @@ export default function AccountValueChart({
             dataKey="balance"
             fill="url(#balanceGradient)"
             stroke="none"
+            legendType="none"
           />
           
           {/* Area fill for Price */}
@@ -222,6 +223,7 @@ export default function AccountValueChart({
             dataKey="price"
             fill="url(#priceGradient)"
             stroke="none"
+            legendType="none"
           />
           
           {/* Balance Line */}

@@ -20,12 +20,37 @@ export default function LoadingState() {
         <img 
           src="/ichigo-logo.png" 
           alt="ICHIGO Crypto Bot" 
-          className="h-32 w-auto mx-auto mb-6 animate-pulse"
+          className="h-32 w-auto mx-auto mb-8 animate-pulse"
         />
-        <div 
-          className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 mb-4"
-          style={{ borderColor: isDarkMode ? '#00ff00' : '#1f2937' }}
-        ></div>
+        
+        {/* Loading Boxes */}
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <div 
+            className="w-3 h-3 border-2 animate-pulse"
+            style={{ 
+              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              animationDelay: '0ms',
+              animationDuration: '1s'
+            }}
+          ></div>
+          <div 
+            className="w-3 h-3 border-2 animate-pulse"
+            style={{ 
+              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              animationDelay: '200ms',
+              animationDuration: '1s'
+            }}
+          ></div>
+          <div 
+            className="w-3 h-3 border-2 animate-pulse"
+            style={{ 
+              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              animationDelay: '400ms',
+              animationDuration: '1s'
+            }}
+          ></div>
+        </div>
+        
         <div 
           className="text-xs font-mono uppercase tracking-widest font-bold"
           style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}

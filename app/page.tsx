@@ -154,7 +154,7 @@ export default function Dashboard() {
                 className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ 
-                  x: isDarkMode ? -90 : 0,
+                  x: isDarkMode ? -140 : 0,
                   opacity: 1,
                 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
