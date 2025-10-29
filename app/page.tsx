@@ -11,6 +11,8 @@ import AnimatedNumber from '@/components/AnimatedNumber';
 type TabType = 'overview' | 'orders' | 'decisions' | 'position';
 type TimeRange = 'all' | '72h';
 type ChartMode = 'value' | 'percent';
+type ValueType = 'total' | 'usdt';
+type OrderFilter = 'open' | 'filled' | 'closed';
 
 export default function Dashboard() {
   const { data: stats, isLoading, error } = useStats();
@@ -18,6 +20,8 @@ export default function Dashboard() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
   const [chartMode, setChartMode] = useState<ChartMode>('value');
+  const [valueType, setValueType] = useState<ValueType>('total');
+  const [orderFilter, setOrderFilter] = useState<OrderFilter>('open');
 
   // Apply dark mode to document
   useEffect(() => {
@@ -145,7 +149,8 @@ export default function Dashboard() {
           <div className="lg:col-span-2">
             <div className="bg-white border-2 border-gray-900 p-4 md:p-6">
               {/* Chart Controls */}
-              <div className="flex items-center justify-between mb-4 md:mb-6">
+              <div className="flex flex-wrap items-center justify-between gap-2 md:gap-3 mb-4 md:mb-6">
+                {/* Time Range */}
                 <div className="flex items-center gap-2 md:gap-3">
                   <button 
                     onClick={() => setTimeRange('all')}
@@ -168,6 +173,32 @@ export default function Dashboard() {
                     72H
                   </button>
                 </div>
+                
+                {/* Value Type Toggle */}
+                <div className="flex items-center gap-2 md:gap-3">
+                  <button 
+                    onClick={() => setValueType('total')}
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                      valueType === 'total' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
+                    TOTAL
+                  </button>
+                  <button 
+                    onClick={() => setValueType('usdt')}
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                      valueType === 'usdt' 
+                        ? 'bg-gray-900 text-white' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                    }`}
+                  >
+                    USDT
+                  </button>
+                </div>
+
+                {/* Chart Mode */}
                 <div className="flex items-center gap-1 md:gap-2">
                   <button 
                     onClick={() => setChartMode('value')}
@@ -194,7 +225,7 @@ export default function Dashboard() {
 
               {/* Chart Title */}
               <h2 className="text-sm font-mono text-gray-600 uppercase tracking-widest mb-4 font-bold">
-                TOTAL ACCOUNT VALUE
+                {valueType === 'usdt' ? 'USDT BALANCE' : 'TOTAL ACCOUNT VALUE'}
               </h2>
 
               {/* Chart */}
@@ -202,7 +233,9 @@ export default function Dashboard() {
                 <AccountValueChart
                   data={getFilteredData()}
                   currentValue={stats.accountValue}
+                  currentUsdtValue={stats.usdtBalance}
                   chartMode={chartMode}
+                  valueType={valueType}
                 />
               </div>
             </div>
@@ -365,52 +398,208 @@ export default function Dashboard() {
                   </div>
                 )}
 
-                {/* OPEN ORDERS TAB */}
+                {/* ORDERS TAB */}
                 {activeTab === 'orders' && (
                   <div className="space-y-3">
+                    {/* Order Filter Buttons */}
+                    <div className="flex items-center gap-2 mb-4">
+                      <button 
+                        onClick={() => setOrderFilter('open')}
+                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                          orderFilter === 'open' 
+                            ? 'bg-gray-900 text-white' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                        }`}
+                      >
+                        OPEN
+                      </button>
+                      <button 
+                        onClick={() => setOrderFilter('filled')}
+                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                          orderFilter === 'filled' 
+                            ? 'bg-gray-900 text-white' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                        }`}
+                      >
+                        FILLED
+                      </button>
+                      <button 
+                        onClick={() => setOrderFilter('closed')}
+                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                          orderFilter === 'closed' 
+                            ? 'bg-gray-900 text-white' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                        }`}
+                      >
+                        CLOSED
+                      </button>
+                    </div>
+
                     <h3 className="text-sm font-mono font-bold uppercase mb-4">
-                      Open TP Orders
+                      {orderFilter === 'open' ? 'Open TP Orders' : orderFilter === 'filled' ? 'Filled Orders' : 'Closed Orders'}
                     </h3>
-                    {stats.openOrders.length === 0 ? (
-                      <div className="text-xs font-mono text-gray-500">
-                        No open orders
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        {stats.openOrders.map((order) => (
-                          <div
-                            key={order.orderId}
-                            className="border-2 border-gray-900 p-3 hover:bg-gray-50"
-                          >
-                            <div className="flex justify-between items-start mb-2">
-                              <div className="text-xs font-mono font-bold">
-                                TP #{order.orderId}
-                              </div>
-                              <div className="text-xs font-mono font-bold bg-green-100 text-green-800 px-2 py-1">
-                                {order.status}
-                              </div>
-                            </div>
-                            <div className="space-y-1 text-xs font-mono">
-                              <div className="flex justify-between">
-                                <span className="text-gray-600 font-bold">Price:</span>
-                                <span className="font-bold">${order.price.toFixed(5)}</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600 font-bold">Quantity:</span>
-                                <span className="font-bold">{order.quantity.toFixed(2)} ASTER</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600 font-bold">Value:</span>
-                                <span className="font-bold">${(order.price * order.quantity).toFixed(2)}</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600 font-bold">Age:</span>
-                                <span className="font-bold">{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
-                              </div>
-                            </div>
+                    
+                    {/* Open Orders */}
+                    {orderFilter === 'open' && (
+                      <>
+                        {stats.openOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500">
+                            No open orders
                           </div>
-                        ))}
-                      </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {stats.openOrders.map((order) => (
+                              <div
+                                key={order.orderId}
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="text-xs font-mono font-bold">
+                                    TP #{order.orderId}
+                                  </div>
+                                  <div className="text-xs font-mono font-bold bg-green-100 dark:bg-green-500 text-green-800 dark:text-black px-2 py-1">
+                                    {order.status}
+                                  </div>
+                                </div>
+                                <div className="space-y-1 text-xs font-mono">
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
+                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
+                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Value:</span>
+                                    <span className="font-bold dark:text-gray-200">${(order.price * order.quantity).toFixed(2)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Age:</span>
+                                    <span className="font-bold dark:text-gray-200">{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {/* Filled Orders */}
+                    {orderFilter === 'filled' && (
+                      <>
+                        {stats.filledOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500">
+                            No filled orders
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {stats.filledOrders.map((order) => (
+                              <div
+                                key={order.orderId}
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="text-xs font-mono font-bold">
+                                    #{order.orderId}
+                                  </div>
+                                  <div className="text-xs font-mono font-bold bg-green-100 dark:bg-green-500 text-green-800 dark:text-black px-2 py-1">
+                                    FILLED
+                                  </div>
+                                </div>
+                                <div className="space-y-1 text-xs font-mono">
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
+                                    <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                      {order.side}
+                                    </span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
+                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
+                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Value:</span>
+                                    <span className="font-bold dark:text-gray-200">${(order.price * order.quantity).toFixed(2)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Filled:</span>
+                                    <span className="font-bold dark:text-gray-200 text-[10px]">
+                                      {new Date(order.updatedAt).toLocaleString('en-US', { 
+                                        month: 'short', 
+                                        day: 'numeric', 
+                                        hour: '2-digit', 
+                                        minute: '2-digit' 
+                                      })}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {/* Closed Orders */}
+                    {orderFilter === 'closed' && (
+                      <>
+                        {stats.closedOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500">
+                            No closed orders
+                          </div>
+                        ) : (
+                          <div className="space-y-3">
+                            {stats.closedOrders.map((order) => (
+                              <div
+                                key={order.orderId}
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <div className="text-xs font-mono font-bold">
+                                    #{order.orderId}
+                                  </div>
+                                  <div className="text-xs font-mono font-bold bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-300 px-2 py-1">
+                                    {order.status}
+                                  </div>
+                                </div>
+                                <div className="space-y-1 text-xs font-mono">
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
+                                    <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                      {order.side}
+                                    </span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
+                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
+                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Updated:</span>
+                                    <span className="font-bold dark:text-gray-200 text-[10px]">
+                                      {new Date(order.updatedAt).toLocaleString('en-US', { 
+                                        month: 'short', 
+                                        day: 'numeric', 
+                                        hour: '2-digit', 
+                                        minute: '2-digit' 
+                                      })}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 )}

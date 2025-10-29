@@ -6,25 +6,41 @@ import type { HistoricalDataPoint } from '@/lib/types';
 interface AccountValueChartProps {
   data: HistoricalDataPoint[];
   currentValue: number;
+  currentUsdtValue: number;
   chartMode?: 'value' | 'percent';
+  valueType?: 'total' | 'usdt';
 }
 
-export default function AccountValueChart({ data, currentValue, chartMode = 'value' }: AccountValueChartProps) {
+export default function AccountValueChart({ 
+  data, 
+  currentValue, 
+  currentUsdtValue,
+  chartMode = 'value',
+  valueType = 'total'
+}: AccountValueChartProps) {
+  // Get the actual value based on valueType
+  const rawValue = (point: HistoricalDataPoint) => 
+    valueType === 'usdt' ? point.usdtBalance : point.accountValue;
+  
   // Calculate baseline for percentage mode (first value)
-  const baseValue = data.length > 0 ? data[0].accountValue : currentValue;
+  const baseValue = data.length > 0 ? rawValue(data[0]) : (valueType === 'usdt' ? currentUsdtValue : currentValue);
+  
   // Format data for Recharts - cleaner time format
-  const chartData = data.map((point, index) => ({
-    time: new Date(point.timestamp).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }),
-    value: chartMode === 'percent' 
-      ? ((point.accountValue - baseValue) / baseValue) * 100 
-      : point.accountValue,
-    index,
-  }));
+  const chartData = data.map((point, index) => {
+    const pointValue = rawValue(point);
+    return {
+      time: new Date(point.timestamp).toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      value: chartMode === 'percent' 
+        ? ((pointValue - baseValue) / baseValue) * 100 
+        : pointValue,
+      index,
+    };
+  });
 
   // Custom tick formatter to show fewer labels (every 6 hours = every ~6 data points)
   const customTickFormatter = (value: string, index: number) => {
@@ -81,10 +97,15 @@ export default function AccountValueChart({ data, currentValue, chartMode = 'val
               color: 'var(--tooltip-text, #f3f4f6)',
               padding: '8px 12px',
             }}
-            formatter={(value: number) => [
-              chartMode === 'percent' ? `${value.toFixed(2)}%` : `$${value.toFixed(2)}`, 
-              chartMode === 'percent' ? 'Change' : 'Account Value'
-            ]}
+            formatter={(value: number) => {
+              const label = chartMode === 'percent' 
+                ? 'Change' 
+                : (valueType === 'usdt' ? 'USDT Balance' : 'Total Value');
+              return [
+                chartMode === 'percent' ? `${value.toFixed(2)}%` : `$${value.toFixed(2)}`, 
+                label
+              ];
+            }}
             labelStyle={{ color: 'var(--tooltip-label, #9ca3af)', marginBottom: '4px' }}
           />
           <Line
@@ -101,7 +122,7 @@ export default function AccountValueChart({ data, currentValue, chartMode = 'val
       
       {/* Current value indicator - positioned like nof1.ai */}
       <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-blue-500 dark:bg-green-500 text-white dark:text-black px-3 md:px-4 py-1.5 md:py-2 rounded-md text-[10px] md:text-xs font-mono font-semibold shadow-lg">
-        ${currentValue.toFixed(2)}
+        ${(valueType === 'usdt' ? currentUsdtValue : currentValue).toFixed(2)}
       </div>
       
       {/* aster.bot watermark */}

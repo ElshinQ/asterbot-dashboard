@@ -442,11 +442,13 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
   const result = await query<{
     hour_timestamp: string;
     account_value: string;
+    usdt_balance: string;
   }>(
     `
     SELECT 
       date_trunc('hour', decided_at) as hour_timestamp,
-      AVG((base_qty * last_close) + usdt_free) as account_value
+      AVG((base_qty * last_close) + usdt_free) as account_value,
+      AVG(usdt_free) as usdt_balance
     FROM ichigo.decisions
     WHERE decided_at >= NOW() - INTERVAL '${hours} hours'
     GROUP BY date_trunc('hour', decided_at)
@@ -457,6 +459,7 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
   return result.map((row) => ({
     timestamp: row.hour_timestamp,
     accountValue: parseFloat(row.account_value),
+    usdtBalance: parseFloat(row.usdt_balance),
   }));
 }
 
@@ -464,7 +467,7 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
  * Aggregate all dashboard statistics
  */
 export async function getDashboardStats(): Promise<DashboardStats> {
-  const [position, trades, botStats, historicalData, recentDecisions, priceHighLow, openOrders] = await Promise.all([
+  const [position, trades, botStats, historicalData, recentDecisions, priceHighLow, openOrders, filledOrders, closedOrders] = await Promise.all([
     getCurrentPosition(),
     getRecentTrades(50),
     getBotStats(),
@@ -472,6 +475,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     getRecentDecisions(50),
     getPriceHighLow(72),
     getOpenOrders(),
+    getFilledOrders(),
+    getClosedOrders(),
   ]);
 
   // Calculate realized P&L from trades
@@ -542,6 +547,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     historicalData,
     recentDecisions,
     openOrders,
+    filledOrders,
+    closedOrders,
   };
 }
 

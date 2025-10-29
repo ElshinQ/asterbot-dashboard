@@ -59,6 +59,7 @@ export interface BotStats {
 export interface HistoricalDataPoint {
   timestamp: string;
   accountValue: number;
+  usdtBalance: number;
 }
 
 export interface RecentDecision {
@@ -85,6 +86,34 @@ export interface OpenOrder {
   status: string;
   createdAt: string;
   ageMinutes: number;
+}
+
+export interface FilledOrder {
+  orderId: number;
+  exchangeOrderId: string;
+  clientOrderId: string;
+  symbol: string;
+  side: string;
+  type: string;
+  price: number;
+  quantity: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ClosedOrder {
+  orderId: number;
+  exchangeOrderId: string;
+  clientOrderId: string;
+  symbol: string;
+  side: string;
+  type: string;
+  price: number;
+  quantity: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface DashboardStats {
@@ -122,5 +151,7 @@ export interface DashboardStats {
   historicalData: HistoricalDataPoint[];
   recentDecisions: RecentDecision[];
   openOrders: OpenOrder[];
+  filledOrders: FilledOrder[];
+  closedOrders: ClosedOrder[];
 }
 
