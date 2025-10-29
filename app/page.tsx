@@ -513,20 +513,26 @@ export default function Dashboard() {
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
                                     <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                                      {order.side}
+                                      {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
-                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                    <span className="font-bold dark:text-gray-200">
+                                      ${order.price ? order.price.toFixed(5) : 'N/A'}
+                                    </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
-                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                    <span className="font-bold dark:text-gray-200">
+                                      {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
+                                    </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Value:</span>
-                                    <span className="font-bold dark:text-gray-200">${(order.price * order.quantity).toFixed(2)}</span>
+                                    <span className="font-bold dark:text-gray-200">
+                                      ${(order.price && order.quantity) ? (order.price * order.quantity).toFixed(2) : 'N/A'}
+                                    </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Filled:</span>
@@ -573,16 +579,20 @@ export default function Dashboard() {
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
                                     <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
-                                      {order.side}
+                                      {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
-                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                    <span className="font-bold dark:text-gray-200">
+                                      ${order.price ? order.price.toFixed(5) : 'N/A'}
+                                    </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
-                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                    <span className="font-bold dark:text-gray-200">
+                                      {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
+                                    </span>
                                   </div>
                                   <div className="flex justify-between">
                                     <span className="text-gray-600 dark:text-gray-400 font-bold">Updated:</span>
