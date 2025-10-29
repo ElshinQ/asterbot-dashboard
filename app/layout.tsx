@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   description: 'Real-time statistics for ICHIGO Crypto Bot trading system',
   icons: {
     icon: [
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon.png', sizes: '16x16', type: 'image/png' },
+      { url: '/ichigo-logo.png', sizes: 'any', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: '/icon.png',
+    apple: '/ichigo-logo.png',
   },
 };
 

@@ -175,13 +175,13 @@ export default function Dashboard() {
             >
               <div 
                 className="hidden md:block text-xs font-mono"
-                style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+                style={{ color: isDarkMode ? '#00aa00' : '#000000' }}
               >
                 POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
               </div>
               <div 
                 className="md:hidden text-[10px] font-mono"
-                style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+                style={{ color: isDarkMode ? '#00aa00' : '#000000' }}
               >
                 LIVE
               </div>
