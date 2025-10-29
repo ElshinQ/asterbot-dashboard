@@ -133,11 +133,11 @@
   display: none; /* Chrome, Safari, Opera */
 }
 
-/* Dark Mode Theme */
+/* Dark Mode Theme - True Black & Green Matrix Style */
 .dark {
-  background-color: #0a0a0a;
-  color: #00ff00;
-  --tooltip-bg: #1a1a1a;
+  background-color: #000000;
+  color: #ffffff;
+  --tooltip-bg: #000000;
   --tooltip-border: #00ff00;
   --tooltip-text: #00ff00;
   --tooltip-label: #00aa00;
@@ -146,23 +146,23 @@
 
 /* Dark Mode Scrollbar */
 .dark ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #000000;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #10b981;
+  background: #00ff00;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: #059669;
+  background: #00cc00;
 }
 
 .dark .bg-white {
-  background-color: #1a1a1a;
+  background-color: #000000;
 }
 
 .dark .bg-gray-50 {
-  background-color: #0f0f0f;
+  background-color: #000000;
 }
 
 .dark .bg-gray-900 {
@@ -176,19 +176,19 @@
 
 .dark .border-gray-200,
 .dark .border-gray-300 {
-  border-color: #2a2a2a;
+  border-color: #00ff00;
 }
 
 .dark .text-gray-900 {
-  color: #00ff00;
+  color: #ffffff;
 }
 
 .dark .text-gray-700 {
-  color: #e5e7eb; /* Light gray for readability */
+  color: #ffffff;
 }
 
 .dark .text-gray-600 {
-  color: #00cc00;
+  color: #00ff00;
 }
 
 .dark .text-gray-500 {
@@ -200,7 +200,7 @@
 }
 
 .dark .text-gray-200 {
-  color: #f3f4f6; /* Very light gray for readability */
+  color: #ffffff;
 }
 
 .dark .text-green-600,
@@ -218,7 +218,7 @@
 }
 
 .dark .bg-green-100 {
-  background-color: #003300;
+  background-color: #002200;
 }
 
 .dark .text-green-800 {
@@ -226,11 +226,27 @@
 }
 
 .dark .bg-red-50 {
-  background-color: #1a0a0a;
+  background-color: #220000;
+}
+
+.dark .bg-red-100 {
+  background-color: #330000;
+}
+
+.dark .bg-red-900 {
+  background-color: #220000;
+}
+
+.dark .text-red-300 {
+  color: #ff6666;
 }
 
 .dark .text-red-600 {
-  color: #ff6666;
+  color: #ff4444;
+}
+
+.dark .text-red-800 {
+  color: #ff8888;
 }
 
 .dark .border-red-600 {
@@ -238,9 +254,10 @@
 }
 
 .dark .hover\:bg-gray-50:hover {
-  background-color: #0f0f0f;
+  background-color: #001100;
 }
 
 .dark .hover\:bg-gray-700:hover {
-  background-color: #00dd00;
+  background-color: #00ff00;
+  color: #000000;
 }

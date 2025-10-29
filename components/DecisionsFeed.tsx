@@ -5,10 +5,9 @@ import type { RecentDecision } from '@/lib/types';
 
 interface DecisionsFeedProps {
   decisions: RecentDecision[];
-  isDarkMode?: boolean;
 }
 
-export default function DecisionsFeed({ decisions, isDarkMode = false }: DecisionsFeedProps) {
+export default function DecisionsFeed({ decisions }: DecisionsFeedProps) {
   const [expandedDecisions, setExpandedDecisions] = useState<Set<string>>(new Set());
 
   const toggleExpand = (uid: string) => {
@@ -62,12 +61,7 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
             return (
               <div
                 key={decision.decisionUid}
-                className="border-2 p-3 transition-colors"
-                style={{
-                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                className="border-2 border-gray-900 p-3 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -76,29 +70,17 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                     >
                       {decision.action}
                     </span>
-                    <span 
-                      className="text-xs font-mono font-bold"
-                      style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}
-                    >
+                    <span className="text-xs text-gray-500 font-mono font-bold">
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
-                  <span 
-                    className="text-sm font-bold font-mono"
-                    style={{ color: isDarkMode ? '#00ff00' : '#111827' }}
-                  >
+                  <span className="text-sm font-bold text-gray-900 dark:text-green-400 font-mono">
                     ${decision.lastClose.toFixed(3)}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 mb-2 text-xs font-mono" style={{ color: isDarkMode ? '#d1d5db' : '#4b5563' }}>
-                  <span 
-                    className="px-2 py-1 font-bold text-[10px]"
-                    style={{
-                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
-                      color: isDarkMode ? '#000000' : '#ffffff',
-                    }}
-                  >
+                <div className="flex items-center gap-3 mb-2 text-xs text-gray-600 dark:text-gray-300 font-mono">
+                  <span className="bg-gray-900 dark:bg-green-500 text-white dark:text-black px-2 py-1 font-bold text-[10px]">
                     {decision.regimeKey}
                   </span>
                   <span className="font-bold">RSI: {decision.rsi14_3m.toFixed(1)}</span>
@@ -112,10 +94,7 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                   </span>
                 </div>
 
-                <div 
-                  className="text-xs leading-relaxed font-mono"
-                  style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}
-                >
+                <div className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed font-mono">
                   <p className="whitespace-pre-wrap break-words">
                     {isExpanded ? decision.note : notePreview}
                     {!isExpanded && needsExpansion && '...'}
@@ -123,12 +102,7 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                   {needsExpansion && (
                     <button
                       onClick={() => toggleExpand(decision.decisionUid)}
-                      className="mt-2 font-bold uppercase text-xs"
-                      style={{ 
-                        color: isDarkMode ? '#00ff00' : '#2563eb',
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = isDarkMode ? '#22c55e' : '#1e40af'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = isDarkMode ? '#00ff00' : '#2563eb'}
+                      className="mt-2 text-blue-600 dark:text-green-500 hover:text-blue-800 dark:hover:text-green-400 font-bold uppercase text-xs"
                     >
                       {isExpanded ? '▲ Show Less' : '▼ Read Full Decision'}
                     </button>

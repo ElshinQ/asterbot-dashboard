@@ -125,10 +125,30 @@ export default function Dashboard() {
               </div>
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="px-3 py-1.5 bg-gray-900 text-white text-xs font-mono font-bold hover:bg-gray-700 rounded"
-                title="Toggle Dark Mode"
+                className="relative flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-mono font-bold transition-all"
+                style={{
+                  backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                  color: isDarkMode ? '#00ff00' : '#1f2937',
+                }}
+                title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               >
-                {isDarkMode ? '☀️' : '🌙'}
+                <span className="uppercase tracking-wider">{isDarkMode ? 'DARK' : 'LIGHT'}</span>
+                <div 
+                  className="w-8 h-4 border-2 relative transition-all"
+                  style={{
+                    borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    backgroundColor: 'transparent',
+                  }}
+                >
+                  <div 
+                    className="absolute top-0 h-full w-3 transition-all"
+                    style={{
+                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      left: isDarkMode ? 'calc(100% - 12px)' : '0',
+                    }}
+                  />
+                </div>
               </button>
             </div>
           </div>
@@ -150,7 +170,7 @@ export default function Dashboard() {
             <div 
               className="border-2 p-4 md:p-6"
               style={{
-                backgroundColor: isDarkMode ? '#111827' : '#ffffff',
+                backgroundColor: isDarkMode ? '#000000' : '#ffffff',
                 borderColor: isDarkMode ? '#00ff00' : '#1f2937',
               }}
             >
@@ -238,7 +258,7 @@ export default function Dashboard() {
               {/* Chart Title */}
               <h2 
                 className="text-sm font-mono uppercase tracking-widest mb-4 font-bold"
-                style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}
+                style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}
               >
                 {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QUANTITY'}
               </h2>
@@ -504,7 +524,7 @@ export default function Dashboard() {
                                 borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
-                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
                               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
@@ -517,20 +537,20 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${order.price.toFixed(5)}</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${order.price.toFixed(5)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{order.quantity.toFixed(2)} ASTER</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{order.quantity.toFixed(2)} ASTER</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Value:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${(order.price * order.quantity).toFixed(2)}</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${(order.price * order.quantity).toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Age:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Age:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
                                   </div>
                                 </div>
                               </div>
@@ -557,7 +577,7 @@ export default function Dashboard() {
                                 borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
-                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
                               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
@@ -570,35 +590,35 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Side:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Side:</span>
                                     <span 
                                       className="font-bold"
-                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
+                                      style={{ color: order.side === 'BUY' ? '#00ff00' : '#ff4444' }}
                                     >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Value:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${(order.price && order.quantity) ? (order.price * order.quantity).toFixed(2) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Filled:</span>
-                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Filled:</span>
+                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
                                         day: 'numeric', 
@@ -632,7 +652,7 @@ export default function Dashboard() {
                                 borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
-                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#1f2937' : '#f9fafb'}
+                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
                               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                               >
                                 <div className="flex justify-between items-start mb-2">
@@ -645,29 +665,29 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Side:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Side:</span>
                                     <span 
                                       className="font-bold"
-                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
+                                      style={{ color: order.side === 'BUY' ? '#00ff00' : '#ff4444' }}
                                     >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Updated:</span>
-                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Updated:</span>
+                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
                                         day: 'numeric', 
@@ -696,15 +716,15 @@ export default function Dashboard() {
                 {/* POSITION TAB */}
                 {activeTab === 'position' && (
                   <div className="space-y-3">
-                    <h3 className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>
+                    <h3 className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>
                       Current Position
                     </h3>
                     <div className="space-y-2 text-sm font-mono">
                       <div className="flex justify-between">
-                        <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Status:</span>
+                        <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Status:</span>
                         <span 
                           className="font-bold"
-                          style={{ color: stats.position.hasPosition ? '#16a34a' : (isDarkMode ? '#9ca3af' : '#9ca3af') }}
+                          style={{ color: stats.position.hasPosition ? '#00ff00' : (isDarkMode ? '#ffffff' : '#9ca3af') }}
                         >
                           {stats.position.hasPosition ? 'ACTIVE POSITION' : 'NO POSITION'}
                         </span>
@@ -712,26 +732,26 @@ export default function Dashboard() {
                       {stats.position.hasPosition && (
                         <>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Entry Price:</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${stats.position.entryPrice.toFixed(4)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Entry Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${stats.position.entryPrice.toFixed(4)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Current Quantity:</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.position.currentQty.toFixed(2)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Current Quantity:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.position.currentQty.toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Open TP Orders:</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.openTPOrders}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Open TP Orders:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.openTPOrders}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Current Price:</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${stats.currentPrice.toFixed(5)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Current Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${stats.currentPrice.toFixed(5)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Unrealized P&L:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Unrealized P&L:</span>
                             <span 
                               className="font-bold"
-                              style={{ color: stats.unrealizedPnL >= 0 ? '#16a34a' : '#dc2626' }}
+                              style={{ color: stats.unrealizedPnL >= 0 ? '#00ff00' : '#ff4444' }}
                             >
                               {stats.unrealizedPnL >= 0 ? '+' : ''}${stats.unrealizedPnL.toFixed(2)} ({stats.unrealizedPnLPercent.toFixed(2)}%)
                             </span>
@@ -739,27 +759,27 @@ export default function Dashboard() {
                         </>
                       )}
                       <div className="pt-3 mt-3 border-t-2 border-gray-900">
-                        <div className="text-sm font-mono font-bold uppercase mb-3" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>STATISTICS</div>
+                        <div className="text-sm font-mono font-bold uppercase mb-3" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>STATISTICS</div>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Total Decisions</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.totalDecisions.toLocaleString()}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Total Decisions</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.totalDecisions.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Buys</span>
-                            <span className="font-bold" style={{ color: '#16a34a' }}>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Buys</span>
+                            <span className="font-bold" style={{ color: '#00ff00' }}>
                               {stats.buyCount} ({((stats.buyCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Sells</span>
-                            <span className="font-bold" style={{ color: '#dc2626' }}>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Sells</span>
+                            <span className="font-bold" style={{ color: '#ff4444' }}>
                               {stats.sellCount} ({((stats.sellCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Holds</span>
-                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.holdCount}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Holds</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.holdCount}</span>
                           </div>
                         </div>
                       </div>
