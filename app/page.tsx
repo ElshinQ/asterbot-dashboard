@@ -147,7 +147,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* LEFT SIDE - CHART (2/3) */}
           <div className="lg:col-span-2">
-            <div className="bg-white border-2 border-gray-900 p-4 md:p-6">
+            <div className="bg-white dark:bg-gray-900 border-2 border-gray-900 dark:border-green-500 p-4 md:p-6">
               {/* Chart Controls */}
               <div className="flex flex-wrap items-center justify-between gap-2 md:gap-3 mb-4 md:mb-6">
                 {/* Time Range */}
@@ -156,8 +156,8 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('all')}
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       timeRange === 'all' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
                     ALL
@@ -166,8 +166,8 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('72h')}
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       timeRange === '72h' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
                     72H
@@ -180,18 +180,18 @@ export default function Dashboard() {
                     onClick={() => setValueType('total')}
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       valueType === 'total' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
-                    TOTAL
+                    ASTER
                   </button>
                   <button 
                     onClick={() => setValueType('usdt')}
                     className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
                       valueType === 'usdt' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
                     USDT
@@ -204,8 +204,8 @@ export default function Dashboard() {
                     onClick={() => setChartMode('value')}
                     className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
                       chartMode === 'value' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
                     $
@@ -214,8 +214,8 @@ export default function Dashboard() {
                     onClick={() => setChartMode('percent')}
                     className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
                       chartMode === 'percent' 
-                        ? 'bg-gray-900 text-white' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
+                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                     }`}
                   >
                     %
@@ -224,8 +224,8 @@ export default function Dashboard() {
               </div>
 
               {/* Chart Title */}
-              <h2 className="text-sm font-mono text-gray-600 uppercase tracking-widest mb-4 font-bold">
-                {valueType === 'usdt' ? 'USDT BALANCE' : 'TOTAL ACCOUNT VALUE'}
+              <h2 className="text-sm font-mono text-gray-600 dark:text-gray-400 uppercase tracking-widest mb-4 font-bold">
+                {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER VALUE'}
               </h2>
 
               {/* Chart */}
@@ -407,8 +407,8 @@ export default function Dashboard() {
                         onClick={() => setOrderFilter('open')}
                         className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                           orderFilter === 'open' 
-                            ? 'bg-gray-900 text-white' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                         }`}
                       >
                         OPEN
@@ -417,8 +417,8 @@ export default function Dashboard() {
                         onClick={() => setOrderFilter('filled')}
                         className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                           orderFilter === 'filled' 
-                            ? 'bg-gray-900 text-white' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                         }`}
                       >
                         FILLED
@@ -427,8 +427,8 @@ export default function Dashboard() {
                         onClick={() => setOrderFilter('closed')}
                         className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
                           orderFilter === 'closed' 
-                            ? 'bg-gray-900 text-white' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900'
+                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                         }`}
                       >
                         CLOSED
@@ -442,8 +442,8 @@ export default function Dashboard() {
                     {/* Open Orders */}
                     {orderFilter === 'open' && (
                       <>
-                        {stats.openOrders.length === 0 ? (
-                          <div className="text-xs font-mono text-gray-500">
+                        {!stats.openOrders || stats.openOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500 dark:text-gray-400">
                             No open orders
                           </div>
                         ) : (
@@ -451,7 +451,7 @@ export default function Dashboard() {
                             {stats.openOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
@@ -489,8 +489,8 @@ export default function Dashboard() {
                     {/* Filled Orders */}
                     {orderFilter === 'filled' && (
                       <>
-                        {stats.filledOrders.length === 0 ? (
-                          <div className="text-xs font-mono text-gray-500">
+                        {!stats.filledOrders || stats.filledOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500 dark:text-gray-400">
                             No filled orders
                           </div>
                         ) : (
@@ -498,7 +498,7 @@ export default function Dashboard() {
                             {stats.filledOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
@@ -549,8 +549,8 @@ export default function Dashboard() {
                     {/* Closed Orders */}
                     {orderFilter === 'closed' && (
                       <>
-                        {stats.closedOrders.length === 0 ? (
-                          <div className="text-xs font-mono text-gray-500">
+                        {!stats.closedOrders || stats.closedOrders.length === 0 ? (
+                          <div className="text-xs font-mono text-gray-500 dark:text-gray-400">
                             No closed orders
                           </div>
                         ) : (
@@ -558,7 +558,7 @@ export default function Dashboard() {
                             {stats.closedOrders.map((order) => (
                               <div
                                 key={order.orderId}
-                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                               >
                                 <div className="flex justify-between items-start mb-2">
                                   <div className="text-xs font-mono font-bold">
