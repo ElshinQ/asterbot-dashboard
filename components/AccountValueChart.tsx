@@ -54,25 +54,16 @@ export default function AccountValueChart({
   // Get current price from latest data point
   const currentPrice = data.length > 0 ? data[data.length - 1].asterPrice : 0;
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  
   return (
     <div 
-      className="relative border-2"
+      className="relative w-full h-[600px] md:h-[480px] border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         borderColor: isDarkMode ? '#16a34a' : '#1f2937',
-        width: isMobile ? '500px' : '100%',
-        height: isMobile ? '100vw' : '480px',
-        transform: isMobile ? 'rotate(90deg) translateY(-100%)' : 'none',
-        transformOrigin: isMobile ? 'top left' : 'center',
-        position: isMobile ? 'absolute' : 'relative',
-        left: isMobile ? '100%' : 'auto',
-        top: isMobile ? '0' : 'auto',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: isMobile ? 75 : 115, left: isMobile ? 10 : 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 115, left: 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -93,7 +84,7 @@ export default function AccountValueChart({
             dataKey="time"
             stroke={isDarkMode ? '#16a34a' : '#374151'}
             style={{ 
-              fontSize: '9px', 
+              fontSize: typeof window !== 'undefined' && window.innerWidth < 768 ? '8px' : '9px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
               fontWeight: 400, 
               fill: isDarkMode ? '#15803d' : '#6b7280' 
@@ -104,7 +95,7 @@ export default function AccountValueChart({
             textAnchor="end"
             height={70}
             interval="preserveStartEnd"
-            minTickGap={80}
+            minTickGap={typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 80}
           />
           
           {/* Left Y-Axis for Balance */}
@@ -112,7 +103,7 @@ export default function AccountValueChart({
             yAxisId="left"
             stroke={isDarkMode ? '#16a34a' : '#3b82f6'}
             style={{ 
-              fontSize: '10px', 
+              fontSize: typeof window !== 'undefined' && window.innerWidth < 768 ? '9px' : '10px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
               fontWeight: 600, 
               fill: isDarkMode ? '#16a34a' : '#3b82f6' 
@@ -133,7 +124,7 @@ export default function AccountValueChart({
             orientation="right"
             stroke={isDarkMode ? '#ff9500' : '#f59e0b'}
             style={{ 
-              fontSize: '10px', 
+              fontSize: typeof window !== 'undefined' && window.innerWidth < 768 ? '8px' : '10px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
               fontWeight: 600, 
               fill: isDarkMode ? '#ff9500' : '#f59e0b' 
@@ -145,7 +136,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={isMobile ? 70 : 90}
+            width={typeof window !== 'undefined' && window.innerWidth < 768 ? 55 : 90}
           />
           
           <Tooltip
@@ -300,7 +291,7 @@ export default function AccountValueChart({
           }}
         >
           <span className="opacity-70 mr-1">PRICE:</span>
-          ${currentPrice.toFixed(6)}
+          ${currentPrice.toFixed(5)}
         </div>
       </div>
       
