@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useStats } from '@/hooks/useStats';
 import AccountValueChart from '@/components/AccountValueChart';
 import TickerTape from '@/components/TickerTape';
@@ -103,7 +104,7 @@ export default function Dashboard() {
     >
       {/* Header */}
       <header 
-        className="border-b-2"
+        className="border-b-2 overflow-hidden"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
           borderColor: isDarkMode ? '#00ff00' : '#1f2937',
@@ -111,25 +112,62 @@ export default function Dashboard() {
       >
         <div className="px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="h-12 w-12 md:h-16 md:w-16 overflow-hidden flex items-center justify-center rounded-lg">
+            <motion.div 
+              className="flex items-center gap-2 md:gap-4"
+              initial={{ x: '50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <motion.div 
+                className="h-12 w-12 md:h-16 md:w-16 overflow-hidden flex items-center justify-center rounded-lg"
+                initial={{ scale: 1.2 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+              >
                 <img 
                   src="/ichigo-logo.png" 
                   alt="ICHIGO" 
                   className="w-24 md:w-32 object-cover object-top scale-110"
                   style={{ marginTop: '-12px' }}
                 />
-              </div>
-              <div className="border-l-2 border-gray-300 h-8 md:h-10 mx-1 md:mx-2"></div>
-              <nav className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono">
-                <span className="text-gray-900 font-bold uppercase tracking-wider">LIVE DASHBOARD</span>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="hidden md:block text-xs font-mono text-gray-500">
+              </motion.div>
+              <motion.div 
+                className="border-l-2 h-8 md:h-10 mx-1 md:mx-2"
+                style={{ borderColor: isDarkMode ? '#00ff00' : '#d1d5db' }}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              ></motion.div>
+              <motion.nav 
+                className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono"
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <span 
+                  className="font-bold uppercase tracking-wider"
+                  style={{ color: isDarkMode ? '#00ff00' : '#1f2937' }}
+                >
+                  LIVE DASHBOARD
+                </span>
+              </motion.nav>
+            </motion.div>
+            <motion.div 
+              className="flex items-center gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <div 
+                className="hidden md:block text-xs font-mono"
+                style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+              >
                 POWERED BY DEEPSEEK | AUTO-REFRESH: 3MIN
               </div>
-              <div className="md:hidden text-[10px] font-mono text-gray-500">
+              <div 
+                className="md:hidden text-[10px] font-mono"
+                style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+              >
                 LIVE
               </div>
               <button
@@ -159,7 +197,7 @@ export default function Dashboard() {
                   />
                 </div>
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </header>
@@ -490,8 +528,8 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('open')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'open' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                            color: orderFilter === 'open' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            backgroundColor: orderFilter === 'open' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'open' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                             borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                           }}
                         >
@@ -501,8 +539,8 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('filled')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'filled' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                            color: orderFilter === 'filled' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            backgroundColor: orderFilter === 'filled' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'filled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                             borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                           }}
                         >
@@ -512,8 +550,8 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('canceled')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'canceled' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
-                            color: orderFilter === 'canceled' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            backgroundColor: orderFilter === 'canceled' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'canceled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
                             borderColor: isDarkMode ? '#00ff00' : '#1f2937',
                           }}
                         >
