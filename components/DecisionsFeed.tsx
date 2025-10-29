@@ -76,11 +76,17 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                     >
                       {decision.action}
                     </span>
-                    <span className="text-xs text-gray-600 dark:text-gray-400 font-mono font-bold">
+                    <span 
+                      className="text-xs font-mono font-bold"
+                      style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}
+                    >
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
-                  <span className="text-sm font-bold text-gray-900 dark:text-green-400 font-mono">
+                  <span 
+                    className="text-sm font-bold font-mono"
+                    style={{ color: isDarkMode ? '#00ff00' : '#111827' }}
+                  >
                     ${decision.lastClose.toFixed(3)}
                   </span>
                 </div>
@@ -106,7 +112,10 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                   </span>
                 </div>
 
-                <div className="text-xs text-gray-900 dark:text-gray-200 leading-relaxed font-mono">
+                <div 
+                  className="text-xs leading-relaxed font-mono"
+                  style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}
+                >
                   <p className="whitespace-pre-wrap break-words">
                     {isExpanded ? decision.note : notePreview}
                     {!isExpanded && needsExpansion && '...'}
@@ -114,7 +123,12 @@ export default function DecisionsFeed({ decisions, isDarkMode = false }: Decisio
                   {needsExpansion && (
                     <button
                       onClick={() => toggleExpand(decision.decisionUid)}
-                      className="mt-2 text-blue-600 dark:text-green-500 hover:text-blue-800 dark:hover:text-green-400 font-bold uppercase text-xs"
+                      className="mt-2 font-bold uppercase text-xs"
+                      style={{ 
+                        color: isDarkMode ? '#00ff00' : '#2563eb',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = isDarkMode ? '#22c55e' : '#1e40af'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = isDarkMode ? '#00ff00' : '#2563eb'}
                     >
                       {isExpanded ? '▲ Show Less' : '▼ Read Full Decision'}
                     </button>

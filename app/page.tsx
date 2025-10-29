@@ -160,21 +160,23 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2 md:gap-3">
                   <button 
                     onClick={() => setTimeRange('all')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      timeRange === 'all' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: timeRange === 'all' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: timeRange === 'all' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     ALL
                   </button>
                   <button 
                     onClick={() => setTimeRange('72h')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      timeRange === '72h' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: timeRange === '72h' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: timeRange === '72h' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     72H
                   </button>
@@ -184,21 +186,23 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2 md:gap-3">
                   <button 
                     onClick={() => setValueType('total')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      valueType === 'total' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: valueType === 'total' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: valueType === 'total' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     ASTER
                   </button>
                   <button 
                     onClick={() => setValueType('usdt')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      valueType === 'usdt' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: valueType === 'usdt' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: valueType === 'usdt' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     USDT
                   </button>
@@ -208,21 +212,23 @@ export default function Dashboard() {
                 <div className="flex items-center gap-1 md:gap-2">
                   <button 
                     onClick={() => setChartMode('value')}
-                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
-                      chartMode === 'value' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: chartMode === 'value' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: chartMode === 'value' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     $
                   </button>
                   <button 
                     onClick={() => setChartMode('percent')}
-                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
-                      chartMode === 'percent' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900'
-                    }`}
+                    className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
+                    style={{
+                      backgroundColor: chartMode === 'percent' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                      color: chartMode === 'percent' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    }}
                   >
                     %
                   </button>
@@ -230,8 +236,11 @@ export default function Dashboard() {
               </div>
 
               {/* Chart Title */}
-              <h2 className="text-sm font-mono text-gray-600 dark:text-gray-400 uppercase tracking-widest mb-4 font-bold">
-                {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER VALUE'}
+              <h2 
+                className="text-sm font-mono uppercase tracking-widest mb-4 font-bold"
+                style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}
+              >
+                {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QUANTITY'}
               </h2>
 
               {/* Chart */}
@@ -412,31 +421,34 @@ export default function Dashboard() {
                     <div className="flex items-center gap-2 mb-4">
                       <button 
                           onClick={() => setOrderFilter('open')}
-                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                            orderFilter === 'open' 
-                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900'
-                          }`}
+                          className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
+                          style={{
+                            backgroundColor: orderFilter === 'open' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                            color: orderFilter === 'open' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                          }}
                         >
                           OPEN
                         </button>
                       <button 
                           onClick={() => setOrderFilter('filled')}
-                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                            orderFilter === 'filled' 
-                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900'
-                          }`}
+                          className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
+                          style={{
+                            backgroundColor: orderFilter === 'filled' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                            color: orderFilter === 'filled' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                          }}
                         >
                           FILLED
                         </button>
                       <button 
                           onClick={() => setOrderFilter('canceled')}
-                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                            orderFilter === 'canceled' 
-                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                              : 'bg-white text-gray-600 border-2 border-gray-900'
-                          }`}
+                          className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
+                          style={{
+                            backgroundColor: orderFilter === 'canceled' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                            color: orderFilter === 'canceled' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                          }}
                         >
                           CANCEL
                         </button>
