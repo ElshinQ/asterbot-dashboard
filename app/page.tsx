@@ -262,7 +262,7 @@ export default function Dashboard() {
             <div className="bg-white border-2 border-gray-900 lg:sticky lg:top-6">
               {/* Tab Navigation - Responsive Grid */}
               <div className="border-b-2 border-gray-900">
-                <div className="grid grid-cols-2 md:grid-cols-4 border-b-2 border-gray-900 dark:border-green-500">
+                <div className="grid grid-cols-2 md:grid-cols-4">
                   <button
                       onClick={() => setActiveTab('overview')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
@@ -696,64 +696,70 @@ export default function Dashboard() {
                 {/* POSITION TAB */}
                 {activeTab === 'position' && (
                   <div className="space-y-3">
-                    <h3 className="text-sm font-mono font-bold uppercase mb-4">
+                    <h3 className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>
                       Current Position
                     </h3>
-                    <div className="space-y-3 text-sm font-mono">
+                    <div className="space-y-2 text-sm font-mono">
                       <div className="flex justify-between">
-                        <span className="text-gray-600 font-bold">Status:</span>
-                        <span className={stats.position.hasPosition ? 'text-green-600 font-bold' : 'text-gray-400 font-bold'}>
+                        <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Status:</span>
+                        <span 
+                          className="font-bold"
+                          style={{ color: stats.position.hasPosition ? '#16a34a' : (isDarkMode ? '#9ca3af' : '#9ca3af') }}
+                        >
                           {stats.position.hasPosition ? 'ACTIVE POSITION' : 'NO POSITION'}
                         </span>
                       </div>
                       {stats.position.hasPosition && (
                         <>
                           <div className="flex justify-between">
-                            <span className="text-gray-600 font-bold">Entry Price:</span>
-                            <span className="font-bold">${stats.position.entryPrice.toFixed(4)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Entry Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${stats.position.entryPrice.toFixed(4)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600 font-bold">Current Quantity:</span>
-                            <span className="font-bold">{stats.position.currentQty.toFixed(2)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Current Quantity:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.position.currentQty.toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600 font-bold">Open TP Orders:</span>
-                            <span className="font-bold">{stats.openTPOrders}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Open TP Orders:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.openTPOrders}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600 font-bold">Current Price:</span>
-                            <span className="font-bold">${stats.currentPrice.toFixed(5)}</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Current Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${stats.currentPrice.toFixed(5)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600 font-bold">Unrealized P&L:</span>
-                            <span className={`font-bold ${stats.unrealizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Unrealized P&L:</span>
+                            <span 
+                              className="font-bold"
+                              style={{ color: stats.unrealizedPnL >= 0 ? '#16a34a' : '#dc2626' }}
+                            >
                               {stats.unrealizedPnL >= 0 ? '+' : ''}${stats.unrealizedPnL.toFixed(2)} ({stats.unrealizedPnLPercent.toFixed(2)}%)
                             </span>
                           </div>
                         </>
                       )}
-                      <div className="pt-3 border-t-2 border-gray-900">
-                        <div className="text-xs font-mono text-gray-600 mb-2 font-bold">STATISTICS</div>
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-xs">
-                            <span className="text-gray-600 font-bold">Total Decisions</span>
-                            <span className="font-bold">{stats.totalDecisions.toLocaleString()}</span>
+                      <div className="pt-3 mt-3 border-t-2 border-gray-900">
+                        <div className="text-sm font-mono font-bold uppercase mb-3" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>STATISTICS</div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Total Decisions</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.totalDecisions.toLocaleString()}</span>
                           </div>
-                          <div className="flex justify-between text-xs">
-                            <span className="text-gray-600 font-bold">Buys</span>
-                            <span className="text-green-600 font-bold">
+                          <div className="flex justify-between">
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Buys</span>
+                            <span className="font-bold" style={{ color: '#16a34a' }}>
                               {stats.buyCount} ({((stats.buyCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
-                          <div className="flex justify-between text-xs">
-                            <span className="text-gray-600 font-bold">Sells</span>
-                            <span className="text-red-600 font-bold">
+                          <div className="flex justify-between">
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Sells</span>
+                            <span className="font-bold" style={{ color: '#dc2626' }}>
                               {stats.sellCount} ({((stats.sellCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
-                          <div className="flex justify-between text-xs">
-                            <span className="text-gray-600 font-bold">Holds</span>
-                            <span className="font-bold">{stats.holdCount}</span>
+                          <div className="flex justify-between">
+                            <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Holds</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{stats.holdCount}</span>
                           </div>
                         </div>
                       </div>
