@@ -140,7 +140,7 @@ export default function Dashboard() {
               {/* Divider - hides in dark mode */}
               <motion.div 
                 className="border-l-2 h-8 md:h-10 mx-1 md:mx-2"
-                style={{ borderColor: isDarkMode ? '#00ff00' : '#d1d5db' }}
+                style={{ borderColor: isDarkMode ? '#00ff00' : '#1f2937' }}
                 initial={{ scaleY: 0 }}
                 animate={{ 
                   scaleY: isDarkMode ? 0 : 1,

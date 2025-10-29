@@ -63,7 +63,7 @@ export default function AccountValueChart({
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: 105, left: 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: 115, left: 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -136,7 +136,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={85}
+            width={90}
           />
           
           <Tooltip
@@ -179,12 +179,21 @@ export default function AccountValueChart({
           
           <Legend
             content={({ payload }: any) => {
+              // Filter to unique dataKeys only (avoid duplicates from Area + Line)
+              const uniqueEntries = payload.reduce((acc: any[], entry: any) => {
+                const exists = acc.find(e => e.dataKey === entry.dataKey);
+                if (!exists) {
+                  acc.push(entry);
+                }
+                return acc;
+              }, []);
+              
               return (
                 <div 
                   className="flex justify-center gap-6 font-mono text-[10px] font-bold"
                   style={{ paddingTop: '20px' }}
                 >
-                  {payload.map((entry: any, index: number) => {
+                  {uniqueEntries.map((entry: any, index: number) => {
                     if (entry.dataKey === 'balance') {
                       const label = valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QTY';
                       return (
