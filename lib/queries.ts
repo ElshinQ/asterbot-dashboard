@@ -275,8 +275,6 @@ export async function getFilledOrders() {
     type: string;
     price: string;
     quantity: string;
-    executed_qty: string;
-    cumulative_quote_qty: string;
     status: string;
     created_at: string;
     updated_at: string;
@@ -291,14 +289,12 @@ export async function getFilledOrders() {
       type,
       price,
       quantity,
-      executed_qty,
-      cumulative_quote_qty,
       status,
       created_at,
-      updated_at
+      COALESCE(updated_at, created_at) as updated_at
     FROM ichigo.orders
     WHERE status = 'FILLED'
-    ORDER BY updated_at DESC
+    ORDER BY COALESCE(updated_at, created_at) DESC
     LIMIT 50
   `
   );
@@ -310,10 +306,8 @@ export async function getFilledOrders() {
     symbol: row.symbol,
     side: row.side,
     type: row.type,
-    price: row.cumulative_quote_qty && row.executed_qty && parseFloat(row.executed_qty) > 0
-      ? parseFloat(row.cumulative_quote_qty) / parseFloat(row.executed_qty)
-      : null,
-    quantity: row.executed_qty ? parseFloat(row.executed_qty) : null,
+    price: row.price && parseFloat(row.price) > 0 ? parseFloat(row.price) : null,
+    quantity: row.quantity && parseFloat(row.quantity) > 0 ? parseFloat(row.quantity) : null,
     status: row.status,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -321,7 +315,7 @@ export async function getFilledOrders() {
 }
 
 /**
- * Get canceled orders (recent 50)
+ * Get canceled orders (recent 50) - handles both CANCELED and CANCELLED spellings
  */
 export async function getCanceledOrders() {
   const result = await query<{
@@ -349,10 +343,10 @@ export async function getCanceledOrders() {
       quantity,
       status,
       created_at,
-      updated_at
+      COALESCE(updated_at, created_at) as updated_at
     FROM ichigo.orders
-    WHERE status IN ('CANCELED', 'EXPIRED', 'REJECTED')
-    ORDER BY updated_at DESC
+    WHERE status IN ('CANCELED', 'CANCELLED', 'EXPIRED', 'REJECTED')
+    ORDER BY COALESCE(updated_at, created_at) DESC
     LIMIT 50
   `
   );

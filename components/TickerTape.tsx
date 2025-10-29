@@ -26,7 +26,7 @@ export default function TickerTape({
     : '0.00';
 
   return (
-    <div className="border-b border-gray-200 bg-gray-50 py-3">
+    <div className="border-b-2 border-gray-900 bg-white py-3">
       <div className="px-4 md:px-6">
         {/* Mobile Layout - Stacked */}
         <div className="md:hidden space-y-2">

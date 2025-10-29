@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 interface FadeContentProps {
   children: ReactNode;
@@ -9,8 +9,7 @@ interface FadeContentProps {
 }
 
 export default function FadeContent({ children, trigger, className = '' }: FadeContentProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     // Reset animation
@@ -19,18 +18,17 @@ export default function FadeContent({ children, trigger, className = '' }: FadeC
     // Trigger fade in after a brief delay
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 50);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [trigger]);
 
   return (
     <div
-      ref={contentRef}
-      className={`transition-all duration-500 ease-in-out ${
+      className={`transition-all duration-300 ease-out ${
         isVisible 
           ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-4'
+          : 'opacity-0 translate-y-2'
       } ${className}`}
     >
       {children}

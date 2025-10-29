@@ -348,74 +348,74 @@ export default function Dashboard() {
                     </div>
 
                     {/* Key Metrics */}
-                    <div className="space-y-3">
-                      <div>
-                        <div className="text-xs font-mono text-gray-600 mb-1 font-bold">ASTER Balance</div>
-                        <div className="text-lg font-mono font-bold">
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm font-mono">
+                        <span className="text-gray-600 font-bold">ASTER Balance:</span>
+                        <span className="text-gray-900 font-bold">
                           <AnimatedNumber value={stats.asterBalance} decimals={2} />
-                        </div>
+                        </span>
                       </div>
 
-                      <div>
-                        <div className="text-xs font-mono text-gray-600 mb-1 font-bold">USDT Balance</div>
-                        <div className="text-lg font-mono font-bold">
+                      <div className="flex justify-between text-sm font-mono">
+                        <span className="text-gray-600 font-bold">USDT Balance:</span>
+                        <span className="text-gray-900 font-bold">
                           <AnimatedNumber value={stats.usdtBalance} decimals={2} prefix="$" />
-                        </div>
+                        </span>
                       </div>
 
-                      <div>
-                        <div className="text-xs font-mono text-gray-600 mb-1 font-bold">Current Price</div>
-                        <div className="text-lg font-mono font-bold">
+                      <div className="flex justify-between text-sm font-mono">
+                        <span className="text-gray-600 font-bold">Current Price:</span>
+                        <span className="text-gray-900 font-bold">
                           <AnimatedNumber value={stats.currentPrice} decimals={5} prefix="$" />
-                        </div>
+                        </span>
                       </div>
                     </div>
 
                     {/* P&L Section */}
-                    <div className="pt-4 border-t-2 border-gray-900 space-y-3">
-                      <div>
-                        <div className="text-xs font-mono text-gray-600 mb-1 font-bold">Realized P&L</div>
-                        <div className={`text-lg font-mono font-bold ${stats.realizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <div className="pt-4 border-t-2 border-gray-900 space-y-2">
+                      <div className="flex justify-between text-sm font-mono">
+                        <span className="text-gray-600 font-bold">Realized P&L:</span>
+                        <span className={`font-bold ${stats.realizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                           <AnimatedNumber
                             value={Math.abs(stats.realizedPnL)}
                             decimals={2}
                             prefix={stats.realizedPnL >= 0 ? '+$' : '-$'}
                           />
-                        </div>
+                        </span>
                       </div>
 
-                      <div>
-                        <div className="text-xs font-mono text-gray-600 mb-1 font-bold">Unrealized P&L</div>
-                        <div className={`text-lg font-mono font-bold ${stats.unrealizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      <div className="flex justify-between text-sm font-mono">
+                        <span className="text-gray-600 font-bold">Unrealized P&L:</span>
+                        <span className={`font-bold ${stats.unrealizedPnL >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                           <AnimatedNumber
                             value={Math.abs(stats.unrealizedPnL)}
                             decimals={2}
                             prefix={stats.unrealizedPnL >= 0 ? '+$' : '-$'}
                           />
-                          <span className="text-sm ml-2">
+                          <span className="text-xs ml-1">
                             ({stats.unrealizedPnLPercent.toFixed(2)}%)
                           </span>
-                        </div>
+                        </span>
                       </div>
                     </div>
 
                     {/* Trading Stats */}
                     <div className="pt-4 border-t-2 border-gray-900 space-y-2">
-                      <div className="flex justify-between text-xs font-mono">
+                      <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Open TPs:</span>
-                        <span className="font-bold">{stats.openTPOrders}</span>
+                        <span className="text-gray-900 font-bold">{stats.openTPOrders}</span>
                       </div>
-                      <div className="flex justify-between text-xs font-mono">
+                      <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Last Action:</span>
-                        <span className="font-bold uppercase">{stats.lastDecision.action}</span>
+                        <span className="text-gray-900 font-bold uppercase">{stats.lastDecision.action}</span>
                       </div>
-                      <div className="flex justify-between text-xs font-mono">
+                      <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Runtime:</span>
-                        <span className="font-bold">{stats.runtime.totalRuntime}</span>
+                        <span className="text-gray-900 font-bold">{stats.runtime.totalRuntime}</span>
                       </div>
-                      <div className="flex justify-between text-xs font-mono">
+                      <div className="flex justify-between text-sm font-mono">
                         <span className="text-gray-600 font-bold">Total Decisions:</span>
-                        <span className="font-bold">{stats.totalDecisions.toLocaleString()}</span>
+                        <span className="text-gray-900 font-bold">{stats.totalDecisions.toLocaleString()}</span>
                       </div>
                     </div>
 
@@ -468,7 +468,7 @@ export default function Dashboard() {
                               : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
                           }`}
                         >
-                          CANCELED
+                          CANCEL
                         </button>
                       </ClickSpark>
                     </div>
@@ -738,7 +738,7 @@ export default function Dashboard() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t-2 border-gray-900 mt-12 py-6 bg-gray-50">
+      <footer className="border-t-2 border-gray-900 mt-12 py-6 bg-white">
         <div className="px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-2">
             <img 
