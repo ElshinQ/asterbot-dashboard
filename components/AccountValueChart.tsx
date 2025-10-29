@@ -150,25 +150,64 @@ export default function AccountValueChart({
               padding: '6px 10px',
               boxShadow: isDarkMode ? 'none' : '0 2px 8px rgba(0,0,0,0.1)',
             }}
-            formatter={(value: number, name: string) => {
-              if (name === 'balance') {
-                const label = valueType === 'usdt' ? 'USDT' : 'ASTER';
-                let formattedValue;
-                if (chartMode === 'percent') {
-                  formattedValue = `${value.toFixed(2)}%`;
-                } else if (valueType === 'usdt') {
-                  formattedValue = `$${value.toFixed(2)}`;
-                } else {
-                  formattedValue = `${value.toFixed(2)}`;
+            content={({ active, payload, label }: any) => {
+              if (!active || !payload || !payload.length) return null;
+              
+              // Filter out duplicate dataKeys - only show Line components, not Area fills
+              const uniquePayload = payload.reduce((acc: any[], item: any) => {
+                const exists = acc.find(entry => entry.dataKey === item.dataKey);
+                if (!exists) {
+                  acc.push(item);
                 }
-                return [formattedValue, label];
-              } else if (name === 'price') {
-                const formattedValue = chartMode === 'percent' 
-                  ? `${value.toFixed(2)}%`
-                  : `$${value.toFixed(6)}`;
-                return [formattedValue, 'Price'];
-              }
-              return [value, name];
+                return acc;
+              }, []);
+              
+              return (
+                <div style={{
+                  backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                  border: `1px solid ${isDarkMode ? '#16a34a' : '#d1d5db'}`,
+                  borderRadius: '2px',
+                  padding: '6px 10px',
+                }}>
+                  <div style={{ 
+                    color: isDarkMode ? '#15803d' : '#6b7280', 
+                    fontSize: '9px',
+                    marginBottom: '4px',
+                  }}>
+                    {label}
+                  </div>
+                  {uniquePayload.map((entry: any, index: number) => {
+                    let displayValue = '';
+                    let displayLabel = '';
+                    
+                    if (entry.dataKey === 'balance') {
+                      displayLabel = valueType === 'usdt' ? 'USDT' : 'ASTER';
+                      if (chartMode === 'percent') {
+                        displayValue = `${entry.value.toFixed(2)}%`;
+                      } else if (valueType === 'usdt') {
+                        displayValue = `$${entry.value.toFixed(2)}`;
+                      } else {
+                        displayValue = `${entry.value.toFixed(2)}`;
+                      }
+                    } else if (entry.dataKey === 'price') {
+                      displayLabel = 'Price';
+                      displayValue = chartMode === 'percent' 
+                        ? `${entry.value.toFixed(2)}%`
+                        : `$${entry.value.toFixed(6)}`;
+                    }
+                    
+                    return (
+                      <div key={index} style={{ 
+                        color: isDarkMode ? '#16a34a' : '#1f2937',
+                        fontSize: '10px',
+                        fontWeight: 600,
+                      }}>
+                        {displayLabel}: {displayValue}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
             }}
             labelStyle={{ 
               color: isDarkMode ? '#15803d' : '#6b7280', 
@@ -215,7 +254,7 @@ export default function AccountValueChart({
             }}
           />
           
-          {/* Area fill for Balance */}
+          {/* Area fill for Balance - gradient cloud under line */}
           <Area
             yAxisId="left"
             type="monotone"
@@ -226,7 +265,7 @@ export default function AccountValueChart({
             hide={false}
           />
           
-          {/* Area fill for Price */}
+          {/* Area fill for Price - gradient cloud under line */}
           <Area
             yAxisId="right"
             type="monotone"
