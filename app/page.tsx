@@ -262,44 +262,73 @@ export default function Dashboard() {
             <div className="bg-white border-2 border-gray-900 lg:sticky lg:top-6">
               {/* Tab Navigation - Responsive Grid */}
               <div className="border-b-2 border-gray-900">
-                <div className="grid grid-cols-2 md:grid-cols-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 border-b-2 border-gray-900 dark:border-green-500">
                   <button
                       onClick={() => setActiveTab('overview')}
-                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
-                        activeTab === 'overview'
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-50'
-                      }`}
+                      className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
+                      style={{
+                        backgroundColor: activeTab === 'overview' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                        color: activeTab === 'overview' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
+                      }}
+                      onMouseEnter={(e) => {
+                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = '#f9fafb';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = '#ffffff';
+                      }}
                     >
                       OVERVIEW
                     </button>
                   <button
                       onClick={() => setActiveTab('orders')}
-                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase md:border-r-2 border-gray-900 ${
-                        activeTab === 'orders'
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-50'
-                      }`}
+                      className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
+                      style={{
+                        backgroundColor: activeTab === 'orders' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                        color: activeTab === 'orders' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        borderRight: window.innerWidth >= 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = '#f9fafb';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = '#ffffff';
+                      }}
                     >
                       ORDERS
                     </button>
                   <button
                       onClick={() => setActiveTab('decisions')}
-                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 border-t-2 md:border-t-0 ${
-                        activeTab === 'decisions'
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-50'
-                      }`}
+                      className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
+                      style={{
+                        backgroundColor: activeTab === 'decisions' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                        color: activeTab === 'decisions' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
+                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = '#f9fafb';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = '#ffffff';
+                      }}
                     >
                       DECISIONS
                     </button>
                   <button
                       onClick={() => setActiveTab('position')}
-                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-t-2 md:border-t-0 ${
-                        activeTab === 'position'
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-50'
-                      }`}
+                      className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
+                      style={{
+                        backgroundColor: activeTab === 'position' ? (isDarkMode ? '#00ff00' : '#1f2937') : '#ffffff',
+                        color: activeTab === 'position' ? (isDarkMode ? '#000000' : '#ffffff') : '#4b5563',
+                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = '#f9fafb';
+                      }}
+                      onMouseLeave={(e) => {
+                        if (activeTab !== 'position') e.currentTarget.style.backgroundColor = '#ffffff';
+                      }}
                     >
                       POSITION
                     </button>
@@ -488,20 +517,20 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
-                                    <span className="font-bold dark:text-gray-200">${order.price.toFixed(5)}</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${order.price.toFixed(5)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
-                                    <span className="font-bold dark:text-gray-200">{order.quantity.toFixed(2)} ASTER</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{order.quantity.toFixed(2)} ASTER</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Value:</span>
-                                    <span className="font-bold dark:text-gray-200">${(order.price * order.quantity).toFixed(2)}</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>${(order.price * order.quantity).toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Age:</span>
-                                    <span className="font-bold dark:text-gray-200">{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Age:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
                                   </div>
                                 </div>
                               </div>
@@ -541,32 +570,35 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
-                                    <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Side:</span>
+                                    <span 
+                                      className="font-bold"
+                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
+                                    >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
-                                    <span className="font-bold dark:text-gray-200">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
-                                    <span className="font-bold dark:text-gray-200">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Value:</span>
-                                    <span className="font-bold dark:text-gray-200">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       ${(order.price && order.quantity) ? (order.price * order.quantity).toFixed(2) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Filled:</span>
-                                    <span className="font-bold dark:text-gray-200 text-[10px]">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Filled:</span>
+                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
                                         day: 'numeric', 
@@ -613,26 +645,29 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Side:</span>
-                                    <span className={`font-bold ${order.side === 'BUY' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Side:</span>
+                                    <span 
+                                      className="font-bold"
+                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
+                                    >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Price:</span>
-                                    <span className="font-bold dark:text-gray-200">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Quantity:</span>
-                                    <span className="font-bold dark:text-gray-200">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-gray-600 dark:text-gray-400 font-bold">Updated:</span>
-                                    <span className="font-bold dark:text-gray-200 text-[10px]">
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#9ca3af' : '#4b5563' }}>Updated:</span>
+                                    <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#e5e7eb' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
                                         day: 'numeric', 
