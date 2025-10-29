@@ -95,22 +95,22 @@ export interface FilledOrder {
   symbol: string;
   side: string;
   type: string;
-  price: number;
-  quantity: number;
+  price: number | null;
+  quantity: number | null;
   status: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface ClosedOrder {
+export interface CanceledOrder {
   orderId: number;
   exchangeOrderId: string;
   clientOrderId: string;
   symbol: string;
   side: string;
   type: string;
-  price: number;
-  quantity: number;
+  price: number | null;
+  quantity: number | null;
   status: string;
   createdAt: string;
   updatedAt: string;
@@ -152,6 +152,6 @@ export interface DashboardStats {
   recentDecisions: RecentDecision[];
   openOrders: OpenOrder[];
   filledOrders: FilledOrder[];
-  closedOrders: ClosedOrder[];
+  canceledOrders: CanceledOrder[];
 }
 

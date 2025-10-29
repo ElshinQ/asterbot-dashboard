@@ -275,6 +275,8 @@ export async function getFilledOrders() {
     type: string;
     price: string;
     quantity: string;
+    executed_qty: string;
+    cumulative_quote_qty: string;
     status: string;
     created_at: string;
     updated_at: string;
@@ -289,6 +291,8 @@ export async function getFilledOrders() {
       type,
       price,
       quantity,
+      executed_qty,
+      cumulative_quote_qty,
       status,
       created_at,
       updated_at
@@ -306,8 +310,10 @@ export async function getFilledOrders() {
     symbol: row.symbol,
     side: row.side,
     type: row.type,
-    price: parseFloat(row.price),
-    quantity: parseFloat(row.quantity),
+    price: row.cumulative_quote_qty && row.executed_qty && parseFloat(row.executed_qty) > 0
+      ? parseFloat(row.cumulative_quote_qty) / parseFloat(row.executed_qty)
+      : null,
+    quantity: row.executed_qty ? parseFloat(row.executed_qty) : null,
     status: row.status,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -315,9 +321,9 @@ export async function getFilledOrders() {
 }
 
 /**
- * Get closed orders (recent 50)
+ * Get canceled orders (recent 50)
  */
-export async function getClosedOrders() {
+export async function getCanceledOrders() {
   const result = await query<{
     order_id: number;
     exchange_order_id: string;
@@ -358,8 +364,8 @@ export async function getClosedOrders() {
     symbol: row.symbol,
     side: row.side,
     type: row.type,
-    price: parseFloat(row.price),
-    quantity: parseFloat(row.quantity),
+    price: row.price && parseFloat(row.price) > 0 ? parseFloat(row.price) : null,
+    quantity: row.quantity && parseFloat(row.quantity) > 0 ? parseFloat(row.quantity) : null,
     status: row.status,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -467,7 +473,7 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
  * Aggregate all dashboard statistics
  */
 export async function getDashboardStats(): Promise<DashboardStats> {
-  const [position, trades, botStats, historicalData, recentDecisions, priceHighLow, openOrders, filledOrders, closedOrders] = await Promise.all([
+  const [position, trades, botStats, historicalData, recentDecisions, priceHighLow, openOrders, filledOrders, canceledOrders] = await Promise.all([
     getCurrentPosition(),
     getRecentTrades(50),
     getBotStats(),
@@ -476,7 +482,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     getPriceHighLow(72),
     getOpenOrders(),
     getFilledOrders(),
-    getClosedOrders(),
+    getCanceledOrders(),
   ]);
 
   // Calculate realized P&L from trades
@@ -548,7 +554,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     recentDecisions,
     openOrders,
     filledOrders,
-    closedOrders,
+    canceledOrders,
   };
 }
 

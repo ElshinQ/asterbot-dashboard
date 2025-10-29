@@ -7,12 +7,15 @@ import TickerTape from '@/components/TickerTape';
 import LoadingState from '@/components/LoadingState';
 import DecisionsFeed from '@/components/DecisionsFeed';
 import AnimatedNumber from '@/components/AnimatedNumber';
+import FadeContent from '@/components/FadeContent';
+import ClickSpark from '@/components/ClickSpark';
+import DarkVeil from '@/components/DarkVeil';
 
 type TabType = 'overview' | 'orders' | 'decisions' | 'position';
 type TimeRange = 'all' | '72h';
 type ChartMode = 'value' | 'percent';
 type ValueType = 'total' | 'usdt';
-type OrderFilter = 'open' | 'filled' | 'closed';
+type OrderFilter = 'open' | 'filled' | 'canceled';
 
 export default function Dashboard() {
   const { data: stats, isLoading, error } = useStats();
@@ -98,6 +101,9 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Dark Veil Background (only in dark mode) */}
+      <DarkVeil isDarkMode={isDarkMode} />
+      
       {/* Header */}
       <header className="border-b-2 border-gray-900 bg-white">
         <div className="px-4 md:px-6 py-4">
@@ -123,13 +129,15 @@ export default function Dashboard() {
               <div className="md:hidden text-[10px] font-mono text-gray-500">
                 LIVE
               </div>
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="px-3 py-1.5 bg-gray-900 text-white text-xs font-mono font-bold hover:bg-gray-700 rounded"
-                title="Toggle Dark Mode"
-              >
-                {isDarkMode ? '☀️' : '🌙'}
-              </button>
+              <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                <button
+                  onClick={() => setIsDarkMode(!isDarkMode)}
+                  className="px-3 py-1.5 bg-gray-900 text-white text-xs font-mono font-bold hover:bg-gray-700 rounded"
+                  title="Toggle Dark Mode"
+                >
+                  {isDarkMode ? '☀️' : '🌙'}
+                </button>
+              </ClickSpark>
             </div>
           </div>
         </div>
@@ -152,74 +160,86 @@ export default function Dashboard() {
               <div className="flex flex-wrap items-center justify-between gap-2 md:gap-3 mb-4 md:mb-6">
                 {/* Time Range */}
                 <div className="flex items-center gap-2 md:gap-3">
-                  <button 
-                    onClick={() => setTimeRange('all')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      timeRange === 'all' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    ALL
-                  </button>
-                  <button 
-                    onClick={() => setTimeRange('72h')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      timeRange === '72h' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    72H
-                  </button>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setTimeRange('all')}
+                      className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                        timeRange === 'all' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      ALL
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setTimeRange('72h')}
+                      className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                        timeRange === '72h' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      72H
+                    </button>
+                  </ClickSpark>
                 </div>
                 
                 {/* Value Type Toggle */}
                 <div className="flex items-center gap-2 md:gap-3">
-                  <button 
-                    onClick={() => setValueType('total')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      valueType === 'total' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    ASTER
-                  </button>
-                  <button 
-                    onClick={() => setValueType('usdt')}
-                    className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
-                      valueType === 'usdt' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    USDT
-                  </button>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setValueType('total')}
+                      className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                        valueType === 'total' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      ASTER
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setValueType('usdt')}
+                      className={`px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold ${
+                        valueType === 'usdt' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      USDT
+                    </button>
+                  </ClickSpark>
                 </div>
 
                 {/* Chart Mode */}
                 <div className="flex items-center gap-1 md:gap-2">
-                  <button 
-                    onClick={() => setChartMode('value')}
-                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
-                      chartMode === 'value' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    $
-                  </button>
-                  <button 
-                    onClick={() => setChartMode('percent')}
-                    className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
-                      chartMode === 'percent' 
-                        ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                        : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                    }`}
-                  >
-                    %
-                  </button>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setChartMode('value')}
+                      className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
+                        chartMode === 'value' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      $
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button 
+                      onClick={() => setChartMode('percent')}
+                      className={`px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold ${
+                        chartMode === 'percent' 
+                          ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                          : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                      }`}
+                    >
+                      %
+                    </button>
+                  </ClickSpark>
                 </div>
               </div>
 
@@ -248,46 +268,54 @@ export default function Dashboard() {
               {/* Tab Navigation - Responsive Grid */}
               <div className="border-b-2 border-gray-900">
                 <div className="grid grid-cols-2 md:grid-cols-4">
-                  <button
-                    onClick={() => setActiveTab('overview')}
-                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
-                      activeTab === 'overview'
-                        ? 'bg-gray-900 text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    OVERVIEW
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('orders')}
-                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase md:border-r-2 border-gray-900 ${
-                      activeTab === 'orders'
-                        ? 'bg-gray-900 text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    ORDERS
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('decisions')}
-                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 border-t-2 md:border-t-0 ${
-                      activeTab === 'decisions'
-                        ? 'bg-gray-900 text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    DECISIONS
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('position')}
-                    className={`py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-t-2 md:border-t-0 ${
-                      activeTab === 'position'
-                        ? 'bg-gray-900 text-white'
-                        : 'bg-white text-gray-600 hover:bg-gray-50'
-                    }`}
-                  >
-                    POSITION
-                  </button>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button
+                      onClick={() => setActiveTab('overview')}
+                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 ${
+                        activeTab === 'overview'
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      OVERVIEW
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button
+                      onClick={() => setActiveTab('orders')}
+                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase md:border-r-2 border-gray-900 ${
+                        activeTab === 'orders'
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      ORDERS
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button
+                      onClick={() => setActiveTab('decisions')}
+                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-r-2 border-gray-900 border-t-2 md:border-t-0 ${
+                        activeTab === 'decisions'
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      DECISIONS
+                    </button>
+                  </ClickSpark>
+                  <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'}>
+                    <button
+                      onClick={() => setActiveTab('position')}
+                      className={`w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase border-t-2 md:border-t-0 ${
+                        activeTab === 'position'
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-white text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      POSITION
+                    </button>
+                  </ClickSpark>
                 </div>
               </div>
 
@@ -295,7 +323,8 @@ export default function Dashboard() {
               <div className="p-4 max-h-[calc(100vh-300px)] overflow-y-auto hide-scrollbar">
                 {/* OVERVIEW TAB */}
                 {activeTab === 'overview' && (
-                  <div className="space-y-4">
+                  <FadeContent trigger={activeTab}>
+                    <div className="space-y-4">
                     {/* Account Value */}
                     <div>
                       <div className="text-xs font-mono text-gray-600 mb-1 uppercase font-bold">
@@ -397,47 +426,55 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
+                  </FadeContent>
                 )}
 
                 {/* ORDERS TAB */}
                 {activeTab === 'orders' && (
-                  <div className="space-y-3">
+                  <FadeContent trigger={activeTab}>
+                    <div className="space-y-3">
                     {/* Order Filter Buttons */}
                     <div className="flex items-center gap-2 mb-4">
-                      <button 
-                        onClick={() => setOrderFilter('open')}
-                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                          orderFilter === 'open' 
-                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                        }`}
-                      >
-                        OPEN
-                      </button>
-                      <button 
-                        onClick={() => setOrderFilter('filled')}
-                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                          orderFilter === 'filled' 
-                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                        }`}
-                      >
-                        FILLED
-                      </button>
-                      <button 
-                        onClick={() => setOrderFilter('closed')}
-                        className={`flex-1 px-3 py-2 text-[10px] font-mono font-bold uppercase ${
-                          orderFilter === 'closed' 
-                            ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
-                            : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
-                        }`}
-                      >
-                        CLOSED
-                      </button>
+                      <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'} className="flex-1">
+                        <button 
+                          onClick={() => setOrderFilter('open')}
+                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                            orderFilter === 'open' 
+                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                          }`}
+                        >
+                          OPEN
+                        </button>
+                      </ClickSpark>
+                      <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'} className="flex-1">
+                        <button 
+                          onClick={() => setOrderFilter('filled')}
+                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                            orderFilter === 'filled' 
+                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                          }`}
+                        >
+                          FILLED
+                        </button>
+                      </ClickSpark>
+                      <ClickSpark sparkColor={isDarkMode ? '#00ff00' : '#3b82f6'} className="flex-1">
+                        <button 
+                          onClick={() => setOrderFilter('canceled')}
+                          className={`w-full px-3 py-2 text-[10px] font-mono font-bold uppercase ${
+                            orderFilter === 'canceled' 
+                              ? 'bg-gray-900 text-white dark:bg-green-500 dark:text-black' 
+                              : 'bg-white text-gray-600 border-2 border-gray-900 dark:border-green-500 dark:text-green-500'
+                          }`}
+                        >
+                          CANCELED
+                        </button>
+                      </ClickSpark>
                     </div>
 
                     <h3 className="text-sm font-mono font-bold uppercase mb-4">
-                      {orderFilter === 'open' ? 'Open TP Orders' : orderFilter === 'filled' ? 'Filled Orders' : 'Closed Orders'}
+                      {orderFilter === 'open' ? 'Open TP Orders' : orderFilter === 'filled' ? 'Filled Orders' : 'Canceled Orders'}
                     </h3>
                     
                     {/* Open Orders */}
@@ -553,16 +590,16 @@ export default function Dashboard() {
                       </>
                     )}
 
-                    {/* Closed Orders */}
-                    {orderFilter === 'closed' && (
+                    {/* Canceled Orders */}
+                    {orderFilter === 'canceled' && (
                       <>
-                        {!stats.closedOrders || stats.closedOrders.length === 0 ? (
+                        {!stats.canceledOrders || stats.canceledOrders.length === 0 ? (
                           <div className="text-xs font-mono text-gray-500 dark:text-gray-400">
-                            No closed orders
+                            No canceled orders
                           </div>
                         ) : (
                           <div className="space-y-3">
-                            {stats.closedOrders.map((order) => (
+                            {stats.canceledOrders.map((order) => (
                               <div
                                 key={order.orderId}
                                 className="border-2 border-gray-900 dark:border-green-500 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
@@ -613,17 +650,21 @@ export default function Dashboard() {
                       </>
                     )}
                   </div>
+                  </FadeContent>
                 )}
 
                 {/* DECISIONS TAB */}
                 {activeTab === 'decisions' && (
-                  <div>
-                    <DecisionsFeed decisions={stats.recentDecisions} />
-                  </div>
+                  <FadeContent trigger={activeTab}>
+                    <div>
+                      <DecisionsFeed decisions={stats.recentDecisions} />
+                    </div>
+                  </FadeContent>
                 )}
 
                 {/* POSITION TAB */}
                 {activeTab === 'position' && (
+                  <FadeContent trigger={activeTab}>
                   <div className="space-y-3">
                     <h3 className="text-sm font-mono font-bold uppercase mb-4">
                       Current Position
@@ -688,6 +729,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
+                  </FadeContent>
                 )}
               </div>
             </div>
