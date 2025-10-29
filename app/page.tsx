@@ -114,18 +114,18 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <motion.div 
               className="flex items-center gap-2 md:gap-4"
-              initial={{ x: '50%', opacity: 0 }}
+              initial={{ x: 0, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
             >
-              {/* Logo - slides off to left and disappears in dark mode */}
+              {/* Logo - slides off to left and disappears in dark mode (desktop only) */}
               <motion.div 
                 className="h-12 w-12 md:h-16 md:w-16 overflow-hidden flex items-center justify-center rounded-lg"
-                initial={{ scale: 1.2 }}
+                initial={{ scale: 1 }}
                 animate={{ 
                   scale: 1,
-                  x: isDarkMode ? -200 : 0,
-                  opacity: isDarkMode ? 0 : 1,
+                  x: isDarkMode && typeof window !== 'undefined' && window.innerWidth >= 768 ? -200 : 0,
+                  opacity: isDarkMode && typeof window !== 'undefined' && window.innerWidth >= 768 ? 0 : 1,
                 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
               >
@@ -137,24 +137,24 @@ export default function Dashboard() {
                 />
               </motion.div>
               
-              {/* Divider - hides in dark mode */}
+              {/* Divider - hides in dark mode (desktop only) */}
               <motion.div 
                 className="border-l-2 h-8 md:h-10 mx-1 md:mx-2"
                 style={{ borderColor: isDarkMode ? '#16a34a' : '#1f2937' }}
-                initial={{ scaleY: 0 }}
+                initial={{ scaleY: 1 }}
                 animate={{ 
-                  scaleY: isDarkMode ? 0 : 1,
-                  opacity: isDarkMode ? 0 : 1,
+                  scaleY: isDarkMode && typeof window !== 'undefined' && window.innerWidth >= 768 ? 0 : 1,
+                  opacity: isDarkMode && typeof window !== 'undefined' && window.innerWidth >= 768 ? 0 : 1,
                 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               ></motion.div>
               
-              {/* LIVE DASHBOARD - moves left when logo disappears */}
+              {/* LIVE DASHBOARD - moves left when logo disappears (desktop only) */}
               <motion.nav 
                 className="flex items-center gap-2 md:gap-6 text-xs md:text-sm font-mono"
-                initial={{ x: -20, opacity: 0 }}
+                initial={{ x: 0, opacity: 0 }}
                 animate={{ 
-                  x: isDarkMode ? -110 : 0,
+                  x: isDarkMode && typeof window !== 'undefined' && window.innerWidth >= 768 ? -110 : 0,
                   opacity: 1,
                 }}
                 transition={{ duration: 0.6, delay: 0.4 }}

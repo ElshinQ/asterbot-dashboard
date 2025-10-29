@@ -56,14 +56,14 @@ export default function AccountValueChart({
 
   return (
     <div 
-      className="relative w-full h-[400px] md:h-[480px] border-2"
+      className="relative w-full h-[500px] md:h-[480px] border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         borderColor: isDarkMode ? '#16a34a' : '#1f2937',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: 115, left: 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 75 : 115, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -136,7 +136,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={90}
+            width={typeof window !== 'undefined' && window.innerWidth < 768 ? 70 : 90}
           />
           
           <Tooltip
