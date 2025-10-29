@@ -63,7 +63,7 @@ export default function AccountValueChart({
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={chartData} margin={{ top: 60, right: 95, left: 20, bottom: 70 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: 105, left: 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
@@ -136,7 +136,7 @@ export default function AccountValueChart({
               return `$${value.toFixed(5)}`;
             }}
             domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
-            width={75}
+            width={85}
           />
           
           <Tooltip
@@ -237,6 +237,7 @@ export default function AccountValueChart({
             dot={false}
             animationDuration={300}
             isAnimationActive={true}
+            legendType="none"
           />
           
           {/* Price Line */}
@@ -251,6 +252,7 @@ export default function AccountValueChart({
             animationDuration={300}
             isAnimationActive={true}
             strokeDasharray="4 4"
+            legendType="none"
           />
         </ComposedChart>
       </ResponsiveContainer>
