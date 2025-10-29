@@ -107,7 +107,7 @@ export default function Dashboard() {
         className="border-b-2 overflow-hidden"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-          borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+          borderColor: isDarkMode ? '#16a34a' : '#1f2937',
         }}
       >
         <div className="px-4 md:px-6 py-4">
@@ -140,7 +140,7 @@ export default function Dashboard() {
               {/* Divider - hides in dark mode */}
               <motion.div 
                 className="border-l-2 h-8 md:h-10 mx-1 md:mx-2"
-                style={{ borderColor: isDarkMode ? '#00ff00' : '#1f2937' }}
+                style={{ borderColor: isDarkMode ? '#16a34a' : '#1f2937' }}
                 initial={{ scaleY: 0 }}
                 animate={{ 
                   scaleY: isDarkMode ? 0 : 1,
@@ -161,7 +161,7 @@ export default function Dashboard() {
               >
                 <span 
                   className="font-bold uppercase tracking-wider"
-                  style={{ color: isDarkMode ? '#00ff00' : '#1f2937' }}
+                  style={{ color: isDarkMode ? '#16a34a' : '#1f2937' }}
                 >
                   LIVE DASHBOARD
                 </span>
@@ -178,8 +178,8 @@ export default function Dashboard() {
                 className="relative flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-mono font-bold transition-all"
                 style={{
                   backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
-                  color: isDarkMode ? '#00ff00' : '#1f2937',
+                  borderColor: isDarkMode ? '#16a34a' : '#1f2937',
+                  color: isDarkMode ? '#16a34a' : '#1f2937',
                 }}
                 title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
               >
@@ -187,14 +187,14 @@ export default function Dashboard() {
                 <div 
                   className="w-8 h-4 border-2 relative transition-all"
                   style={{
-                    borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                    borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     backgroundColor: 'transparent',
                   }}
                 >
                   <div 
                     className="absolute top-0 h-full w-3 transition-all"
                     style={{
-                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: isDarkMode ? '#16a34a' : '#1f2937',
                       left: isDarkMode ? 'calc(100% - 12px)' : '0',
                     }}
                   />
@@ -221,7 +221,7 @@ export default function Dashboard() {
               className="border-2 p-4 md:p-6"
               style={{
                 backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                borderColor: isDarkMode ? '#16a34a' : '#1f2937',
               }}
             >
               {/* Chart Controls */}
@@ -232,9 +232,9 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('all')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: timeRange === 'all' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: timeRange === 'all' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: timeRange === 'all' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: timeRange === 'all' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     ALL
@@ -243,9 +243,9 @@ export default function Dashboard() {
                     onClick={() => setTimeRange('72h')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: timeRange === '72h' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: timeRange === '72h' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: timeRange === '72h' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: timeRange === '72h' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     72H
@@ -258,9 +258,9 @@ export default function Dashboard() {
                     onClick={() => setValueType('total')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: valueType === 'total' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: valueType === 'total' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: valueType === 'total' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: valueType === 'total' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     ASTER
@@ -269,9 +269,9 @@ export default function Dashboard() {
                     onClick={() => setValueType('usdt')}
                     className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: valueType === 'usdt' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: valueType === 'usdt' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: valueType === 'usdt' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: valueType === 'usdt' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     USDT
@@ -284,9 +284,9 @@ export default function Dashboard() {
                     onClick={() => setChartMode('value')}
                     className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: chartMode === 'value' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: chartMode === 'value' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: chartMode === 'value' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: chartMode === 'value' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     $
@@ -295,9 +295,9 @@ export default function Dashboard() {
                     onClick={() => setChartMode('percent')}
                     className="px-2 md:px-3 py-1 text-[10px] md:text-xs font-mono font-bold border-2"
                     style={{
-                      backgroundColor: chartMode === 'percent' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                      color: chartMode === 'percent' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                      borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: chartMode === 'percent' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                      color: chartMode === 'percent' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                      borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                     }}
                   >
                     %
@@ -308,7 +308,7 @@ export default function Dashboard() {
               {/* Chart Title */}
               <h2 
                 className="text-sm font-mono uppercase tracking-widest mb-4 font-bold"
-                style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}
+                style={{ color: isDarkMode ? '#16a34a' : '#4b5563' }}
               >
                 {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QUANTITY'}
               </h2>
@@ -333,23 +333,23 @@ export default function Dashboard() {
               className="border-2 lg:sticky lg:top-6 flex flex-col"
               style={{
                 backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                 height: 'auto',
               }}
             >
               {/* Tab Navigation - Responsive Grid */}
               <div 
                 className="border-b-2"
-                style={{ borderColor: isDarkMode ? '#00ff00' : '#1f2937' }}
+                style={{ borderColor: isDarkMode ? '#16a34a' : '#1f2937' }}
               >
                 <div className="grid grid-cols-2 md:grid-cols-4">
                   <button
                       onClick={() => setActiveTab('overview')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'overview' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                        color: activeTab === 'overview' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                        borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
+                        backgroundColor: activeTab === 'overview' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'overview' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                        borderRight: '2px solid ' + (isDarkMode ? '#16a34a' : '#1f2937'),
                       }}
                       onMouseEnter={(e) => {
                         if (activeTab !== 'overview') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
@@ -364,9 +364,9 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('orders')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'orders' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                        color: activeTab === 'orders' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                        borderRight: window.innerWidth >= 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                        backgroundColor: activeTab === 'orders' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'orders' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                        borderRight: window.innerWidth >= 768 ? '2px solid ' + (isDarkMode ? '#16a34a' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
                         if (activeTab !== 'orders') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
@@ -381,10 +381,10 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('decisions')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'decisions' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                        color: activeTab === 'decisions' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                        borderRight: '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937'),
-                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                        backgroundColor: activeTab === 'decisions' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'decisions' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                        borderRight: '2px solid ' + (isDarkMode ? '#16a34a' : '#1f2937'),
+                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#16a34a' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
                         if (activeTab !== 'decisions') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
@@ -399,9 +399,9 @@ export default function Dashboard() {
                       onClick={() => setActiveTab('position')}
                       className="w-full py-2.5 md:py-3 px-2 text-[10px] md:text-[11px] font-mono font-bold uppercase"
                       style={{
-                        backgroundColor: activeTab === 'position' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
-                        color: activeTab === 'position' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#00ff00' : '#1f2937') : 'none',
+                        backgroundColor: activeTab === 'position' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#000000' : '#ffffff'),
+                        color: activeTab === 'position' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                        borderTop: window.innerWidth < 768 ? '2px solid ' + (isDarkMode ? '#16a34a' : '#1f2937') : 'none',
                       }}
                       onMouseEnter={(e) => {
                         if (activeTab !== 'position') e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb';
@@ -528,9 +528,9 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('open')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'open' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
-                            color: orderFilter === 'open' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                            backgroundColor: orderFilter === 'open' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'open' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                            borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                           }}
                         >
                           OPEN
@@ -539,9 +539,9 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('filled')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'filled' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
-                            color: orderFilter === 'filled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                            backgroundColor: orderFilter === 'filled' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'filled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                            borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                           }}
                         >
                           FILLED
@@ -550,9 +550,9 @@ export default function Dashboard() {
                           onClick={() => setOrderFilter('canceled')}
                           className="w-full px-3 py-2 text-[10px] font-mono font-bold uppercase border-2"
                           style={{
-                            backgroundColor: orderFilter === 'canceled' ? (isDarkMode ? '#00ff00' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
-                            color: orderFilter === 'canceled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#00aa00' : '#4b5563'),
-                            borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                            backgroundColor: orderFilter === 'canceled' ? (isDarkMode ? '#16a34a' : '#1f2937') : (isDarkMode ? '#002200' : '#ffffff'),
+                            color: orderFilter === 'canceled' ? (isDarkMode ? '#000000' : '#ffffff') : (isDarkMode ? '#15803d' : '#4b5563'),
+                            borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                           }}
                         >
                           CANCEL
@@ -577,7 +577,7 @@ export default function Dashboard() {
                                 key={order.orderId}
                                 className="border-2 p-3 transition-colors"
                               style={{
-                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
                               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
@@ -593,19 +593,19 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Price:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${order.price.toFixed(5)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Quantity:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{order.quantity.toFixed(2)} ASTER</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Value:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${(order.price * order.quantity).toFixed(2)}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Age:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Age:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{Math.floor(order.ageMinutes / 60)}h {Math.floor(order.ageMinutes % 60)}m</span>
                                   </div>
                                 </div>
@@ -630,7 +630,7 @@ export default function Dashboard() {
                                 key={order.orderId}
                                 className="border-2 p-3 transition-colors"
                               style={{
-                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
                               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
@@ -646,34 +646,34 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Side:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Side:</span>
                                     <span 
                                       className="font-bold"
-                                      style={{ color: order.side === 'BUY' ? '#00ff00' : '#ff4444' }}
+                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
                                     >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Price:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Quantity:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Value:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Value:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${(order.price && order.quantity) ? (order.price * order.quantity).toFixed(2) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Filled:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Filled:</span>
                                     <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
@@ -705,7 +705,7 @@ export default function Dashboard() {
                                 key={order.orderId}
                                 className="border-2 p-3 transition-colors"
                               style={{
-                                borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                                borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                                 backgroundColor: 'transparent',
                               }}
                               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
@@ -721,28 +721,28 @@ export default function Dashboard() {
                                 </div>
                                 <div className="space-y-1 text-xs font-mono">
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Side:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Side:</span>
                                     <span 
                                       className="font-bold"
-                                      style={{ color: order.side === 'BUY' ? '#00ff00' : '#ff4444' }}
+                                      style={{ color: order.side === 'BUY' ? '#16a34a' : '#dc2626' }}
                                     >
                                       {order.side || 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Price:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Price:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       ${order.price ? order.price.toFixed(5) : 'N/A'}
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Quantity:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Quantity:</span>
                                     <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {order.quantity ? order.quantity.toFixed(2) : 'N/A'} ASTER
                                     </span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Updated:</span>
+                                    <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Updated:</span>
                                     <span className="font-bold text-[10px]" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>
                                       {new Date(order.updatedAt).toLocaleString('en-US', { 
                                         month: 'short', 
@@ -772,15 +772,15 @@ export default function Dashboard() {
                 {/* POSITION TAB */}
                 {activeTab === 'position' && (
                   <div className="space-y-5">
-                    <h3 className="text-sm font-mono font-bold uppercase mb-5" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>
+                    <h3 className="text-sm font-mono font-bold uppercase mb-5" style={{ color: isDarkMode ? '#16a34a' : '#4b5563' }}>
                       Current Position
                     </h3>
                     <div className="space-y-3 text-sm font-mono">
                       <div className="flex justify-between">
-                        <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Status:</span>
+                        <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Status:</span>
                         <span 
                           className="font-bold"
-                          style={{ color: stats.position.hasPosition ? '#00ff00' : (isDarkMode ? '#ffffff' : '#9ca3af') }}
+                          style={{ color: stats.position.hasPosition ? '#16a34a' : (isDarkMode ? '#ffffff' : '#9ca3af') }}
                         >
                           {stats.position.hasPosition ? 'ACTIVE POSITION' : 'NO POSITION'}
                         </span>
@@ -788,26 +788,26 @@ export default function Dashboard() {
                       {stats.position.hasPosition && (
                         <>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Entry Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Entry Price:</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${stats.position.entryPrice.toFixed(4)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Current Quantity:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Current Quantity:</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.position.currentQty.toFixed(2)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Open TP Orders:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Open TP Orders:</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.openTPOrders}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Current Price:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Current Price:</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>${stats.currentPrice.toFixed(5)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Unrealized P&L:</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Unrealized P&L:</span>
                             <span 
                               className="font-bold"
-                              style={{ color: stats.unrealizedPnL >= 0 ? '#00ff00' : '#ff4444' }}
+                              style={{ color: stats.unrealizedPnL >= 0 ? '#16a34a' : '#dc2626' }}
                             >
                               {stats.unrealizedPnL >= 0 ? '+' : ''}${stats.unrealizedPnL.toFixed(2)} ({stats.unrealizedPnLPercent.toFixed(2)}%)
                             </span>
@@ -815,26 +815,26 @@ export default function Dashboard() {
                         </>
                       )}
                       <div className="pt-5 mt-5 border-t-2 border-gray-900">
-                        <div className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}>STATISTICS</div>
+                        <div className="text-sm font-mono font-bold uppercase mb-4" style={{ color: isDarkMode ? '#16a34a' : '#4b5563' }}>STATISTICS</div>
                         <div className="space-y-3 text-sm">
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Total Decisions</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Total Decisions</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.totalDecisions.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Buys</span>
-                            <span className="font-bold" style={{ color: '#00ff00' }}>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Buys</span>
+                            <span className="font-bold" style={{ color: '#16a34a' }}>
                               {stats.buyCount} ({((stats.buyCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Sells</span>
-                            <span className="font-bold" style={{ color: '#ff4444' }}>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Sells</span>
+                            <span className="font-bold" style={{ color: '#dc2626' }}>
                               {stats.sellCount} ({((stats.sellCount / stats.totalDecisions) * 100).toFixed(1)}%)
                             </span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="font-bold" style={{ color: isDarkMode ? '#00aa00' : '#4b5563' }}>Holds</span>
+                            <span className="font-bold" style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}>Holds</span>
                             <span className="font-bold" style={{ color: isDarkMode ? '#ffffff' : '#111827' }}>{stats.holdCount}</span>
                           </div>
                         </div>
@@ -860,13 +860,13 @@ export default function Dashboard() {
         className="border-t-2 mt-12 py-6"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-          borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+          borderColor: isDarkMode ? '#16a34a' : '#1f2937',
         }}
       >
         <div className="px-6 text-center">
           <div 
             className="text-xs font-mono font-bold"
-            style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}
+            style={{ color: isDarkMode ? '#15803d' : '#6b7280' }}
           >
             ICHIGO CRYPTO BOT | LIVE DATA | UPDATES EVERY 3 MINUTES
           </div>

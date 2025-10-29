@@ -59,15 +59,15 @@ export default function AccountValueChart({
       className="relative w-full h-[400px] md:h-[480px] border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-        borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+        borderColor: isDarkMode ? '#16a34a' : '#1f2937',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={chartData} margin={{ top: 60, right: 115, left: 20, bottom: 70 }}>
           <defs>
             <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
-              <stop offset="95%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={0}/>
+              <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
+              <stop offset="95%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={0}/>
             </linearGradient>
             <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={isDarkMode ? '#ff9500' : '#f59e0b'} stopOpacity={isDarkMode ? 0.2 : 0.15}/>
@@ -82,15 +82,15 @@ export default function AccountValueChart({
           />
           <XAxis
             dataKey="time"
-            stroke={isDarkMode ? '#00ff00' : '#374151'}
+            stroke={isDarkMode ? '#16a34a' : '#374151'}
             style={{ 
               fontSize: '9px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
               fontWeight: 400, 
-              fill: isDarkMode ? '#00aa00' : '#6b7280' 
+              fill: isDarkMode ? '#15803d' : '#6b7280' 
             }}
             tickLine={false}
-            axisLine={{ stroke: isDarkMode ? '#00ff00' : '#d1d5db', strokeWidth: 1 }}
+            axisLine={{ stroke: isDarkMode ? '#16a34a' : '#d1d5db', strokeWidth: 1 }}
             angle={-40}
             textAnchor="end"
             height={70}
@@ -101,15 +101,15 @@ export default function AccountValueChart({
           {/* Left Y-Axis for Balance */}
           <YAxis
             yAxisId="left"
-            stroke={isDarkMode ? '#00ff00' : '#3b82f6'}
+            stroke={isDarkMode ? '#16a34a' : '#3b82f6'}
             style={{ 
               fontSize: '10px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
               fontWeight: 600, 
-              fill: isDarkMode ? '#00ff00' : '#3b82f6' 
+              fill: isDarkMode ? '#16a34a' : '#3b82f6' 
             }}
             tickLine={false}
-            axisLine={{ stroke: isDarkMode ? '#00ff00' : '#3b82f6', strokeWidth: 1.5 }}
+            axisLine={{ stroke: isDarkMode ? '#16a34a' : '#3b82f6', strokeWidth: 1.5 }}
             tickFormatter={(value) => {
               if (chartMode === 'percent') return `${value.toFixed(1)}%`;
               if (valueType === 'usdt') return `$${Math.round(value)}`;
@@ -142,11 +142,11 @@ export default function AccountValueChart({
           <Tooltip
             contentStyle={{
               backgroundColor: isDarkMode ? '#000000' : '#ffffff',
-              border: `1px solid ${isDarkMode ? '#00ff00' : '#d1d5db'}`,
+              border: `1px solid ${isDarkMode ? '#16a34a' : '#d1d5db'}`,
               borderRadius: '2px',
               fontFamily: 'var(--font-ibm-plex-mono)',
               fontSize: '10px',
-              color: isDarkMode ? '#00ff00' : '#1f2937',
+              color: isDarkMode ? '#16a34a' : '#1f2937',
               padding: '6px 10px',
               boxShadow: isDarkMode ? 'none' : '0 2px 8px rgba(0,0,0,0.1)',
             }}
@@ -171,7 +171,7 @@ export default function AccountValueChart({
               return [value, name];
             }}
             labelStyle={{ 
-              color: isDarkMode ? '#00aa00' : '#6b7280', 
+              color: isDarkMode ? '#15803d' : '#6b7280', 
               fontSize: '9px',
               marginBottom: '2px',
             }}
@@ -197,7 +197,7 @@ export default function AccountValueChart({
                     if (entry.dataKey === 'balance') {
                       const label = valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QTY';
                       return (
-                        <span key={index} style={{ color: isDarkMode ? '#00ff00' : '#3b82f6' }}>
+                        <span key={index} style={{ color: isDarkMode ? '#16a34a' : '#3b82f6' }}>
                           {label}
                         </span>
                       );
@@ -243,7 +243,7 @@ export default function AccountValueChart({
             type="monotone"
             dataKey="balance"
             name="balance"
-            stroke={isDarkMode ? '#00ff00' : '#3b82f6'}
+            stroke={isDarkMode ? '#16a34a' : '#3b82f6'}
             strokeWidth={2.5}
             dot={false}
             animationDuration={300}
@@ -273,7 +273,7 @@ export default function AccountValueChart({
         <div 
           className="px-2.5 md:px-3 py-1 md:py-1.5 text-[9px] md:text-[10px] font-mono font-bold"
           style={{
-            backgroundColor: isDarkMode ? '#00ff00' : '#3b82f6',
+            backgroundColor: isDarkMode ? '#16a34a' : '#3b82f6',
             color: isDarkMode ? '#000000' : '#ffffff',
           }}
         >

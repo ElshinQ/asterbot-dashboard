@@ -27,13 +27,13 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
     if (isDarkMode) {
       switch (action.toLowerCase()) {
         case 'buy':
-          return { bg: '#002200', text: '#00ff00', border: '#00ff00' };
+          return { bg: '#002200', text: '#16a34a', border: '#16a34a' };
         case 'sell':
-          return { bg: '#220000', text: '#ff4444', border: '#ff4444' };
+          return { bg: '#220000', text: '#dc2626', border: '#dc2626' };
         case 'hold':
-          return { bg: '#000000', text: '#ffffff', border: '#00ff00' };
+          return { bg: '#000000', text: '#ffffff', border: '#16a34a' };
         default:
-          return { bg: '#000000', text: '#ffffff', border: '#00ff00' };
+          return { bg: '#000000', text: '#ffffff', border: '#16a34a' };
       }
     } else {
       switch (action.toLowerCase()) {
@@ -62,7 +62,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
   return (
     <div className="space-y-3">
       {decisions.length === 0 ? (
-        <div className="py-8 text-center text-sm font-mono" style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}>
+        <div className="py-8 text-center text-sm font-mono" style={{ color: isDarkMode ? '#15803d' : '#6b7280' }}>
           No decisions available
         </div>
       ) : (
@@ -78,7 +78,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                 key={decision.decisionUid}
                 className="border-2 p-3 transition-colors"
                 style={{
-                  borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+                  borderColor: isDarkMode ? '#16a34a' : '#1f2937',
                   backgroundColor: 'transparent',
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
@@ -96,11 +96,11 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                     >
                       {decision.action}
                     </span>
-                    <span className="text-xs font-mono font-bold" style={{ color: isDarkMode ? '#00aa00' : '#6b7280' }}>
+                    <span className="text-xs font-mono font-bold" style={{ color: isDarkMode ? '#15803d' : '#6b7280' }}>
                       {formatTime(decision.decidedAt)}
                     </span>
                   </div>
-                  <span className="text-sm font-bold font-mono" style={{ color: isDarkMode ? '#00ff00' : '#111827' }}>
+                  <span className="text-sm font-bold font-mono" style={{ color: isDarkMode ? '#16a34a' : '#111827' }}>
                     ${decision.lastClose.toFixed(3)}
                   </span>
                 </div>
@@ -109,7 +109,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                   <span 
                     className="px-2 py-1 font-bold text-[10px]"
                     style={{
-                      backgroundColor: isDarkMode ? '#00ff00' : '#1f2937',
+                      backgroundColor: isDarkMode ? '#16a34a' : '#1f2937',
                       color: isDarkMode ? '#000000' : '#ffffff',
                     }}
                   >
@@ -119,7 +119,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                   <span className="font-bold">ADX: {decision.adx14_3m.toFixed(1)}</span>
                   <span
                     className="font-bold"
-                    style={{ color: decision.hasPosition ? '#00ff00' : (isDarkMode ? '#666666' : '#9ca3af') }}
+                    style={{ color: decision.hasPosition ? '#16a34a' : (isDarkMode ? '#666666' : '#9ca3af') }}
                   >
                     {decision.hasPosition ? '● POS' : '○ NO POS'}
                   </span>
@@ -134,7 +134,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                     <button
                       onClick={() => toggleExpand(decision.decisionUid)}
                       className="mt-2 font-bold uppercase text-xs"
-                      style={{ color: isDarkMode ? '#00ff00' : '#2563eb' }}
+                      style={{ color: isDarkMode ? '#16a34a' : '#2563eb' }}
                     >
                       {isExpanded ? '▲ Show Less' : '▼ Read Full Decision'}
                     </button>

@@ -28,7 +28,7 @@ export default function LoadingState() {
           <div 
             className="w-3 h-3 border-2 animate-pulse"
             style={{ 
-              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              borderColor: isDarkMode ? '#16a34a' : '#1f2937',
               animationDelay: '0ms',
               animationDuration: '1s'
             }}
@@ -36,7 +36,7 @@ export default function LoadingState() {
           <div 
             className="w-3 h-3 border-2 animate-pulse"
             style={{ 
-              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              borderColor: isDarkMode ? '#16a34a' : '#1f2937',
               animationDelay: '200ms',
               animationDuration: '1s'
             }}
@@ -44,7 +44,7 @@ export default function LoadingState() {
           <div 
             className="w-3 h-3 border-2 animate-pulse"
             style={{ 
-              borderColor: isDarkMode ? '#00ff00' : '#1f2937',
+              borderColor: isDarkMode ? '#16a34a' : '#1f2937',
               animationDelay: '400ms',
               animationDuration: '1s'
             }}
@@ -53,7 +53,7 @@ export default function LoadingState() {
         
         <div 
           className="text-xs font-mono uppercase tracking-widest font-bold"
-          style={{ color: isDarkMode ? '#00ff00' : '#4b5563' }}
+          style={{ color: isDarkMode ? '#16a34a' : '#4b5563' }}
         >
           CONNECTING TO SERVER...
         </div>
