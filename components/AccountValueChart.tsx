@@ -1,6 +1,6 @@
 'use client';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Area, ComposedChart } from 'recharts';
 import type { HistoricalDataPoint } from '@/lib/types';
 
 interface AccountValueChartProps {
@@ -56,37 +56,46 @@ export default function AccountValueChart({
 
   return (
     <div 
-      className="relative w-full h-[350px] md:h-[450px] border-2"
+      className="relative w-full h-[400px] md:h-[480px] border-2"
       style={{
         backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         borderColor: isDarkMode ? '#00ff00' : '#1f2937',
       }}
     >
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 50, right: 60, left: 10, bottom: 80 }}>
+        <ComposedChart data={chartData} margin={{ top: 60, right: 80, left: 20, bottom: 70 }}>
+          <defs>
+            <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
+              <stop offset="95%" stopColor={isDarkMode ? '#00ff00' : '#3b82f6'} stopOpacity={0}/>
+            </linearGradient>
+            <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={isDarkMode ? '#ff9500' : '#f59e0b'} stopOpacity={isDarkMode ? 0.2 : 0.15}/>
+              <stop offset="95%" stopColor={isDarkMode ? '#ff9500' : '#f59e0b'} stopOpacity={0}/>
+            </linearGradient>
+          </defs>
           <CartesianGrid
             strokeDasharray="0"
-            stroke={isDarkMode ? '#003300' : '#e5e7eb'}
-            strokeWidth={0.5}
-            horizontal={true}
+            stroke="transparent"
+            horizontal={false}
             vertical={false}
           />
           <XAxis
             dataKey="time"
-            stroke={isDarkMode ? '#00aa00' : '#374151'}
+            stroke={isDarkMode ? '#00ff00' : '#374151'}
             style={{ 
-              fontSize: '10px', 
+              fontSize: '9px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
-              fontWeight: 500, 
-              fill: isDarkMode ? '#00aa00' : '#374151' 
+              fontWeight: 400, 
+              fill: isDarkMode ? '#00aa00' : '#6b7280' 
             }}
             tickLine={false}
-            axisLine={{ stroke: isDarkMode ? '#00aa00' : '#374151', strokeWidth: 1 }}
-            angle={-45}
+            axisLine={{ stroke: isDarkMode ? '#00ff00' : '#d1d5db', strokeWidth: 1 }}
+            angle={-40}
             textAnchor="end"
-            height={80}
+            height={70}
             interval="preserveStartEnd"
-            minTickGap={60}
+            minTickGap={80}
           />
           
           {/* Left Y-Axis for Balance */}
@@ -94,19 +103,19 @@ export default function AccountValueChart({
             yAxisId="left"
             stroke={isDarkMode ? '#00ff00' : '#3b82f6'}
             style={{ 
-              fontSize: '11px', 
+              fontSize: '10px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
-              fontWeight: 500, 
+              fontWeight: 600, 
               fill: isDarkMode ? '#00ff00' : '#3b82f6' 
             }}
             tickLine={false}
-            axisLine={{ stroke: isDarkMode ? '#00ff00' : '#3b82f6', strokeWidth: 1 }}
+            axisLine={{ stroke: isDarkMode ? '#00ff00' : '#3b82f6', strokeWidth: 1.5 }}
             tickFormatter={(value) => {
               if (chartMode === 'percent') return `${value.toFixed(1)}%`;
-              if (valueType === 'usdt') return `$${Math.round(value).toLocaleString()}`;
-              return Math.round(value).toLocaleString();
+              if (valueType === 'usdt') return `$${Math.round(value)}`;
+              return `${Math.round(value)}`;
             }}
-            domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => Math.max(0, Math.floor(dataMin * 0.9)), (dataMax: number) => Math.ceil(dataMax * 1.1)]}
+            domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => Math.max(0, Math.floor(dataMin * 0.85)), (dataMax: number) => Math.ceil(dataMax * 1.15)]}
           />
           
           {/* Right Y-Axis for Price */}
@@ -115,77 +124,93 @@ export default function AccountValueChart({
             orientation="right"
             stroke={isDarkMode ? '#ff9500' : '#f59e0b'}
             style={{ 
-              fontSize: '11px', 
+              fontSize: '10px', 
               fontFamily: 'var(--font-ibm-plex-mono)', 
-              fontWeight: 500, 
+              fontWeight: 600, 
               fill: isDarkMode ? '#ff9500' : '#f59e0b' 
             }}
             tickLine={false}
-            axisLine={{ stroke: isDarkMode ? '#ff9500' : '#f59e0b', strokeWidth: 1 }}
+            axisLine={{ stroke: isDarkMode ? '#ff9500' : '#f59e0b', strokeWidth: 1.5 }}
             tickFormatter={(value) => {
               if (chartMode === 'percent') return `${value.toFixed(1)}%`;
-              return `$${value.toFixed(6)}`;
+              return `$${value.toFixed(5)}`;
             }}
-            domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.995, (dataMax: number) => dataMax * 1.005]}
-            width={70}
+            domain={chartMode === 'percent' ? ['auto', 'auto'] : [(dataMin: number) => dataMin * 0.99, (dataMax: number) => dataMax * 1.01]}
+            width={75}
           />
           
           <Tooltip
             contentStyle={{
-              backgroundColor: isDarkMode ? '#000000' : '#1f2937',
-              border: `2px solid ${isDarkMode ? '#00ff00' : '#374151'}`,
-              borderRadius: '4px',
+              backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+              border: `1px solid ${isDarkMode ? '#00ff00' : '#d1d5db'}`,
+              borderRadius: '2px',
               fontFamily: 'var(--font-ibm-plex-mono)',
-              fontSize: '11px',
-              color: isDarkMode ? '#00ff00' : '#f3f4f6',
-              padding: '8px 12px',
+              fontSize: '10px',
+              color: isDarkMode ? '#00ff00' : '#1f2937',
+              padding: '6px 10px',
+              boxShadow: isDarkMode ? 'none' : '0 2px 8px rgba(0,0,0,0.1)',
             }}
             formatter={(value: number, name: string) => {
               if (name === 'balance') {
-                const label = chartMode === 'percent' 
-                  ? 'Balance Change' 
-                  : (valueType === 'usdt' ? 'USDT Balance' : 'ASTER Quantity');
-                
+                const label = valueType === 'usdt' ? 'USDT' : 'ASTER';
                 let formattedValue;
                 if (chartMode === 'percent') {
                   formattedValue = `${value.toFixed(2)}%`;
                 } else if (valueType === 'usdt') {
-                  formattedValue = `$${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                  formattedValue = `$${value.toFixed(2)}`;
                 } else {
-                  formattedValue = `${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ASTER`;
+                  formattedValue = `${value.toFixed(2)}`;
                 }
-                
                 return [formattedValue, label];
               } else if (name === 'price') {
-                const label = chartMode === 'percent' ? 'Price Change' : 'ASTER Price';
                 const formattedValue = chartMode === 'percent' 
                   ? `${value.toFixed(2)}%`
                   : `$${value.toFixed(6)}`;
-                return [formattedValue, label];
+                return [formattedValue, 'Price'];
               }
               return [value, name];
             }}
             labelStyle={{ 
-              color: isDarkMode ? '#00aa00' : '#9ca3af', 
-              marginBottom: '4px',
+              color: isDarkMode ? '#00aa00' : '#6b7280', 
+              fontSize: '9px',
+              marginBottom: '2px',
             }}
           />
           
           <Legend
             wrapperStyle={{
-              paddingTop: '10px',
+              paddingTop: '12px',
               fontFamily: 'var(--font-ibm-plex-mono)',
-              fontSize: '11px',
+              fontSize: '10px',
               fontWeight: 'bold',
             }}
+            iconSize={14}
             formatter={(value) => {
               if (value === 'balance') {
-                return valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QUANTITY';
+                return valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QTY';
               } else if (value === 'price') {
-                return 'ASTER PRICE';
+                return 'PRICE';
               }
               return value;
             }}
+          />
+          
+          {/* Area fill for Balance */}
+          <Area
+            yAxisId="left"
+            type="monotone"
+            dataKey="balance"
+            fill="url(#balanceGradient)"
+            stroke="none"
+          />
+          
+          {/* Area fill for Price */}
+          <Area
+            yAxisId="right"
+            type="monotone"
+            dataKey="price"
+            fill="url(#priceGradient)"
+            stroke="none"
           />
           
           {/* Balance Line */}
@@ -212,36 +237,34 @@ export default function AccountValueChart({
             dot={false}
             animationDuration={300}
             isAnimationActive={true}
-            strokeDasharray="5 5"
+            strokeDasharray="4 4"
           />
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
       
-      {/* Current value indicators - dual display */}
-      <div className="absolute top-4 md:top-8 right-4 md:right-8 flex flex-col gap-2">
+      {/* Current value indicators - minimal style */}
+      <div className="absolute top-3 md:top-4 right-3 md:right-4 flex flex-col gap-1.5">
         <div 
-          className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold"
+          className="px-2.5 md:px-3 py-1 md:py-1.5 text-[9px] md:text-[10px] font-mono font-bold"
           style={{
             backgroundColor: isDarkMode ? '#00ff00' : '#3b82f6',
             color: isDarkMode ? '#000000' : '#ffffff',
           }}
         >
-          <div className="text-[8px] md:text-[9px] opacity-80 mb-0.5 uppercase">
-            {valueType === 'usdt' ? 'USDT' : 'ASTER'}
-          </div>
+          <span className="opacity-70 mr-1">{valueType === 'usdt' ? 'USDT:' : 'ASTER:'}</span>
           {valueType === 'usdt' 
-            ? `${currentUsdtValue?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}`
-            : `${currentValue?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}`
+            ? `$${currentUsdtValue?.toFixed(2) || '0.00'}`
+            : `${currentValue?.toFixed(2) || '0.00'}`
           }
         </div>
         <div 
-          className="px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-mono font-bold"
+          className="px-2.5 md:px-3 py-1 md:py-1.5 text-[9px] md:text-[10px] font-mono font-bold"
           style={{
             backgroundColor: isDarkMode ? '#ff9500' : '#f59e0b',
             color: isDarkMode ? '#000000' : '#ffffff',
           }}
         >
-          <div className="text-[8px] md:text-[9px] opacity-80 mb-0.5 uppercase">PRICE</div>
+          <span className="opacity-70 mr-1">PRICE:</span>
           ${currentPrice.toFixed(6)}
         </div>
       </div>
