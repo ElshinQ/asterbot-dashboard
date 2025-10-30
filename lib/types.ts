@@ -64,6 +64,78 @@ export interface HistoricalDataPoint {
   asterPrice: number;
 }
 
+export interface SupportResistanceZone {
+  price: number;
+  type: string;
+  label: string;
+  distance_pct: number;
+  strength: number;
+  size?: number;
+}
+
+export interface OrderbookAnalysis {
+  signal: string;
+  bias: string;
+  strength: number;
+  insight: string;
+  ba_ratio: number;
+  liquidity_score: number;
+  liquidity_risk: string;
+  liquidity_note: string;
+  spread_pct: number;
+  spread_impact: string;
+  walls: {
+    has_bid_wall: boolean;
+    has_ask_wall: boolean;
+    bid_wall: { price: number; size: number; distance_pct: number } | null;
+    ask_wall: { price: number; size: number; distance_pct: number } | null;
+  };
+  total_liquidity_usd: number;
+}
+
+export interface DecisionQuality {
+  score: number;
+  label: string;
+  factors: Array<{
+    factor: string;
+    impact: number;
+    note: string;
+  }>;
+}
+
+export interface ActionableInsight {
+  type: string;
+  priority: string;
+  message: string;
+  condition: string;
+}
+
+export interface MarketIntelligence {
+  timestamp: string;
+  decision_uid: string;
+  orderbook: OrderbookAnalysis;
+  support_resistance: {
+    price_position: number;
+    nearest_support: SupportResistanceZone | null;
+    nearest_resistance: SupportResistanceZone | null;
+    support_zones: SupportResistanceZone[];
+    resistance_zones: SupportResistanceZone[];
+    support_count: number;
+    resistance_count: number;
+  };
+  decision_quality: DecisionQuality;
+  insights: ActionableInsight[];
+  flags: {
+    strong_buy_setup: boolean;
+    near_support: boolean;
+    near_resistance: boolean;
+    low_liquidity_risk: boolean;
+    orderbook_bullish: boolean;
+    orderbook_bearish: boolean;
+    quality_decision: boolean;
+  };
+}
+
 export interface RecentDecision {
   decisionUid: string;
   decidedAt: string;
@@ -74,6 +146,7 @@ export interface RecentDecision {
   rsi14_3m: number;
   adx14_3m: number;
   hasPosition: boolean;
+  marketIntelligence?: MarketIntelligence | null;
 }
 
 export interface OpenOrder {

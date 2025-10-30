@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { RecentDecision } from '@/lib/types';
+import MarketIntelligenceCard from './MarketIntelligence';
 
 interface DecisionsFeedProps {
   decisions: RecentDecision[];
@@ -140,6 +141,16 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
                     </button>
                   )}
                 </div>
+
+                {/* Market Intelligence - Only show when expanded and available */}
+                {isExpanded && decision.marketIntelligence && (
+                  <div className="mt-4 pt-4 border-t-2" style={{ borderColor: isDarkMode ? '#16a34a' : '#e5e7eb' }}>
+                    <MarketIntelligenceCard
+                      intelligence={decision.marketIntelligence}
+                      currentPrice={decision.lastClose}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}

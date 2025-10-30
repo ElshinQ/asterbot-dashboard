@@ -367,7 +367,7 @@ export async function getCanceledOrders() {
 }
 
 /**
- * Get recent decisions with details
+ * Get recent decisions with details and market intelligence
  */
 export async function getRecentDecisions(limit = 20) {
   const result = await query<{
@@ -380,6 +380,7 @@ export async function getRecentDecisions(limit = 20) {
     rsi14_3m: string;
     adx14_3m: string;
     has_position: boolean;
+    market_intelligence: any;
   }>(
     `
     SELECT 
@@ -391,7 +392,8 @@ export async function getRecentDecisions(limit = 20) {
       last_close,
       rsi14_3m,
       adx14_3m,
-      has_position
+      has_position,
+      feature_snapshot->'market_intelligence' as market_intelligence
     FROM ichigo.decisions
     ORDER BY decided_at DESC
     LIMIT $1
@@ -409,6 +411,7 @@ export async function getRecentDecisions(limit = 20) {
     rsi14_3m: parseFloat(row.rsi14_3m),
     adx14_3m: parseFloat(row.adx14_3m),
     hasPosition: row.has_position,
+    marketIntelligence: row.market_intelligence || null,
   }));
 }
 
