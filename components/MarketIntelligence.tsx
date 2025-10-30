@@ -5,9 +5,10 @@ import type { MarketIntelligence } from '@/lib/types';
 interface MarketIntelligenceCardProps {
   intelligence: MarketIntelligence;
   currentPrice: number;
+  isDarkMode?: boolean;
 }
 
-export default function MarketIntelligenceCard({ intelligence, currentPrice }: MarketIntelligenceCardProps) {
+export default function MarketIntelligenceCard({ intelligence, currentPrice, isDarkMode = false }: MarketIntelligenceCardProps) {
   if (!intelligence) return null;
 
   const { orderbook, support_resistance, decision_quality, insights, flags } = intelligence;
@@ -28,6 +29,11 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
   };
 
   const getPriorityStyle = (priority: string) => {
+    if (isDarkMode) {
+      if (priority === 'high') return { bg: '#220000', color: '#dc2626', border: '#dc2626' };
+      if (priority === 'medium') return { bg: '#1a1a00', color: '#facc15', border: '#facc15' };
+      return { bg: '#001100', color: '#16a34a', border: '#16a34a' };
+    }
     if (priority === 'high') return { bg: '#fef2f2', color: '#dc2626', border: '#dc2626' };
     if (priority === 'medium') return { bg: '#fffbeb', color: '#d97706', border: '#d97706' };
     return { bg: '#f0fdf4', color: '#16a34a', border: '#16a34a' };
@@ -39,11 +45,11 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       <div 
         className="px-3 py-2"
         style={{ 
-          border: '2px dashed #000000', 
+          border: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', 
           backgroundColor: 'transparent' 
         }}
       >
-        <h3 className="text-sm font-bold uppercase" style={{ color: '#000000' }}>
+        <h3 className="text-sm font-bold uppercase" style={{ color: isDarkMode ? '#16a34a' : '#000000' }}>
           📊 Market Intelligence
         </h3>
       </div>
@@ -51,31 +57,31 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       {/* Order Book Section */}
       <div 
         className="p-3"
-        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
+        style={{ border: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: isDarkMode ? '#16a34a' : '#000000' }}>
             {getOrderbookEmoji(orderbook.signal)} Order Book
           </span>
-          <span className="text-xs font-bold" style={{ color: '#000000' }}>
+          <span className="text-xs font-bold" style={{ color: isDarkMode ? '#ffffff' : '#000000' }}>
             {orderbook.signal.replace(/_/g, ' ').toUpperCase()}
           </span>
         </div>
 
         <div className="space-y-1 text-xs">
           <div className="flex justify-between">
-            <span style={{ color: '#4b5563', fontWeight: 600 }}>Signal:</span>
-            <span style={{ color: '#000000' }} className="font-bold">
+            <span style={{ color: isDarkMode ? '#15803d' : '#4b5563', fontWeight: 600 }}>Signal:</span>
+            <span style={{ color: isDarkMode ? '#ffffff' : '#000000' }} className="font-bold">
               {orderbook.signal.replace(/_/g, ' ')}
             </span>
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#4b5563', fontWeight: 600 }}>Bid/Ask Ratio:</span>
+            <span style={{ color: isDarkMode ? '#15803d' : '#4b5563', fontWeight: 600 }}>Bid/Ask Ratio:</span>
             <span 
               className="font-bold"
               style={{ 
-                color: orderbook.ba_ratio > 1.2 ? '#16a34a' : orderbook.ba_ratio < 0.8 ? '#dc2626' : '#000000' 
+                color: orderbook.ba_ratio > 1.2 ? '#16a34a' : orderbook.ba_ratio < 0.8 ? '#dc2626' : (isDarkMode ? '#ffffff' : '#000000') 
               }}
             >
               {orderbook.ba_ratio.toFixed(2)}
@@ -83,11 +89,11 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#4b5563', fontWeight: 600 }}>Liquidity:</span>
+            <span style={{ color: isDarkMode ? '#15803d' : '#4b5563', fontWeight: 600 }}>Liquidity:</span>
             <span 
               className="font-bold"
               style={{ 
-                color: orderbook.liquidity_score >= 60 ? '#16a34a' : orderbook.liquidity_score >= 40 ? '#d97706' : '#dc2626' 
+                color: orderbook.liquidity_score >= 60 ? '#16a34a' : orderbook.liquidity_score >= 40 ? (isDarkMode ? '#facc15' : '#d97706') : '#dc2626' 
               }}
             >
               {orderbook.liquidity_score}/100
@@ -95,15 +101,15 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#4b5563', fontWeight: 600 }}>Spread:</span>
-            <span style={{ color: '#000000' }} className="font-bold">
+            <span style={{ color: isDarkMode ? '#15803d' : '#4b5563', fontWeight: 600 }}>Spread:</span>
+            <span style={{ color: isDarkMode ? '#ffffff' : '#000000' }} className="font-bold">
               {(orderbook.spread_pct * 100).toFixed(3)}%
             </span>
           </div>
 
           {orderbook.insight && (
-            <div className="pt-2 mt-2" style={{ borderTop: '2px dashed #000000' }}>
-              <span style={{ color: '#000000', fontWeight: 600 }} className="text-[10px]">
+            <div className="pt-2 mt-2" style={{ borderTop: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000' }}>
+              <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }} className="text-[10px]">
                 {orderbook.insight}
               </span>
             </div>
@@ -112,13 +118,13 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
 
         {/* Walls */}
         {(orderbook.walls.has_bid_wall || orderbook.walls.has_ask_wall) && (
-          <div className="mt-3 pt-2 space-y-1" style={{ borderTop: '2px dashed #000000' }}>
+          <div className="mt-3 pt-2 space-y-1" style={{ borderTop: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000' }}>
             {orderbook.walls.has_bid_wall && orderbook.walls.bid_wall && (
               <div className="flex items-center justify-between text-[10px]">
                 <span style={{ color: '#16a34a' }} className="font-bold">
                   🛡️ Bid Wall:
                 </span>
-                <span style={{ color: '#000000', fontWeight: 600 }}>
+                <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
                   ${orderbook.walls.bid_wall.price.toFixed(3)} ({orderbook.walls.bid_wall.size.toLocaleString()} ASTER)
                 </span>
               </div>
@@ -128,7 +134,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
                 <span style={{ color: '#dc2626' }} className="font-bold">
                   🚧 Ask Wall:
                 </span>
-                <span style={{ color: '#000000', fontWeight: 600 }}>
+                <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
                   ${orderbook.walls.ask_wall.price.toFixed(3)} ({orderbook.walls.ask_wall.size.toLocaleString()} ASTER)
                 </span>
               </div>
@@ -140,13 +146,13 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       {/* Support & Resistance Section */}
       <div 
         className="p-3"
-        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
+        style={{ border: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: isDarkMode ? '#16a34a' : '#000000' }}>
             🎯 Support & Resistance
           </span>
-          <span className="text-xs font-bold" style={{ color: '#000000' }}>
+          <span className="text-xs font-bold" style={{ color: isDarkMode ? '#ffffff' : '#000000' }}>
             {support_resistance.price_position}%
           </span>
         </div>
@@ -155,9 +161,9 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           {support_resistance.nearest_support && (
             <div className="flex justify-between">
               <span style={{ color: '#16a34a' }} className="font-bold">Nearest Support:</span>
-              <span style={{ color: '#000000', fontWeight: 600 }}>
+              <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
                 ${support_resistance.nearest_support.price.toFixed(3)} ({support_resistance.nearest_support.label})
-                <span style={{ color: '#4b5563' }} className="ml-1">
+                <span style={{ color: isDarkMode ? '#15803d' : '#4b5563' }} className="ml-1">
                   -{support_resistance.nearest_support.distance_pct}%
                 </span>
               </span>
@@ -167,16 +173,16 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           {support_resistance.nearest_resistance && (
             <div className="flex justify-between">
               <span style={{ color: '#dc2626' }} className="font-bold">Nearest Resistance:</span>
-              <span style={{ color: '#000000', fontWeight: 600 }}>
+              <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
                 ${support_resistance.nearest_resistance.price.toFixed(3)} ({support_resistance.nearest_resistance.label})
-                <span style={{ color: '#4b5563' }} className="ml-1">
+                <span style={{ color: isDarkMode ? '#15803d' : '#4b5563' }} className="ml-1">
                   +{support_resistance.nearest_resistance.distance_pct}%
                 </span>
               </span>
             </div>
           )}
 
-          <div className="flex justify-between pt-2 mt-2" style={{ borderTop: '2px dashed #000000', color: '#4b5563' }}>
+          <div className="flex justify-between pt-2 mt-2" style={{ borderTop: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', color: isDarkMode ? '#15803d' : '#4b5563' }}>
             <span className="text-[10px] font-semibold">{support_resistance.support_count} supports</span>
             <span className="text-[10px] font-semibold">{support_resistance.resistance_count} resistances</span>
           </div>
@@ -186,10 +192,10 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       {/* Decision Quality Section */}
       <div 
         className="p-3"
-        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
+        style={{ border: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: isDarkMode ? '#16a34a' : '#000000' }}>
             ✅ Decision Quality
           </span>
           <span 
@@ -202,20 +208,20 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
 
         <div className="space-y-1 text-xs">
           <div className="flex justify-between">
-            <span style={{ color: '#4b5563', fontWeight: 600 }}>Assessment:</span>
-            <span style={{ color: '#000000' }} className="font-bold uppercase">
+            <span style={{ color: isDarkMode ? '#15803d' : '#4b5563', fontWeight: 600 }}>Assessment:</span>
+            <span style={{ color: isDarkMode ? '#ffffff' : '#000000' }} className="font-bold uppercase">
               {decision_quality.label}
             </span>
           </div>
 
           {decision_quality.factors.length > 0 && (
-            <div className="mt-2 pt-2 space-y-1" style={{ borderTop: '2px dashed #000000' }}>
+            <div className="mt-2 pt-2 space-y-1" style={{ borderTop: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000' }}>
               {decision_quality.factors.map((factor, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-[10px]">
                   <span style={{ color: factor.impact > 0 ? '#16a34a' : '#dc2626' }} className="font-bold">
                     {factor.impact > 0 ? '↑' : '↓'}
                   </span>
-                  <span style={{ color: '#000000', fontWeight: 600 }} className="flex-1">
+                  <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }} className="flex-1">
                     {factor.note}
                   </span>
                   <span style={{ color: factor.impact > 0 ? '#16a34a' : '#dc2626' }} className="font-bold">
@@ -232,10 +238,10 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       {insights.length > 0 && (
         <div 
           className="p-3"
-          style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
+          style={{ border: isDarkMode ? '2px dashed #16a34a' : '2px dashed #000000', backgroundColor: 'transparent' }}
         >
           <div className="mb-2">
-            <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
+            <span className="text-xs font-bold uppercase" style={{ color: isDarkMode ? '#16a34a' : '#000000' }}>
               💡 Insights
             </span>
           </div>
@@ -254,7 +260,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
                 >
                   <div className="flex items-start gap-2">
                     <span className="font-bold uppercase" style={{ color: priorityStyle.color }}>{insight.priority}</span>
-                    <span className="flex-1 font-semibold" style={{ color: '#000000' }}>
+                    <span className="flex-1 font-semibold" style={{ color: isDarkMode ? '#ffffff' : '#000000' }}>
                       {insight.message}
                     </span>
                   </div>
@@ -272,7 +278,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #16a34a', 
-              backgroundColor: '#f0fdf4', 
+              backgroundColor: isDarkMode ? '#001100' : '#f0fdf4', 
               color: '#16a34a' 
             }}
           >
@@ -284,7 +290,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #16a34a', 
-              backgroundColor: '#f0fdf4', 
+              backgroundColor: isDarkMode ? '#001100' : '#f0fdf4', 
               color: '#16a34a' 
             }}
           >
@@ -295,9 +301,9 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           <span 
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
-              border: '2px dashed #d97706', 
-              backgroundColor: '#fffbeb', 
-              color: '#d97706' 
+              border: isDarkMode ? '2px dashed #facc15' : '2px dashed #d97706', 
+              backgroundColor: isDarkMode ? '#1a1a00' : '#fffbeb', 
+              color: isDarkMode ? '#facc15' : '#d97706'
             }}
           >
             🚧 Near Resistance
@@ -308,7 +314,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #dc2626', 
-              backgroundColor: '#fef2f2', 
+              backgroundColor: isDarkMode ? '#220000' : '#fef2f2', 
               color: '#dc2626' 
             }}
           >
@@ -320,7 +326,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #16a34a', 
-              backgroundColor: '#f0fdf4', 
+              backgroundColor: isDarkMode ? '#001100' : '#f0fdf4', 
               color: '#16a34a' 
             }}
           >
@@ -332,7 +338,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #dc2626', 
-              backgroundColor: '#fef2f2', 
+              backgroundColor: isDarkMode ? '#220000' : '#fef2f2', 
               color: '#dc2626' 
             }}
           >
@@ -344,7 +350,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
             className="text-[10px] px-2 py-1 font-bold"
             style={{ 
               border: '2px dashed #16a34a', 
-              backgroundColor: '#f0fdf4', 
+              backgroundColor: isDarkMode ? '#001100' : '#f0fdf4', 
               color: '#16a34a' 
             }}
           >
