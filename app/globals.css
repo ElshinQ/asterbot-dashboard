@@ -3,6 +3,9 @@
 @layer base {
   body {
     @apply bg-white text-gray-900 font-[var(--font-ibm-plex-mono)];
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

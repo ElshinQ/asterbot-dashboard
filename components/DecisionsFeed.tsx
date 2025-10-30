@@ -77,9 +77,9 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
             return (
               <div
                 key={decision.decisionUid}
-                className="border-2 p-3 transition-colors"
+                className="p-3 transition-colors"
                 style={{
-                  borderColor: isDarkMode ? '#16a34a' : '#1f2937',
+                  border: isDarkMode ? '2px solid #16a34a' : '2px dashed #000000',
                   backgroundColor: 'transparent',
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = isDarkMode ? '#001100' : '#f9fafb'}
@@ -144,7 +144,7 @@ export default function DecisionsFeed({ decisions, isDarkMode }: DecisionsFeedPr
 
                 {/* Market Intelligence - Only show when expanded and available */}
                 {isExpanded && decision.marketIntelligence && (
-                  <div className="mt-4 pt-4 border-t-2" style={{ borderColor: isDarkMode ? '#16a34a' : '#e5e7eb' }}>
+                  <div className="mt-4 pt-4" style={{ borderTop: isDarkMode ? '2px solid #16a34a' : '2px dashed #000000' }}>
                     <MarketIntelligenceCard
                       intelligence={decision.marketIntelligence}
                       currentPrice={decision.lastClose}

@@ -23,56 +23,59 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
   const getQualityColor = (score: number) => {
     if (score >= 75) return '#16a34a';
     if (score >= 60) return '#16a34a';
-    if (score >= 40) return '#facc15';
+    if (score >= 40) return '#d97706';
     return '#dc2626';
   };
 
   const getPriorityStyle = (priority: string) => {
-    if (priority === 'high') return { bg: '#220000', color: '#dc2626', border: '#dc2626' };
-    if (priority === 'medium') return { bg: '#1a1a00', color: '#facc15', border: '#facc15' };
-    return { bg: '#001100', color: '#16a34a', border: '#16a34a' };
+    if (priority === 'high') return { bg: '#fef2f2', color: '#dc2626', border: '#dc2626' };
+    if (priority === 'medium') return { bg: '#fffbeb', color: '#d97706', border: '#d97706' };
+    return { bg: '#f0fdf4', color: '#16a34a', border: '#16a34a' };
   };
 
   return (
     <div className="space-y-3 font-mono">
       {/* Header */}
       <div 
-        className="border-2 px-3 py-2"
-        style={{ borderColor: '#16a34a', backgroundColor: 'transparent' }}
+        className="px-3 py-2"
+        style={{ 
+          border: '2px dashed #000000', 
+          backgroundColor: 'transparent' 
+        }}
       >
-        <h3 className="text-sm font-bold uppercase" style={{ color: '#16a34a' }}>
+        <h3 className="text-sm font-bold uppercase" style={{ color: '#000000' }}>
           📊 Market Intelligence
         </h3>
       </div>
 
       {/* Order Book Section */}
       <div 
-        className="border-2 p-3"
-        style={{ borderColor: '#16a34a', backgroundColor: 'transparent' }}
+        className="p-3"
+        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#16a34a' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
             {getOrderbookEmoji(orderbook.signal)} Order Book
           </span>
-          <span className="text-xs font-bold" style={{ color: '#ffffff' }}>
+          <span className="text-xs font-bold" style={{ color: '#000000' }}>
             {orderbook.signal.replace(/_/g, ' ').toUpperCase()}
           </span>
         </div>
 
         <div className="space-y-1 text-xs">
           <div className="flex justify-between">
-            <span style={{ color: '#666666' }}>Signal:</span>
-            <span style={{ color: '#ffffff' }} className="font-bold">
+            <span style={{ color: '#4b5563', fontWeight: 600 }}>Signal:</span>
+            <span style={{ color: '#000000' }} className="font-bold">
               {orderbook.signal.replace(/_/g, ' ')}
             </span>
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#666666' }}>Bid/Ask Ratio:</span>
+            <span style={{ color: '#4b5563', fontWeight: 600 }}>Bid/Ask Ratio:</span>
             <span 
               className="font-bold"
               style={{ 
-                color: orderbook.ba_ratio > 1.2 ? '#16a34a' : orderbook.ba_ratio < 0.8 ? '#dc2626' : '#ffffff' 
+                color: orderbook.ba_ratio > 1.2 ? '#16a34a' : orderbook.ba_ratio < 0.8 ? '#dc2626' : '#000000' 
               }}
             >
               {orderbook.ba_ratio.toFixed(2)}
@@ -80,11 +83,11 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#666666' }}>Liquidity:</span>
+            <span style={{ color: '#4b5563', fontWeight: 600 }}>Liquidity:</span>
             <span 
               className="font-bold"
               style={{ 
-                color: orderbook.liquidity_score >= 60 ? '#16a34a' : orderbook.liquidity_score >= 40 ? '#facc15' : '#dc2626' 
+                color: orderbook.liquidity_score >= 60 ? '#16a34a' : orderbook.liquidity_score >= 40 ? '#d97706' : '#dc2626' 
               }}
             >
               {orderbook.liquidity_score}/100
@@ -92,15 +95,15 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           </div>
 
           <div className="flex justify-between">
-            <span style={{ color: '#666666' }}>Spread:</span>
-            <span style={{ color: '#ffffff' }} className="font-bold">
+            <span style={{ color: '#4b5563', fontWeight: 600 }}>Spread:</span>
+            <span style={{ color: '#000000' }} className="font-bold">
               {(orderbook.spread_pct * 100).toFixed(3)}%
             </span>
           </div>
 
           {orderbook.insight && (
-            <div className="pt-2 mt-2" style={{ borderTop: '1px solid #16a34a' }}>
-              <span style={{ color: '#ffffff' }} className="text-[10px]">
+            <div className="pt-2 mt-2" style={{ borderTop: '2px dashed #000000' }}>
+              <span style={{ color: '#000000', fontWeight: 600 }} className="text-[10px]">
                 {orderbook.insight}
               </span>
             </div>
@@ -109,13 +112,13 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
 
         {/* Walls */}
         {(orderbook.walls.has_bid_wall || orderbook.walls.has_ask_wall) && (
-          <div className="mt-3 pt-2 space-y-1" style={{ borderTop: '1px solid #16a34a' }}>
+          <div className="mt-3 pt-2 space-y-1" style={{ borderTop: '2px dashed #000000' }}>
             {orderbook.walls.has_bid_wall && orderbook.walls.bid_wall && (
               <div className="flex items-center justify-between text-[10px]">
                 <span style={{ color: '#16a34a' }} className="font-bold">
                   🛡️ Bid Wall:
                 </span>
-                <span style={{ color: '#ffffff' }}>
+                <span style={{ color: '#000000', fontWeight: 600 }}>
                   ${orderbook.walls.bid_wall.price.toFixed(3)} ({orderbook.walls.bid_wall.size.toLocaleString()} ASTER)
                 </span>
               </div>
@@ -125,7 +128,7 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
                 <span style={{ color: '#dc2626' }} className="font-bold">
                   🚧 Ask Wall:
                 </span>
-                <span style={{ color: '#ffffff' }}>
+                <span style={{ color: '#000000', fontWeight: 600 }}>
                   ${orderbook.walls.ask_wall.price.toFixed(3)} ({orderbook.walls.ask_wall.size.toLocaleString()} ASTER)
                 </span>
               </div>
@@ -136,14 +139,14 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
 
       {/* Support & Resistance Section */}
       <div 
-        className="border-2 p-3"
-        style={{ borderColor: '#16a34a', backgroundColor: 'transparent' }}
+        className="p-3"
+        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#16a34a' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
             🎯 Support & Resistance
           </span>
-          <span className="text-xs font-bold" style={{ color: '#ffffff' }}>
+          <span className="text-xs font-bold" style={{ color: '#000000' }}>
             {support_resistance.price_position}%
           </span>
         </div>
@@ -152,9 +155,9 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           {support_resistance.nearest_support && (
             <div className="flex justify-between">
               <span style={{ color: '#16a34a' }} className="font-bold">Nearest Support:</span>
-              <span style={{ color: '#ffffff' }}>
+              <span style={{ color: '#000000', fontWeight: 600 }}>
                 ${support_resistance.nearest_support.price.toFixed(3)} ({support_resistance.nearest_support.label})
-                <span style={{ color: '#666666' }} className="ml-1">
+                <span style={{ color: '#4b5563' }} className="ml-1">
                   -{support_resistance.nearest_support.distance_pct}%
                 </span>
               </span>
@@ -164,29 +167,29 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
           {support_resistance.nearest_resistance && (
             <div className="flex justify-between">
               <span style={{ color: '#dc2626' }} className="font-bold">Nearest Resistance:</span>
-              <span style={{ color: '#ffffff' }}>
+              <span style={{ color: '#000000', fontWeight: 600 }}>
                 ${support_resistance.nearest_resistance.price.toFixed(3)} ({support_resistance.nearest_resistance.label})
-                <span style={{ color: '#666666' }} className="ml-1">
+                <span style={{ color: '#4b5563' }} className="ml-1">
                   +{support_resistance.nearest_resistance.distance_pct}%
                 </span>
               </span>
             </div>
           )}
 
-          <div className="flex justify-between pt-2 mt-2" style={{ borderTop: '1px solid #16a34a', color: '#666666' }}>
-            <span className="text-[10px]">{support_resistance.support_count} supports</span>
-            <span className="text-[10px]">{support_resistance.resistance_count} resistances</span>
+          <div className="flex justify-between pt-2 mt-2" style={{ borderTop: '2px dashed #000000', color: '#4b5563' }}>
+            <span className="text-[10px] font-semibold">{support_resistance.support_count} supports</span>
+            <span className="text-[10px] font-semibold">{support_resistance.resistance_count} resistances</span>
           </div>
         </div>
       </div>
 
       {/* Decision Quality Section */}
       <div 
-        className="border-2 p-3"
-        style={{ borderColor: '#16a34a', backgroundColor: 'transparent' }}
+        className="p-3"
+        style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
       >
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold uppercase" style={{ color: '#16a34a' }}>
+          <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
             ✅ Decision Quality
           </span>
           <span 
@@ -199,20 +202,20 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
 
         <div className="space-y-1 text-xs">
           <div className="flex justify-between">
-            <span style={{ color: '#666666' }}>Assessment:</span>
-            <span style={{ color: '#ffffff' }} className="font-bold uppercase">
+            <span style={{ color: '#4b5563', fontWeight: 600 }}>Assessment:</span>
+            <span style={{ color: '#000000' }} className="font-bold uppercase">
               {decision_quality.label}
             </span>
           </div>
 
           {decision_quality.factors.length > 0 && (
-            <div className="mt-2 pt-2 space-y-1" style={{ borderTop: '1px solid #16a34a' }}>
+            <div className="mt-2 pt-2 space-y-1" style={{ borderTop: '2px dashed #000000' }}>
               {decision_quality.factors.map((factor, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-[10px]">
                   <span style={{ color: factor.impact > 0 ? '#16a34a' : '#dc2626' }} className="font-bold">
                     {factor.impact > 0 ? '↑' : '↓'}
                   </span>
-                  <span style={{ color: '#ffffff' }} className="flex-1">
+                  <span style={{ color: '#000000', fontWeight: 600 }} className="flex-1">
                     {factor.note}
                   </span>
                   <span style={{ color: factor.impact > 0 ? '#16a34a' : '#dc2626' }} className="font-bold">
@@ -228,11 +231,11 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       {/* Insights Section */}
       {insights.length > 0 && (
         <div 
-          className="border-2 p-3"
-          style={{ borderColor: '#16a34a', backgroundColor: 'transparent' }}
+          className="p-3"
+          style={{ border: '2px dashed #000000', backgroundColor: 'transparent' }}
         >
           <div className="mb-2">
-            <span className="text-xs font-bold uppercase" style={{ color: '#16a34a' }}>
+            <span className="text-xs font-bold uppercase" style={{ color: '#000000' }}>
               💡 Insights
             </span>
           </div>
@@ -243,16 +246,15 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
               return (
                 <div
                   key={idx}
-                  className="border-2 p-2 text-[10px]"
+                  className="p-2 text-[10px]"
                   style={{
+                    border: '2px dashed ' + priorityStyle.border,
                     backgroundColor: priorityStyle.bg,
-                    borderColor: priorityStyle.border,
-                    color: priorityStyle.color
                   }}
                 >
                   <div className="flex items-start gap-2">
-                    <span className="font-bold uppercase">{insight.priority}</span>
-                    <span className="flex-1" style={{ color: '#ffffff' }}>
+                    <span className="font-bold uppercase" style={{ color: priorityStyle.color }}>{insight.priority}</span>
+                    <span className="flex-1 font-semibold" style={{ color: '#000000' }}>
                       {insight.message}
                     </span>
                   </div>
@@ -267,56 +269,84 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice }: M
       <div className="flex flex-wrap gap-2">
         {flags.strong_buy_setup && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#001100', color: '#16a34a', borderColor: '#16a34a' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #16a34a', 
+              backgroundColor: '#f0fdf4', 
+              color: '#16a34a' 
+            }}
           >
             🎯 Strong Setup
           </span>
         )}
         {flags.near_support && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#001100', color: '#16a34a', borderColor: '#16a34a' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #16a34a', 
+              backgroundColor: '#f0fdf4', 
+              color: '#16a34a' 
+            }}
           >
             🛡️ Near Support
           </span>
         )}
         {flags.near_resistance && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#1a1a00', color: '#facc15', borderColor: '#facc15' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #d97706', 
+              backgroundColor: '#fffbeb', 
+              color: '#d97706' 
+            }}
           >
             🚧 Near Resistance
           </span>
         )}
         {flags.low_liquidity_risk && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#220000', color: '#dc2626', borderColor: '#dc2626' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #dc2626', 
+              backgroundColor: '#fef2f2', 
+              color: '#dc2626' 
+            }}
           >
             ⚠️ Low Liquidity
           </span>
         )}
         {flags.orderbook_bullish && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#001100', color: '#16a34a', borderColor: '#16a34a' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #16a34a', 
+              backgroundColor: '#f0fdf4', 
+              color: '#16a34a' 
+            }}
           >
             🟢 Bullish OB
           </span>
         )}
         {flags.orderbook_bearish && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#220000', color: '#dc2626', borderColor: '#dc2626' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #dc2626', 
+              backgroundColor: '#fef2f2', 
+              color: '#dc2626' 
+            }}
           >
             🔴 Bearish OB
           </span>
         )}
         {flags.quality_decision && (
           <span 
-            className="text-[10px] px-2 py-1 border-2 font-bold"
-            style={{ backgroundColor: '#001100', color: '#16a34a', borderColor: '#16a34a' }}
+            className="text-[10px] px-2 py-1 font-bold"
+            style={{ 
+              border: '2px dashed #16a34a', 
+              backgroundColor: '#f0fdf4', 
+              color: '#16a34a' 
+            }}
           >
             ✅ Quality
           </span>
