@@ -117,7 +117,7 @@ export default function AccountValueChart({
                 axisLine={{ stroke: isDarkMode ? '#16a34a' : '#d1d5db', strokeWidth: 1 }}
                 angle={-40}
                 textAnchor="end"
-                height={70}
+                height={50}
                 interval="preserveStartEnd"
                 minTickGap={typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 80}
               />
