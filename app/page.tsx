@@ -225,11 +225,11 @@ export default function Dashboard() {
 
       {/* Main Content - 2 Column Layout */}
       <main className="px-4 md:px-6 py-4 md:py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 items-stretch">
           {/* LEFT SIDE - CHART (2/3) - Hidden on mobile */}
           <div className="hidden lg:block lg:col-span-2">
             <div 
-              className="border-2 p-4 md:p-6"
+              className="border-2 p-4 md:p-6 h-full flex flex-col"
               style={{
                 backgroundColor: isDarkMode ? '#000000' : '#ffffff',
                 borderColor: isDarkMode ? '#16a34a' : '#1f2937',
@@ -318,14 +318,14 @@ export default function Dashboard() {
 
               {/* Chart Title */}
               <h2 
-                className="text-sm font-mono uppercase tracking-widest mb-4 font-bold"
+                className="text-sm font-mono uppercase tracking-widest mb-3 font-bold"
                 style={{ color: isDarkMode ? '#16a34a' : '#4b5563' }}
               >
                 {valueType === 'usdt' ? 'USDT BALANCE' : 'ASTER QUANTITY'}
               </h2>
 
-              {/* Chart */}
-              <div className="relative">
+              {/* Chart Container - grows to fill remaining space */}
+              <div className="relative flex-1 flex flex-col">
                 <AccountValueChart
                   data={getFilteredData()}
                   currentValue={stats.asterBalance}
@@ -339,13 +339,12 @@ export default function Dashboard() {
           </div>
 
           {/* RIGHT SIDE - TABBED DATA PANEL (1/3) */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 flex flex-col">
             <div 
-              className="border-2 lg:sticky lg:top-6 flex flex-col"
+              className="border-2 lg:sticky lg:top-6 flex flex-col h-full"
               style={{
                 backgroundColor: isDarkMode ? '#000000' : '#ffffff',
                 borderColor: isDarkMode ? '#16a34a' : '#1f2937',
-                height: 'auto',
               }}
             >
               {/* Tab Navigation - Responsive Grid */}

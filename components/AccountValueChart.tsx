@@ -56,36 +56,36 @@ export default function AccountValueChart({
 
   return (
     <div 
-      className="relative w-full space-y-2"
+      className="relative w-full h-full flex flex-col"
     >
-      {/* Current value indicator - moved to top left with border styling */}
-      <div className="flex justify-start pl-0">
-        <div 
-          className="px-3 md:px-4 py-1.5 text-[10px] md:text-[11px] font-mono font-bold border-2"
-          style={{
-            backgroundColor: isDarkMode ? '#16a34a' : '#3b82f6',
-            color: isDarkMode ? '#000000' : '#ffffff',
-            borderColor: isDarkMode ? '#16a34a' : '#3b82f6',
-          }}
-        >
-          <span className="opacity-70 mr-1.5">{valueType === 'usdt' ? 'USDT:' : 'ASTER:'}</span>
-          {valueType === 'usdt' 
-            ? `$${currentUsdtValue?.toFixed(2) || '0.00'}`
-            : `${currentValue?.toFixed(2) || '0.00'}`
-          }
-        </div>
-      </div>
-
-      {/* Chart container - full width utilization */}
+      {/* Chart container - ASTER tag positioned absolutely on right */}
       <div 
-        className="relative w-full h-[520px] md:h-[560px] border-2"
+        className="relative w-full flex-1 h-full border-2"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
           borderColor: isDarkMode ? '#16a34a' : '#1f2937',
         }}
       >
+        {/* Current value indicator - positioned absolutely to right */}
+        <div className="absolute -top-10 right-0 z-10">
+          <div 
+            className="px-3 md:px-4 py-1.5 text-[10px] md:text-[11px] font-mono font-bold border-2"
+            style={{
+              backgroundColor: isDarkMode ? '#16a34a' : '#3b82f6',
+              color: isDarkMode ? '#000000' : '#ffffff',
+              borderColor: isDarkMode ? '#16a34a' : '#3b82f6',
+            }}
+          >
+            <span className="opacity-70 mr-1.5">{valueType === 'usdt' ? 'USDT:' : 'ASTER:'}</span>
+            {valueType === 'usdt' 
+              ? `$${currentUsdtValue?.toFixed(2) || '0.00'}`
+              : `${currentValue?.toFixed(2) || '0.00'}`
+            }
+          </div>
+        </div>
+
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={chartData} margin={{ top: 15, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 100, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 15, bottom: 55 }}>
+          <ComposedChart data={chartData} margin={{ top: 10, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 50 : 85, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 0 : 10, bottom: 50 }}>
             <defs>
               <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
