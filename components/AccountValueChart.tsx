@@ -60,7 +60,7 @@ export default function AccountValueChart({
     >
       {/* Chart container - ASTER tag positioned absolutely on right */}
       <div 
-        className="relative w-full flex-1 h-full border-2 p-4 md:p-6 flex flex-col"
+        className="relative w-full flex-1 h-full border-2 flex flex-col"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
           borderColor: isDarkMode ? '#16a34a' : '#1f2937',
@@ -84,10 +84,10 @@ export default function AccountValueChart({
           </div>
         </div>
 
-        {/* Inner chart wrapper for consistent padding */}
-        <div className="flex-1 w-full flex items-center justify-center">
+        {/* Inner chart wrapper - centered */}
+        <div className="flex-1 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={chartData} margin={{ top: 12, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 50 : 75, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 12, bottom: 50 }}>
+            <ComposedChart data={chartData} margin={{ top: 20, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 55 : 80, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 10 : 15, bottom: 20 }}>
               <defs>
                 <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
