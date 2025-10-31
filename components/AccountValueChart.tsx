@@ -56,15 +56,16 @@ export default function AccountValueChart({
 
   return (
     <div 
-      className="relative w-full"
+      className="relative w-full space-y-2"
     >
-      {/* Current value indicator - moved above the chart */}
-      <div className="flex justify-end mb-2 md:mb-3 pr-2 md:pr-3">
+      {/* Current value indicator - moved to top left with border styling */}
+      <div className="flex justify-start pl-0">
         <div 
-          className="px-3 md:px-4 py-1.5 text-[10px] md:text-[11px] font-mono font-bold rounded"
+          className="px-3 md:px-4 py-1.5 text-[10px] md:text-[11px] font-mono font-bold border-2"
           style={{
             backgroundColor: isDarkMode ? '#16a34a' : '#3b82f6',
             color: isDarkMode ? '#000000' : '#ffffff',
+            borderColor: isDarkMode ? '#16a34a' : '#3b82f6',
           }}
         >
           <span className="opacity-70 mr-1.5">{valueType === 'usdt' ? 'USDT:' : 'ASTER:'}</span>
@@ -75,16 +76,16 @@ export default function AccountValueChart({
         </div>
       </div>
 
-      {/* Chart container - better space utilization */}
+      {/* Chart container - full width utilization */}
       <div 
-        className="relative w-full h-[500px] md:h-[540px] border-2"
+        className="relative w-full h-[520px] md:h-[560px] border-2"
         style={{
           backgroundColor: isDarkMode ? '#000000' : '#ffffff',
           borderColor: isDarkMode ? '#16a34a' : '#1f2937',
         }}
       >
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={chartData} margin={{ top: 20, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 70 : 115, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 20, bottom: 60 }}>
+          <ComposedChart data={chartData} margin={{ top: 15, right: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 100, left: typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 15, bottom: 55 }}>
             <defs>
               <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
