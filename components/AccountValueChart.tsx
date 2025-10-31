@@ -87,7 +87,7 @@ export default function AccountValueChart({
         {/* Inner chart wrapper - centered */}
         <div className="flex-1 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={chartData} margin={{ top: 15, right: 45, left: 45, bottom: 15 }}>
+            <ComposedChart data={chartData} margin={{ top: 10, right: 60, left: 35, bottom: 10 }}>
               <defs>
                 <linearGradient id="balanceGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor={isDarkMode ? '#16a34a' : '#3b82f6'} stopOpacity={isDarkMode ? 0.3 : 0.2}/>
