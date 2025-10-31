@@ -157,28 +157,48 @@ export default function MarketIntelligenceCard({ intelligence, currentPrice, isD
           </span>
         </div>
 
-        <div className="space-y-1 text-xs">
+        <div className="space-y-3 text-xs">
           {support_resistance.nearest_support && (
-            <div className="flex justify-between">
-              <span style={{ color: '#16a34a' }} className="font-bold">Nearest Support:</span>
-              <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
-                ${support_resistance.nearest_support.price.toFixed(3)} ({support_resistance.nearest_support.label})
-                <span style={{ color: isDarkMode ? '#15803d' : '#4b5563' }} className="ml-1">
+            <div className="grid gap-1 md:grid-cols-[max-content,1fr] md:items-start md:gap-x-4">
+              <span style={{ color: '#16a34a' }} className="font-bold whitespace-nowrap">
+                Nearest Support:
+              </span>
+              <div className="flex flex-col items-start gap-0.5 md:items-end">
+                <span
+                  style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}
+                  className="leading-tight md:text-right"
+                >
+                  ${support_resistance.nearest_support.price.toFixed(3)} ({support_resistance.nearest_support.label})
+                </span>
+                <span
+                  style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}
+                  className="font-semibold leading-tight md:text-right"
+                >
                   -{support_resistance.nearest_support.distance_pct}%
                 </span>
-              </span>
+              </div>
             </div>
           )}
 
           {support_resistance.nearest_resistance && (
-            <div className="flex justify-between">
-              <span style={{ color: '#dc2626' }} className="font-bold">Nearest Resistance:</span>
-              <span style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}>
-                ${support_resistance.nearest_resistance.price.toFixed(3)} ({support_resistance.nearest_resistance.label})
-                <span style={{ color: isDarkMode ? '#15803d' : '#4b5563' }} className="ml-1">
+            <div className="grid gap-1 md:grid-cols-[max-content,1fr] md:items-start md:gap-x-4">
+              <span style={{ color: '#dc2626' }} className="font-bold whitespace-nowrap">
+                Nearest Resistance:
+              </span>
+              <div className="flex flex-col items-start gap-0.5 md:items-end">
+                <span
+                  style={{ color: isDarkMode ? '#ffffff' : '#000000', fontWeight: 600 }}
+                  className="leading-tight md:text-right"
+                >
+                  ${support_resistance.nearest_resistance.price.toFixed(3)} ({support_resistance.nearest_resistance.label})
+                </span>
+                <span
+                  style={{ color: isDarkMode ? '#15803d' : '#4b5563' }}
+                  className="font-semibold leading-tight md:text-right"
+                >
                   +{support_resistance.nearest_resistance.distance_pct}%
                 </span>
-              </span>
+              </div>
             </div>
           )}
 
