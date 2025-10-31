@@ -36,8 +36,6 @@ export default function AccountValueChart({
     
     return {
       time: new Date(point.timestamp).toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
       }),
@@ -119,7 +117,7 @@ export default function AccountValueChart({
                 textAnchor="end"
                 height={50}
                 interval="preserveStartEnd"
-                minTickGap={typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 80}
+                minTickGap={typeof window !== 'undefined' && window.innerWidth < 768 ? 120 : 150}
               />
               
               {/* Left Y-Axis for Balance */}
