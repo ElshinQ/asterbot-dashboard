@@ -11,7 +11,7 @@ import type {
 /**
  * Get current position from current_position_v view
  */
-export async function getCurrentPosition(): Promise<CurrentPosition | null> {
+export async function getCurrentPosition(database?: string): Promise<CurrentPosition | null> {
   const result = await query<{
     base_free: string;
     quote_free: string;
@@ -41,7 +41,7 @@ export async function getCurrentPosition(): Promise<CurrentPosition | null> {
       unrealized_pnl_pct
     FROM ichigo.current_position_v
     LIMIT 1
-  `);
+  `, undefined, database);
 
   if (result.length === 0) return null;
 
@@ -65,7 +65,7 @@ export async function getCurrentPosition(): Promise<CurrentPosition | null> {
 /**
  * Get recent trades from recent_trades_pnl_v view
  */
-export async function getRecentTrades(limit = 10): Promise<RecentTrade[]> {
+export async function getRecentTrades(limit = 10, database?: string): Promise<RecentTrade[]> {
   const result = await query<{
     entry_order_id: number;
     exit_order_id: number;
@@ -136,7 +136,7 @@ export async function getRecentTrades(limit = 10): Promise<RecentTrade[]> {
 /**
  * Get commission summary from commission_summary_v view
  */
-export async function getCommissions(): Promise<CommissionSummary | null> {
+export async function getCommissions(database?: string): Promise<CommissionSummary | null> {
   const result = await query<{
     date: string;
     usdt_fees: string;
@@ -151,7 +151,7 @@ export async function getCommissions(): Promise<CommissionSummary | null> {
     FROM ichigo.commission_summary_v
     ORDER BY date DESC
     LIMIT 1
-  `);
+  `, undefined, database);
 
   if (result.length === 0) return null;
 
@@ -167,7 +167,7 @@ export async function getCommissions(): Promise<CommissionSummary | null> {
 /**
  * Get bot statistics from decisions table
  */
-export async function getBotStats(): Promise<BotStats> {
+export async function getBotStats(database?: string): Promise<BotStats> {
   const result = await query<{
     total_decisions: string;
     first_decision: string;
@@ -194,7 +194,7 @@ export async function getBotStats(): Promise<BotStats> {
       (SELECT base_qty FROM ichigo.decisions ORDER BY decided_at DESC LIMIT 1) as base_qty,
       (SELECT usdt_free FROM ichigo.decisions ORDER BY decided_at DESC LIMIT 1) as usdt_free
     FROM ichigo.decisions
-  `);
+  `, undefined, database);
 
   const row = result[0];
   return {
@@ -215,7 +215,7 @@ export async function getBotStats(): Promise<BotStats> {
 /**
  * Get open TP orders
  */
-export async function getOpenOrders() {
+export async function getOpenOrders(database?: string) {
   const result = await query<{
     order_id: number;
     exchange_order_id: string;
@@ -244,7 +244,9 @@ export async function getOpenOrders() {
       age_minutes
     FROM ichigo.open_tp_orders_enhanced_v
     ORDER BY price ASC
-  `
+  `,
+    undefined,
+    database
   );
 
   return result.map((row) => ({
@@ -265,7 +267,7 @@ export async function getOpenOrders() {
 /**
  * Get filled orders (recent 50)
  */
-export async function getFilledOrders() {
+export async function getFilledOrders(database?: string) {
   const result = await query<{
     order_id: number;
     exchange_order_id: string;
@@ -296,7 +298,9 @@ export async function getFilledOrders() {
     WHERE status = 'FILLED'
     ORDER BY COALESCE(updated_at, created_at) DESC
     LIMIT 50
-  `
+  `,
+    undefined,
+    database
   );
 
   return result.map((row) => ({
@@ -317,7 +321,7 @@ export async function getFilledOrders() {
 /**
  * Get canceled orders (recent 50) - handles both CANCELED and CANCELLED spellings
  */
-export async function getCanceledOrders() {
+export async function getCanceledOrders(database?: string) {
   const result = await query<{
     order_id: number;
     exchange_order_id: string;
@@ -348,7 +352,9 @@ export async function getCanceledOrders() {
     WHERE status IN ('CANCELED', 'CANCELLED', 'EXPIRED', 'REJECTED')
     ORDER BY COALESCE(updated_at, created_at) DESC
     LIMIT 50
-  `
+  `,
+    undefined,
+    database
   );
 
   return result.map((row) => ({
@@ -369,7 +375,7 @@ export async function getCanceledOrders() {
 /**
  * Get recent decisions with details and market intelligence
  */
-export async function getRecentDecisions(limit = 20) {
+export async function getRecentDecisions(limit = 20, database?: string) {
   const result = await query<{
     decision_uid: string;
     decided_at: string;
@@ -398,7 +404,8 @@ export async function getRecentDecisions(limit = 20) {
     ORDER BY decided_at DESC
     LIMIT $1
   `,
-    [limit]
+    [limit],
+    database
   );
 
   return result.map((row) => ({
@@ -418,7 +425,7 @@ export async function getRecentDecisions(limit = 20) {
 /**
  * Get highest and lowest prices from decisions in the last X hours
  */
-export async function getPriceHighLow(hours = 72) {
+export async function getPriceHighLow(hours = 72, database?: string) {
   const result = await query<{
     max_price: string;
     min_price: string;
@@ -429,7 +436,9 @@ export async function getPriceHighLow(hours = 72) {
       MIN(last_close) as min_price
     FROM ichigo.decisions
     WHERE decided_at >= NOW() - INTERVAL '${hours} hours'
-  `
+  `,
+    undefined,
+    database
   );
 
   return {
@@ -441,7 +450,7 @@ export async function getPriceHighLow(hours = 72) {
 /**
  * Get historical account values from decisions table - aggregated hourly for cleaner graph
  */
-export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint[]> {
+export async function getHistoricalData(hours = 72, database?: string): Promise<HistoricalDataPoint[]> {
   const result = await query<{
     hour_timestamp: string;
     account_value: string;
@@ -460,7 +469,9 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
     WHERE decided_at >= NOW() - INTERVAL '${hours} hours'
     GROUP BY date_trunc('hour', decided_at)
     ORDER BY hour_timestamp ASC
-  `
+  `,
+    undefined,
+    database
   );
 
   return result.map((row) => ({
@@ -475,17 +486,17 @@ export async function getHistoricalData(hours = 72): Promise<HistoricalDataPoint
 /**
  * Aggregate all dashboard statistics
  */
-export async function getDashboardStats(): Promise<DashboardStats> {
+export async function getDashboardStats(database?: string): Promise<DashboardStats> {
   const [position, trades, botStats, historicalData, recentDecisions, priceHighLow, openOrders, filledOrders, canceledOrders] = await Promise.all([
-    getCurrentPosition(),
-    getRecentTrades(50),
-    getBotStats(),
-    getHistoricalData(72),
-    getRecentDecisions(50),
-    getPriceHighLow(72),
-    getOpenOrders(),
-    getFilledOrders(),
-    getCanceledOrders(),
+    getCurrentPosition(database),
+    getRecentTrades(50, database),
+    getBotStats(database),
+    getHistoricalData(72, database),
+    getRecentDecisions(50, database),
+    getPriceHighLow(72, database),
+    getOpenOrders(database),
+    getFilledOrders(database),
+    getCanceledOrders(database),
   ]);
 
   // Calculate realized P&L from trades

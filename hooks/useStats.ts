@@ -2,12 +2,15 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { DashboardStats } from '@/lib/types';
+import { useDatabase } from '@/contexts/DatabaseContext';
 
 export function useStats() {
+  const { database } = useDatabase();
+  
   return useQuery<DashboardStats>({
-    queryKey: ['dashboard-stats'],
+    queryKey: ['dashboard-stats', database],
     queryFn: async () => {
-      const response = await fetch('/api/stats', {
+      const response = await fetch(`/api/stats?database=${database}`, {
         cache: 'no-store',
       });
 

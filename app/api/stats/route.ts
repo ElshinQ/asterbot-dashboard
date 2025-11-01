@@ -5,10 +5,26 @@ import { testConnection } from '@/lib/db';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Get database parameter from URL
+    const { searchParams } = new URL(request.url);
+    const database = searchParams.get('database') || 'ichigo';
+    
+    // Validate database parameter
+    if (database !== 'ichigo' && database !== 'asterdex') {
+      return NextResponse.json(
+        { 
+          error: 'Invalid Database', 
+          details: `Database must be either 'ichigo' or 'asterdex'`,
+          message: 'Invalid database selection'
+        },
+        { status: 400 }
+      );
+    }
+
     // Check if required environment variables are set
-    const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASSWORD'];
+    const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD'];
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
     
     if (missingVars.length > 0) {
@@ -23,21 +39,21 @@ export async function GET() {
       );
     }
 
-    // Test database connection
-    const isConnected = await testConnection();
+    // Test database connection for the selected database
+    const isConnected = await testConnection(database);
     if (!isConnected) {
       return NextResponse.json(
         { 
           error: 'Database Connection Failed',
-          details: 'Could not connect to PostgreSQL database',
+          details: `Could not connect to ${database} PostgreSQL database`,
           message: 'Check database credentials and network access'
         },
         { status: 500 }
       );
     }
 
-    // Fetch all dashboard statistics
-    const stats = await getDashboardStats();
+    // Fetch all dashboard statistics from selected database
+    const stats = await getDashboardStats(database);
 
     return NextResponse.json(stats, {
       headers: {

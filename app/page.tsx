@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useStats } from '@/hooks/useStats';
+import { useDatabase } from '@/contexts/DatabaseContext';
 import AccountValueChart from '@/components/AccountValueChart';
 import TickerTape from '@/components/TickerTape';
 import LoadingState from '@/components/LoadingState';
@@ -17,6 +18,7 @@ type OrderFilter = 'open' | 'filled' | 'canceled';
 
 export default function Dashboard() {
   const { data: stats, isLoading, error } = useStats();
+  const { database, setDatabase } = useDatabase();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [timeRange, setTimeRange] = useState<TimeRange>('all');
@@ -179,14 +181,44 @@ export default function Dashboard() {
               </motion.nav>
             </motion.div>
             <motion.div 
-              className="flex items-center gap-4"
+              className="flex items-center gap-2 md:gap-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
+              {/* Database Switcher */}
+              <button
+                onClick={() => setDatabase(database === 'ichigo' ? 'asterdex' : 'ichigo')}
+                className="relative flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 border-2 text-[10px] md:text-xs font-mono font-bold transition-all"
+                style={{
+                  backgroundColor: isDarkMode ? '#000000' : '#ffffff',
+                  borderColor: isDarkMode ? '#16a34a' : '#1f2937',
+                  color: isDarkMode ? '#16a34a' : '#1f2937',
+                }}
+                title={`Switch to ${database === 'ichigo' ? 'Asterdex' : 'Ichigo'}`}
+              >
+                <span className="uppercase tracking-wider">{database === 'ichigo' ? 'ICHIGO' : 'ASTERDEX'}</span>
+                <div 
+                  className="w-8 h-4 border-2 relative transition-all"
+                  style={{
+                    borderColor: isDarkMode ? '#16a34a' : '#1f2937',
+                    backgroundColor: 'transparent',
+                  }}
+                >
+                  <div 
+                    className="absolute top-0 h-full w-3 transition-all"
+                    style={{
+                      backgroundColor: isDarkMode ? '#16a34a' : '#1f2937',
+                      left: database === 'asterdex' ? 'calc(100% - 12px)' : '0',
+                    }}
+                  />
+                </div>
+              </button>
+
+              {/* Theme Switcher */}
               <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
-                className="relative flex items-center gap-2 px-3 py-1.5 border-2 text-xs font-mono font-bold transition-all"
+                className="relative flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 border-2 text-[10px] md:text-xs font-mono font-bold transition-all"
                 style={{
                   backgroundColor: isDarkMode ? '#000000' : '#ffffff',
                   borderColor: isDarkMode ? '#16a34a' : '#1f2937',

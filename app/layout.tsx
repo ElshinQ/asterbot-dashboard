@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { QueryProvider } from './providers';
+import { DatabaseProvider } from '@/contexts/DatabaseContext';
 
 const ibmPlexMono = IBM_Plex_Mono({
   weight: ['400', '500', '600', '700'],
@@ -37,7 +38,11 @@ export default function RootLayout({
       <body
         className={`${ibmPlexMono.variable} antialiased bg-white text-gray-900`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <DatabaseProvider>
+            {children}
+          </DatabaseProvider>
+        </QueryProvider>
       </body>
     </html>
   );
