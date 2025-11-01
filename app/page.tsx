@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useStats } from '@/hooks/useStats';
+import { useTickerData } from '@/hooks/useTickerData';
 import { useDatabase } from '@/contexts/DatabaseContext';
 import AccountValueChart from '@/components/AccountValueChart';
 import TickerTape from '@/components/TickerTape';
@@ -18,6 +19,7 @@ type OrderFilter = 'open' | 'filled' | 'canceled';
 
 export default function Dashboard() {
   const { data: stats, isLoading, error } = useStats();
+  const { data: tickerData } = useTickerData(); // Always from Ichigo
   const { database, setDatabase } = useDatabase();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -248,11 +250,11 @@ export default function Dashboard() {
         </div>
       </header>
 
-      {/* Ticker Tape */}
+      {/* Ticker Tape - Always shows Ichigo data */}
       <TickerTape
-        price={stats.currentPrice}
-        highestValue={stats.highestPrice}
-        lowestValue={stats.lowestPrice}
+        price={tickerData?.currentPrice || stats.currentPrice}
+        highestValue={tickerData?.highestPrice || stats.highestPrice}
+        lowestValue={tickerData?.lowestPrice || stats.lowestPrice}
       />
 
       {/* Main Content - 2 Column Layout */}
